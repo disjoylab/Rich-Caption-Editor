@@ -1,0 +1,1477 @@
+{
+  "ProjectName": "test3",
+  "Details": " - This file includes a range of WebVTT features\n",
+  "fileName": "test3",
+  "StyleGroups": [
+    {
+      "Styles": [
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Bold",
+          "element": {
+            "Signature": {
+              "Name": "b",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Italic",
+          "element": {
+            "Signature": {
+              "Name": "i",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Underline",
+          "element": {
+            "Signature": {
+              "Name": "u",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Strikethrough",
+          "element": {
+            "Signature": {
+              "Name": "s",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Defaults",
+          "element": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 5
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Style_Feature",
+          "element": {
+            "Signature": {
+              "Name": "",
+              "Attributes": [
+                "green"
+              ]
+            },
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Style_Feature_8",
+          "element": {
+            "Signature": {
+              "Name": "",
+              "Attributes": [
+                "highlight"
+              ]
+            },
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Style_Feature_3",
+          "element": {
+            "Signature": {
+              "Name": "FIVE ",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Style_Feature_4",
+          "element": {
+            "Signature": {
+              "Name": "v",
+              "Attributes": []
+            },
+            "Value": "John"
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Style_Feature_5",
+          "element": {
+            "Signature": {
+              "Name": "v",
+              "Attributes": []
+            },
+            "Value": "Jane"
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Style_Feature_6",
+          "element": {
+            "Signature": {
+              "Name": "ruby",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Style_Feature_7",
+          "element": {
+            "Signature": {
+              "Name": "rt",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Cue_Feature_2",
+          "element": {
+            "Signature": {
+              "Name": "2",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 2
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Cue_Feature_3_2",
+          "element": {
+            "Signature": {
+              "Name": "3",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 2
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Region_Feature_specialplace1",
+          "element": {
+            "Signature": {
+              "Name": "specialplace1",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 1
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Region_Feature_specialplace2",
+          "element": {
+            "Signature": {
+              "Name": "specialplace2",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 1
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Region_Feature_specialplace3",
+          "element": {
+            "Signature": {
+              "Name": "specialplace3",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 1
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Region_Feature_specialplace4",
+          "element": {
+            "Signature": {
+              "Name": "specialplace4",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 1
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Region_Feature_specialplace5",
+          "element": {
+            "Signature": {
+              "Name": "specialplace5",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 1
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Region_Feature_specialplace6",
+          "element": {
+            "Signature": {
+              "Name": "specialplace6",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 1
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Region_Feature_specialplace7",
+          "element": {
+            "Signature": {
+              "Name": "specialplace7",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 1
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Region_Feature_specialplace8",
+          "element": {
+            "Signature": {
+              "Name": "specialplace8",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 1
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Cue_Feature_PLACE6",
+          "element": {
+            "Signature": {
+              "Name": "PLACE6",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 2
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Cue_Feature_PLACE7",
+          "element": {
+            "Signature": {
+              "Name": "PLACE7",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 2
+        },
+        {
+          "Name": "",
+          "Description": null,
+          "FeatureName": "Cue_Feature_PLACE8",
+          "element": {
+            "Signature": {
+              "Name": "PLACE8",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 2
+        },
+        {
+          "Name": "big style",
+          "Description": "",
+          "FeatureName": "BIG",
+          "element": {
+            "Signature": {
+              "Name": "big",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "featureFilter": 4
+        }
+      ]
+    }
+  ],
+  "CueGroups": [
+    {
+      "Name": "Speech",
+      "Cues": [
+        {
+          "Identifier": "1",
+          "StartTime": 0.0,
+          "EndTime": 10.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "big",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "This ",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "is a ",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "i",
+                        "Attributes": []
+                      },
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": "complex",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "i",
+                        "Attributes": []
+                      },
+                      "Value": ""
+                    },
+                    {
+                      "Signature": {
+                        "Name": "b",
+                        "Attributes": []
+                      },
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": " ",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "example",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "u",
+                        "Attributes": []
+                      },
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": " with ",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "formatting",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "s",
+                        "Attributes": []
+                      },
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": ".",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "2",
+          "StartTime": 10.001,
+          "EndTime": 20.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "2",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Here, we use ",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "Jane"
+                    }
+                  ]
+                },
+                {
+                  "s": "colors",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "Jane"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "mood",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": "1"
+                    }
+                  ]
+                },
+                {
+                  "s": ", IDs, and classes.",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "Jane"
+                    }
+                  ]
+                },
+                {
+                  "s": "\n",
+                  "elements": []
+                },
+                {
+                  "s": "Bonjour",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "span",
+                        "Attributes": []
+                      },
+                      "Value": "lang=\"fr\""
+                    }
+                  ]
+                },
+                {
+                  "s": " we have 2 speakers and a language tag",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "3",
+          "StartTime": 20.001,
+          "EndTime": 30.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "3",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "There's also ",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "positioning",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "ruby",
+                        "Attributes": []
+                      },
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": "top",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "ruby",
+                        "Attributes": []
+                      },
+                      "Value": ""
+                    },
+                    {
+                      "Signature": {
+                        "Name": "rt",
+                        "Attributes": []
+                      },
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": " and line alignment.",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "4",
+          "StartTime": 30.001,
+          "EndTime": 40.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Multiple ",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "nested ",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "c",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": "elements",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "c",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": ""
+                    },
+                    {
+                      "Signature": {
+                        "Name": "b",
+                        "Attributes": []
+                      },
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": " are here too.",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "FIVE",
+          "StartTime": 40.001,
+          "EndTime": 50.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Look, ",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": "Jane"
+                    }
+                  ]
+                },
+                {
+                  "s": "timestamps ",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": "Jane"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "TimeStamp",
+                        "Attributes": []
+                      },
+                      "Value": "1"
+                    }
+                  ]
+                },
+                {
+                  "s": " are",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": "Jane"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "TimeStamp",
+                        "Attributes": []
+                      },
+                      "Value": "2"
+                    }
+                  ]
+                },
+                {
+                  "s": " used",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": "Jane"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "TimeStamp",
+                        "Attributes": []
+                      },
+                      "Value": "3"
+                    }
+                  ]
+                },
+                {
+                  "s": ".",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": "Jane"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "TimeStamp",
+                        "Attributes": []
+                      },
+                      "Value": "4"
+                    }
+                  ]
+                },
+                {
+                  "s": ".",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": "Jane"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "TimeStamp",
+                        "Attributes": []
+                      },
+                      "Value": "5"
+                    }
+                  ]
+                },
+                {
+                  "s": ".",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": "Jane"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "TimeStamp",
+                        "Attributes": []
+                      },
+                      "Value": "6"
+                    }
+                  ]
+                },
+                {
+                  "s": ".",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": "Jane"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "TimeStamp",
+                        "Attributes": []
+                      },
+                      "Value": "7"
+                    }
+                  ]
+                },
+                {
+                  "s": ".",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": [
+                          "green"
+                        ]
+                      },
+                      "Value": "Jane"
+                    },
+                    {
+                      "Signature": {
+                        "Name": "TimeStamp",
+                        "Attributes": []
+                      },
+                      "Value": "8"
+                    }
+                  ]
+                },
+                {
+                  "s": "\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "PLACE1",
+          "StartTime": 50.001,
+          "EndTime": 60.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "specialplace1",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Viewport Anchor: 25%, 10% Region Anchor: 25%, 0%",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "\nWidth: 50%, Lines: 3\nAdditional line 2\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "PLACE2",
+          "StartTime": 60.001,
+          "EndTime": 70.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "specialplace2",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Viewport Anchor: 75%, 90% Region Anchor: 75%, 100%",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "John"
+                    }
+                  ]
+                },
+                {
+                  "s": "\nWidth: 50%, Lines: 2\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "PLACE3",
+          "StartTime": 70.001,
+          "EndTime": 80.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "specialplace3",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Viewport Anchor: 20%, 50% Region Anchor: 0%, 50%",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "Anna"
+                    }
+                  ]
+                },
+                {
+                  "s": "\nWidth: 70%, Lines: 1\nAdditional line 2\nAdditional line 3\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "PLACE4",
+          "StartTime": 80.001,
+          "EndTime": 90.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "specialplace4",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Viewport Anchor: 80%, 50% Region Anchor: 100%, 50%",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "Bob"
+                    }
+                  ]
+                },
+                {
+                  "s": "\nWidth: 70%, Lines: 3\nAdditional line 2\nAdditional line 4\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "PLACE5",
+          "StartTime": 90.001,
+          "EndTime": 100.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "specialplace5",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Viewport Anchor: 40%, 25% Region Anchor: 40%, 25% - Lines: 2",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "Alice"
+                    }
+                  ]
+                },
+                {
+                  "s": "\nWidth: 60%, Lines: 2\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "PLACE6",
+          "StartTime": 100.001,
+          "EndTime": 110.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "specialplace6",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "PLACE6",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Viewport Anchor: 50%, 75% Region Anchor: 50%, 75% - Lines: 1",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "Dave"
+                    }
+                  ]
+                },
+                {
+                  "s": "\nWidth: 80%, Lines: 1,size:90, position:10\nAdditional line 2\nAdditional line 3\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "PLACE7",
+          "StartTime": 110.001,
+          "EndTime": 120.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "specialplace7",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "PLACE7",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Viewport Anchor: 50%, 50% Region Anchor: 50%, 50%",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "Eve"
+                    }
+                  ]
+                },
+                {
+                  "s": "\nWidth: 50%, Lines: 3,size:80, position:50\nAdditional line 2\nAdditional line 3\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "PLACE8",
+          "StartTime": 120.001,
+          "EndTime": 130.0,
+          "RegionElement": {
+            "Signature": {
+              "Name": "specialplace8",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "CueElement": {
+            "Signature": {
+              "Name": "PLACE8",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextElement": {
+            "Signature": {
+              "Name": "",
+              "Attributes": []
+            },
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Viewport Anchor: 75%, 10% Region Anchor: 75%, 0%",
+                  "elements": [
+                    {
+                      "Signature": {
+                        "Name": "v",
+                        "Attributes": []
+                      },
+                      "Value": "Sam"
+                    }
+                  ]
+                },
+                {
+                  "s": "\nWidth: 50%, Lines: 3,size:50, position:0\nAdditional line 2\nAdditional line 3\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        }
+      ],
+      "TextVariations": [
+        "Standard English"
+      ],
+      "CurrentVariation": 0
+    }
+  ],
+  "currentCueGroupIndex": 0
+}

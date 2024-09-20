@@ -1,0 +1,144 @@
+WEBVTT - This file includes a range of WebVTT features
+
+TITLE "Complex WebVTT Example"
+
+STYLE 
+::cue(.green){ color: green; }
+::cue(.highlight){ color: yellow; }
+::cue(#FIVE ){ color: green;font-size:150% }
+::cue(v[voice="John"]) { font-size:80%; }
+::cue(v[voice="Jane"]) { color: red;font-size:20px }
+::cue(ruby){ color: red; }
+::cue(rt){ font-size:10px  }
+
+
+1
+00:00:00.000 --> 00:00:10.000
+<v John>This <i>is a <b>complex</b></i> <u>example</u> with <s>formatting</s>.
+
+2
+00:00:10.001 --> 00:00:20.000 align:start 
+<v Jane>Here, we use <mood.green 1>colors</mood>, IDs, and classes.
+<v John><span lang="fr">Bonjour</span> we have 2 speakers and a language tag
+
+3
+00:00:20.001 --> 00:00:30.000 line:1 position:10% align:left 
+<v John>There's also <ruby>positioning<rt>top</rt></ruby> and line alignment.
+
+4
+00:00:30.001 --> 00:00:40.000
+<v John>Multiple <c.green>nested <b>elements</b></c> are here too.
+
+FIVE
+00:00:40.001 --> 00:00:50.000
+<v.green Jane>Look, <00:00:01.000>timestamps <00:00:02.000> are<00:00:03.000> used<00:00:04.000>.<00:00:05.000>.<00:00:06.000>.<00:00:07.000>.<00:00:08.000>.
+
+NOTE
+The styles applied here demonstrate use of classes, IDs, and attributes.
+
+REGION
+id:specialplace1
+width:50%
+lines:3
+viewportAnchor:25%,10%
+regionAnchor:25%,0%
+
+REGION
+id:specialplace2
+width:50%
+lines:2
+viewportAnchor:75%,90%
+regionAnchor:75%,100%
+
+REGION
+id:specialplace3
+width:70%
+lines:1
+viewportAnchor:20%,50%
+regionAnchor:0%,50%
+
+REGION
+id:specialplace4
+width:70%
+lines:3
+viewportAnchor:80%,50%
+regionAnchor:100%,50%
+
+REGION
+id:specialplace5
+width:60%
+lines:2
+viewportAnchor:40%,25%
+regionAnchor:40%,25%
+
+REGION
+id:specialplace6
+width:80%
+lines:1
+viewportAnchor:50%,75%
+regionAnchor:50%,75%
+
+REGION
+id:specialplace7
+width:50%
+lines:3
+viewportAnchor:50%,50%
+regionAnchor:50%,50%
+
+REGION
+id:specialplace8
+width:50%
+lines:3
+viewportAnchor:75%,10%
+regionAnchor:75%,0%
+
+PLACE1
+00:00:50.001 --> 00:01:00.000 region:specialplace1
+<v John>Viewport Anchor: 25%, 10% Region Anchor: 25%, 0%
+Width: 50%, Lines: 3
+Additional line 2
+
+PLACE2
+00:01:00.001 --> 00:01:10.000 region:specialplace2
+<v John>Viewport Anchor: 75%, 90% Region Anchor: 75%, 100%
+Width: 50%, Lines: 2
+
+PLACE3
+00:01:10.001 --> 00:01:20.000 region:specialplace3
+<v Anna>Viewport Anchor: 20%, 50% Region Anchor: 0%, 50%
+Width: 70%, Lines: 1
+Additional line 2
+Additional line 3
+
+PLACE4
+00:01:20.001 --> 00:01:30.000 region:specialplace4
+<v Bob>Viewport Anchor: 80%, 50% Region Anchor: 100%, 50%
+Width: 70%, Lines: 3
+Additional line 2
+Additional line 4
+
+PLACE5
+00:01:30.001 --> 00:01:40.000 region:specialplace5
+<v Alice>Viewport Anchor: 40%, 25% Region Anchor: 40%, 25% - Lines: 2
+Width: 60%, Lines: 2
+
+PLACE6
+00:01:40.001 --> 00:01:50.000 region:specialplace6 size:90 position:10
+<v Dave>Viewport Anchor: 50%, 75% Region Anchor: 50%, 75% - Lines: 1
+Width: 80%, Lines: 1,size:90, position:10
+Additional line 2
+Additional line 3
+
+PLACE7
+00:01:50.001 --> 00:02:00.000 region:specialplace7 size:80 position:50
+<v Eve>Viewport Anchor: 50%, 50% Region Anchor: 50%, 50%
+Width: 50%, Lines: 3,size:80, position:50
+Additional line 2
+Additional line 3
+
+PLACE8
+00:02:00.001 --> 00:02:10.000 region:specialplace8 size:50 position:0
+<v Sam>Viewport Anchor: 75%, 10% Region Anchor: 75%, 0%
+Width: 50%, Lines: 3,size:50, position:0
+Additional line 2
+Additional line 3

@@ -1,0 +1,85 @@
+WEBVTT -Star Wars XI - Return of JarJar Jr
+
+STYLE
+::cue(x) {
+  background-image: linear-gradient(to bottom, dimgray, lightgray);
+  color: papayawhip;
+  position: 1;
+} 
+ 
+STYLE
+::cue(b) {    
+  color: peachpuff;
+} 
+::cue(#\31 23) { color: lime; } 
+::cue(#Word\ Title) { color: red; }
+::cue(#id_withoutspace) { color: red; }
+
+REGION
+id:fred
+width:40%
+lines:3
+regionanchor:0%,100%
+viewportanchor:10%,90%
+scroll:up
+
+REGION
+id:bill
+width:40%
+lines:3
+regionanchor:100%,100%
+viewportanchor:90%,90%
+scroll:up
+
+123  
+00:00:00.240 --> 00:00:04.160 line:0 vertical:lr   
+<v Person_Speaking> <b>TEXT HERE <i>ITALICS</i></b></v>
+TEXT HERE  <u>UNDERLINE</u> TEXT HERE. This <00:00:01.000>text <00:00:02.000>will <00:00:03.000>appear <00:00:04.000>over <00:00:05.000>6 <00:00:06.000>seconds.
+<v.first.loud Esme>It’s a blue apple tree!
+
+124
+00:00:04.776 --> 00:00:07.520 vertical:lr
+TEXT HERE  
+
+Word Title
+00:00:08.240 --> 00:00:10.480
+TEXT HERE  <b>BOLD</b> TEXT HERE.
+
+4
+00:00:11.398 --> 00:00:17.225 vertical:rl region:bill 
+TEXT HERE  <u>UNDERLINE</u> TEXT HERE. This <00:00:01.000>text <00:00:02.000>will <00:00:03.000>appear <00:00:04.000>over <00:00:05.000>6 <00:00:06.000>seconds.
+
+5
+04:05.001 --> 04:07.800 
+Sur les <i.foreignphrase><lang en>playground</lang></i>, ici à Montpellier
+
+00:00.000 --> 00:02.000 jump:High
+<v.first.loud Esme>It’s a <happy=1>blue</h>  <jump>apple</jump> tree!
+
+00:00:00.000 --> 00:00:04.000position:10%,line-left align:left size:35%
+Where did he go?
+
+00:00:03.000 --> 00:00:06.500 position:90% align:right size:35%
+I think he went down this lane.
+
+00:00:04.000 --> 00:00:06.500 position:45%,line-right align:center size:35%
+What are you waiting for?
+
+00:00:00.000 --> 00:00:20.000 region:fred align:left
+<v Fred>Hi, my name is Fred
+
+00:00:02.500 --> 00:00:22.500 region:bill align:right
+<v Bill>Hi, I’m Bill
+
+//Cue: A segment of text associated with specific start and end times during a video, designed to display as subtitles or captions.
+//Setting: Parameters that dictate how a cue is displayed on screen, including alignment, position, and size, influencing the visual presentation of the text.
+//Attribute: Additional identifiers or tags applied to cues or text elements to modify behavior or style, such as highlighting a cue as .important or .loud.
+//Speaker Segment: 
+//TextElement: A block of text with optional element property and sub-TextElements
+//Element: A parameter that modifies text with an optional value and optional attributes
+
+
+
+
+//settingPattern {setting:value;setting2:value2;} should be list of "setting","value"
+//the curly braces semicolons and parenthesis can be anywhere
