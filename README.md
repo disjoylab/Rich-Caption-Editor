@@ -1,6 +1,17 @@
 # Project Overview
 This project consists of several scripts that work together to manage and render captions with customizable text properties in Unity. Below is a summary of each script and its functionality.
 
+## Getting Started
+1.	Setup: Import the project into Unity.
+2.	Prefabs: Ensure the CaptionPrefab is assigned in the CaptionManager.
+3.	Run: Play the scene to see the caption rendering and text customization in action.
+   
+## Usage
+•	CaptionManager: Use this to create and manage captions.\
+•	TextColorAndSizeChanger: Attach this to a GameObject with a TextMeshProUGUI component to see dynamic text changes.\
+•	ColorInput: Use this for user-driven color changes.\
+•	MouseClickHandler: Attach this to handle mouse interactions.
+
 ## Main Scripts
 
 ### CaptionManager.cs
@@ -44,15 +55,3 @@ Purpose: Handles mouse click events.\
 Key Features:\
 •	Detects mouse clicks and triggers corresponding actions.\
 •	Can be used to interact with text elements or other UI components.
-
-## Getting Started
-1.	Setup: Import the project into Unity.
-2.	Prefabs: Ensure the CaptionPrefab is assigned in the CaptionManager.
-3.	Run: Play the scene to see the caption rendering and text customization in action.
-   
-## Usage
-•	CaptionManager: Use this to create and manage captions.\
-•	TextColorAndSizeChanger: Attach this to a GameObject with a TextMeshProUGUI component to see dynamic text changes.\
-•	ColorInput: Use this for user-driven color changes.\
-•	MouseClickHandler: Attach this to handle mouse interactions.
-
