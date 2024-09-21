@@ -17,7 +17,7 @@ A **cue group** is a collection of cues, such as "Music", "Speech", or "Sound Ef
 Note: Only a single cue from a specific cue group can be shown at once. E.g. you can have a "Music" and "Speech" cue overlap in time, but two "Music" cues cannot overlap in time. 
 
 ### Element 
-**Elements** are abstracted "tags" that can be placed on whole cues or specific words or characters. E.g. Using html syntax for demonstration, "I <mood=excited> really love you </mood>", `mood` would be the element
+**Elements** are abstracted "tags" that can be placed on whole cues or specific words or characters. E.g. Using html syntax for demonstration, "I <mood=excited> really love you < / mood>", `mood` would be the element
 
 ### Setting
 Settings define how the text or region should be displayed, such as alignment, size, color, and other visual properties.\
