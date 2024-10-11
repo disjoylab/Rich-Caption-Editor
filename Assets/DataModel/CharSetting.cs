@@ -26,7 +26,7 @@ public class CharSetting
     {
         foreach (Setting _setting in _settings)
         {
-            switch (_setting.SettingType)
+            switch (_setting.GetSettingType())
             {
                 case SettingTypes.Style_Color:
                     TextColor.r = _setting.ColorValue_1.R;

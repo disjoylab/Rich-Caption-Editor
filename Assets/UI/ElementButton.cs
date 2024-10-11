@@ -18,7 +18,7 @@ public class ElementButton : MonoBehaviour
         {
             button.onClick.AddListener(SetCurrentElement);
         }
-        buttonText.text = string.IsNullOrWhiteSpace(myElement) ? "Add Element" : myElement;
+        buttonText.text = myElement;
 
         ElementGroup elementGroup = ElementManager.GetElementGroup(myElement);
         if (elementGroup == null)
@@ -36,10 +36,9 @@ public class ElementButton : MonoBehaviour
 
     public void SetCurrentElement()
     {
-        if (string.IsNullOrWhiteSpace(myElement))
+        if (myElement == "Add Element")
         {
-            ElementGroup newElementGroup = new ElementGroup(ElementManager.GetUniqueName( "E"));
-           // newElementGroup.CreateNewVersion();
+            ElementGroup newElementGroup = new ElementGroup(ElementManager.GetUniqueName( "E"),true, true); 
             ElementManager.AddElementGroup(newElementGroup);
             myElement = newElementGroup.Name;
         }

@@ -1,28 +1,53 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-
-public enum ElementValueTypes {noValue, intValue,floatValue } 
+public enum ElementValueTypes {None=0,Integer=1, Text=2, Array=3 }
 public class ElementDefinition
 {
     public string Description;
-    public ElementValueTypes ElementType;
-    public bool Range;// min max values - just clamp the numbers or if its an array lerp them.
-    public float Min;
-    public float Max;
-    public bool Array;
-    public List<string> StringOptions;  
+    //public ElementValueTypes ElementType; 
+    public int? Min;
+    public int? Max;
+    public ElementValueTypes ValueType;
+    public List<string> StringOptions; 
+    public bool CueLevel;
+    public bool TextLevel;
+    public static int MaxArrayCount = 20;
 
-    
-    public ElementDefinition(ElementValueTypes _elementType, string _description = "")
+    public ElementDefinition(string _description,  bool _cueLevel, bool _textLevel)
     {
         Description = _description;
-        ElementType = _elementType;
-        StringOptions = new List<string>();
+        TextLevel = _textLevel;
+        CueLevel = _cueLevel;
+        ValueType = ElementValueTypes.None;
+        StringOptions = new List<string>(MaxArrayCount);
+        StringOptions.AddRange(Enumerable.Repeat("", MaxArrayCount)); 
     }
-    public float GetValue(string _StringValue) // based on the definition get a value: '1.1' and the type is int return 1: 'sad' return index or a lerped float if a range is defined
+   
+
+    internal void ClampMinMax()
     {
-        return 0;
+        if (Max.HasValue && Min.HasValue)
+        {
+            if (Max < Min)
+            {
+                Max = Min;
+            }
+        }
+        if (ValueType == ElementValueTypes.Array)
+        {
+            Min = 1;
+            int max = Max.HasValue ? Max.Value : 5;
+            Max = Mathf.Clamp(max, 1, MaxArrayCount);
+        }
     }
+    public List<string> GetStringOptions()
+    {
+        int count = Max.HasValue && Max.Value > 0 ? Max.Value : 1;
+        return StringOptions.Take(count).ToList();
+    }
+
 }

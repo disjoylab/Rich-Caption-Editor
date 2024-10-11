@@ -60,15 +60,15 @@ internal class VTTCueParser
                 {
                     // End tag
                     string elementName = tag.Substring(2, tag.IndexOf('>') - 2).Trim();
-                    activeElements.RemoveAll(e => e.Signature.Name == elementName);
+                    activeElements.RemoveAll(e => e.Name == elementName);
                 }
                 else
                 {
                     // Start tag
                     Element element = GetElement(tag);
-                    if (element.Signature.Name.ToLower() == "v" || element.Signature.Name.ToLower() == "voice" || element.Signature.Name == Common.ElementName_TimeStamp)//THINGS THERE CAN BE ONLY ONE OF (AND DOES NOT OFTEN HAVE AN END TAG </v>
+                    if (element.Name.ToLower() == "v" || element.Name.ToLower() == "voice" || element.Name == Common.ElementName_TimeStamp)//THINGS THERE CAN BE ONLY ONE OF (AND DOES NOT OFTEN HAVE AN END TAG </v>
                     {
-                        activeElements.RemoveAll(e => e.Signature.Name == element.Signature.Name);
+                        activeElements.RemoveAll(e => e.Name == element.Name);
                     }
                     activeElements.Add(element);
                 }
@@ -104,16 +104,12 @@ internal class VTTCueParser
             }
             else
             {
-                string[] nameParts = parts[0].Split('.');
-                name = nameParts[0];
+                 
+                name = parts[0];
                 value = (parts.Length > 1) ? parts[1] : "";
-
-                for (int i = 1; i < nameParts.Length; i++)
-                {
-                    element.Signature.Attributes.Add(nameParts[i]);
-                }
+                 
             }
-            element.Signature.Name = name;
+            element.Name = name;
             element.Value = value;
         } 
         return element;
@@ -129,16 +125,16 @@ internal class VTTCueParser
             string[] parts = WebVttHeader.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             cue.StartTime = Common.TimeStringToFloat(parts[0]);
             cue.EndTime = Common.TimeStringToFloat(parts[1]); // Adjust to only take the time part before settings
-            FeatureGroup featureGroup = new FeatureGroup(FeatureManager.GetUniqueName("Cue_Feature"));
-            Feature feature = new Feature("Imported_Cue");
+            FeatureGroup featureGroup = new FeatureGroup(FeatureManager.GetUniqueName("Caption Box "));
+            Feature feature = new Feature("Imported cue");
             for (int i = 2; i < parts.Length; i++)
             {
                 string[] settingParts = parts[i].Split(':');
                 if (settingParts.Length == 2)
                 {
                     if (settingParts[0].ToLower() == "region")
-                    {
-                        cue.RegionElement = new Element(settingParts[1]); 
+                    { 
+                        cue.RegionFeature =  "Region " + settingParts[1]; 
                     }
                     else
                     {
@@ -153,7 +149,7 @@ internal class VTTCueParser
                 if (ExistinFeatureGroup == null)
                 {
                     featureGroup.AddFeature(feature, false);
-                    featureGroup.Name = FeatureManager.GetUniqueName("Cue_Feature" + (string.IsNullOrWhiteSpace(identifier) ? "":$"_{identifier}"));                   
+                    featureGroup.Name = FeatureManager.GetUniqueName("Caption Box " + (string.IsNullOrWhiteSpace(identifier) ? "":$"_{identifier}"));                   
                     FeatureManager.AddFeatureGroup(featureGroup);                    
                 }
                 else
@@ -161,7 +157,7 @@ internal class VTTCueParser
                     featureGroup = ExistinFeatureGroup;
                 }
                 string elementName  = (string.IsNullOrWhiteSpace(identifier))? featureGroup.Name:identifier;            
-                Element e = new Element(elementName);
+                Element e = new Element(elementName); 
                 cue.CueElement = e;
                 style.element = e ;
                 style.SetFeature(featureGroup.Name); 

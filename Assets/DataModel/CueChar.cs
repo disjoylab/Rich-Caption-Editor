@@ -32,7 +32,7 @@ public struct CueChar
         List<Element> elementsCopy = new List<Element>();
         foreach (string f in filter)
         {
-            if (elements.Exists(e=>e.Signature.Name==f))
+            if (elements.Exists(e=>e.Name==f))
             {
                 elementsCopy.Add(new Element(f,""));
             }           

@@ -18,6 +18,7 @@ public class Style
     public Style()
     {
         Name = "";
+        Description = "";
         FeatureName = "";
         element = new Element("");
         featureFilter = FeatureFilter.ALL;
@@ -26,6 +27,10 @@ public class Style
     public Style(string _name)
     {
         Name = _name;
+        Description = "";
+        FeatureName = "";
+        element = new Element("");
+        featureFilter = FeatureFilter.ALL;
     }
 
     public string GetFeatureName()
@@ -52,7 +57,7 @@ public class Style
     
     internal string ToButtonText()
     {
-        string buttonText = element.Signature.ToString();
+        string buttonText = element.ToButtonText();
                 
          buttonText += $" :: {FeatureName}";
         
@@ -62,5 +67,10 @@ public class Style
     {
         return string.IsNullOrEmpty(Name) && string.IsNullOrEmpty(FeatureName) && element.IsEmpty();
     }
-     
+
+    internal bool IsDefault(string name)
+    {
+        return element.Name.ToLower() == "default" &&
+         (string.IsNullOrEmpty(element.Value) || element.Value == name);
+    }
 }

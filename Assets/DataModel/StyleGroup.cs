@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 [Serializable]
 public class StyleGroup
@@ -12,42 +13,64 @@ public class StyleGroup
         Styles = new List<Style>();        
     }
 
-    public void SetDefaultStyles()
+    public void SetDefaultStyles(List<CueGroup> _cueGroups)
     {
-        if (!Styles.Exists(s => s.element.Signature.Name == "b"))
+        if (!Styles.Exists(s => s.Name == "Default"))
         {
-            Style bold = new Style();
-            bold.element = new Element("b", "");
-            bold.SetFeature("Bold");
-            Styles.Add(bold);
+            Style DefaultStyle = new Style("Default");
+            DefaultStyle.element = new Element("Default","");
+            DefaultStyle.SetFeature("Default Feature"); 
+            Styles.Insert(0,DefaultStyle);
         }
-        if (!Styles.Exists(s => s.element.Signature.Name == "i"))
+        if (!Styles.Exists(s => s.Name == "Strikethrough"))
         {
-            Style italic = new Style();
-            italic.element = new Element("i", "");
-            italic.SetFeature("Italic");
-            Styles.Add(italic);
+            Style strikethrough = new Style("Strikethrough");
+            strikethrough.element = new Element("s", "");
+            strikethrough.SetFeature("Strikethrough");
+            Styles.Insert(1,strikethrough);
         }
-        if (!Styles.Exists(s => s.element.Signature.Name == "u"))
+        if (!Styles.Exists(s => s.Name == "Underline"))
         {
-            Style underline = new Style();
+            Style underline = new Style("Underline");
             underline.element = new Element("u", "");
             underline.SetFeature("Underline");
 
-            Styles.Add(underline);
+            Styles.Insert(1,underline);
         }
-        if (!Styles.Exists(s => s.element.Signature.Name == "s"))
+        if (!Styles.Exists(s => s.Name == "Italic"))
         {
-            Style strikethrough = new Style();
-            strikethrough.element = new Element("s", "");
-            strikethrough.SetFeature("Strikethrough");
-            Styles.Add(strikethrough);
+            Style italic = new Style("Italic");
+            italic.element = new Element("i", "");
+            italic.SetFeature("Italic");
+            Styles.Insert(1,italic);
         }
-        if (!Styles.Exists(s => s.element.Signature.Name == "defaults"))
+        if (!Styles.Exists(s => s.Name == "Bold"))
         {
-            Style defaults = new Style();
-            defaults.SetFeature("Defaults");
-            Styles.Add(defaults);
+            Style bold = new Style("Bold");
+            bold.element = new Element("b", "");
+            bold.SetFeature("Bold");
+            Styles.Insert(1,bold);
+        }
+        foreach (var cueGroupName in _cueGroups.Select(cg => cg.Name).ToList())
+        {
+            string GroupDefaultStyleName = "Default " + cueGroupName;
+            if (!Styles.Exists(s => s.Name == GroupDefaultStyleName))
+            {
+                Style GroupDefaultStyle = new Style(GroupDefaultStyleName);
+                GroupDefaultStyle.element = new Element("Default",cueGroupName); 
+                Styles.Insert(1,GroupDefaultStyle);
+            }
+        }
+    }
+    public void ChangeCueGroupDefaultName(string _oldCueGroupName, string _newCueGroupName)
+    { 
+        foreach (var style in Styles)
+        {            
+            if (style.element.Name.ToLower() == "default" && style.element.Value.ToLower() == _oldCueGroupName.ToLower())
+            {
+                style.element.Value = _newCueGroupName;
+                style.Name = "Default " + _newCueGroupName;
+            }
         }
     }
 
@@ -62,7 +85,7 @@ public class StyleGroup
 
             if (filterMatch)
             {
-                ElementGroup element = ElementManager.GetElementGroup(style.element.Signature.Name);
+                ElementGroup element = ElementManager.GetElementGroup(style.element.Name);
                 if (element != null)
                 {
                     if (element.Active || _includeInactive)

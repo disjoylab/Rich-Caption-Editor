@@ -8,9 +8,8 @@ public class Cue
     public string Identifier;
     public float StartTime;
     public float EndTime;
-    public Element RegionElement;
-    public Element CueElement;
-    public Element TextElement; 
+    public string RegionFeature; 
+    public Element CueElement; 
     public List<TextSegment> TextSegments;//TEXT VARIATIONS
     public int CurrentTextSegment = 0;
 
@@ -30,9 +29,8 @@ public class Cue
     public Cue(string _identifier)
     { 
         Identifier = _identifier;
-        RegionElement = new Element("");
-        CueElement = new Element("");
-        TextElement = new Element("");
+        RegionFeature = "";
+        CueElement = new Element(""); 
         TextSegments = new List<TextSegment>();
 
 
@@ -46,9 +44,8 @@ public class Cue
 
         copy.StartTime = StartTime;
         copy.EndTime = EndTime;
-        copy.RegionElement = RegionElement.Copy();
-        copy.CueElement = CueElement.Copy();
-        copy.TextElement = TextElement.Copy();
+        copy.RegionFeature = RegionFeature;
+        copy.CueElement = CueElement.Copy(); 
         copy.TextSegments = TextSegments.Select(segment => new TextSegment
         {
             Content = segment.Content.Select(cueChar => cueChar.Copy()).ToList()

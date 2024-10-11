@@ -32,20 +32,43 @@ public class ElementManager : MonoBehaviour
 
         }
     }
-
-    internal static string[] GetElementGroupNames(bool _active = false)
+    public static List<string> GetAllElementGroupNames(bool _onlyActive)
     {
-        var elemetns = ElementGroups
-            .Where(e => !_active || e.Active)
-            .Select(e => e.Name)
-            .ToArray();
-        
-        
-        
-        return elemetns;
-
+        List<string> elements = new List<string>();
+        foreach (var elementGroup in ElementGroups)
+        {
+            bool isActiveCondition = !_onlyActive || elementGroup.Active;
+            if (isActiveCondition )
+            {
+                elements.Add(elementGroup.Name);
+            }             
+        }
+        return elements;
     }
-
+    internal static List<string> GetCueLevelElementGroupNames()
+    {
+        List<string> elements = new List<string>();
+        foreach (var elementGroup in ElementGroups)
+        { 
+            if (elementGroup.Active && (elementGroup.CurrentDefinition().CueLevel))
+            {
+                elements.Add(elementGroup.Name);
+            }
+        }
+        return elements;
+    }
+    internal static List<string> GetTextLevelElementGroupNames()
+    {
+        List<string> elements = new List<string>();
+        foreach (var elementGroup in ElementGroups)
+        { 
+            if (elementGroup.Active && (elementGroup.CurrentDefinition().TextLevel))
+            {
+                elements.Add(elementGroup.Name);
+            }
+        }
+        return elements;
+    }
 
     public void LoadAllElementGroups()
     {
@@ -61,19 +84,20 @@ public class ElementManager : MonoBehaviour
                 }
             }
         }
-        CreateElementGroup("B");
-        CreateElementGroup("i");
-        CreateElementGroup("u");
-        CreateElementGroup("s");
+        CreateElementGroup("B",false, true);
+        CreateElementGroup("i", false, true);
+        CreateElementGroup("u", false, true);
+        CreateElementGroup("s", false, true);
+        CreateElementGroup("Default", false, false);
         ElementsChanged?.Invoke();
     }
      
-    public static ElementGroup CreateElementGroup(String _name)
+    public static ElementGroup CreateElementGroup(String _name, bool _cueLevel, bool _textLevel)
     {
         ElementGroup elementGroup = GetElementGroup(_name);
         if (elementGroup == null)
         {
-            elementGroup = new ElementGroup(_name);
+            elementGroup = new ElementGroup(_name,_cueLevel, _textLevel);
             AddElementGroup(elementGroup); 
         }
         return elementGroup;
@@ -90,19 +114,10 @@ public class ElementManager : MonoBehaviour
         }
         return null;
     }
-
-    //**************************** TODO ****************** check if the new signature exists, return the value so the calling funciton knows it did not work
-    internal static void RenameElementGroup(ElementGroup _elementGroup, ElementSignature _signature)
+     
+    internal static void RenameElementGroup(ElementGroup _elementGroup, string _name)
     {
-        /*string OldFileName = _featureGroup.ToFileName();
-        string oldFilePath = Path.Combine(FilePath, OldFileName);
-        if (File.Exists(oldFilePath))
-        {
-            File.Delete(oldFilePath);
-        }
-        _featureGroup.Name = _newName;
-        SaveFeatureGroupToJSON(_featureGroup);
-    */
+        
     }
     
     internal static void DeleteElementGroup(ElementGroup _elementGroup)
@@ -128,7 +143,7 @@ public class ElementManager : MonoBehaviour
     }
 
     public static void AddElementGroup(ElementGroup _elementGroup)
-    {
+    {         
         ElementGroup existingElementGroup = GetElementGroup(_elementGroup.Name); // Possibly combine them with matching under specific cicumstances?
         if (existingElementGroup != null)
         {
@@ -175,10 +190,9 @@ public class ElementManager : MonoBehaviour
         bool exists = true;
         while (exists)
         {
-            uniqueName = $"{_root}_{index++}";
+            uniqueName = $"{_root} {index++}";
             exists = ElementGroups.Exists(f => f.Name == uniqueName);
         }
         return uniqueName;
     }
-
 }

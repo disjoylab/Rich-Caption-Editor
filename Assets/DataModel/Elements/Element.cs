@@ -2,148 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
-[Serializable]
-public struct ElementSignature
-{
-    public string Name; 
-    public List<string> Attributes;
-    public ElementSignature(string _name)
-    {
-        Name = _name; 
-        Attributes = new List<string>();
-    }
-    public ElementSignature(string _name, List<string> _attributes)
-    {
-        Name = _name;
-        Attributes = _attributes != null ? new List<string>(_attributes) : new List<string>();
-    }
-   
-    //target signture matches if name is blank or all target properties exist in my properties    
-
-    public bool Match(ElementSignature target)
-    { 
-        if (string.IsNullOrEmpty(Name) && (Attributes == null || !Attributes.Any()))
-        {
-            return true;
-        }
-         
-        if (!string.IsNullOrEmpty(Name) && Name.ToLower() != target.Name.ToLower())
-        {
-            return false;
-        }
-         
-        foreach (var attribute in Attributes)
-        {
-            if (!target.Attributes.Any(attr => attr.Equals(attribute, StringComparison.OrdinalIgnoreCase)))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-
-    public bool IsEqual(ElementSignature other)
-    {
-        if (other.Name.ToLower() != Name.ToLower())
-        {
-            return false;
-        }
-        if (other.Attributes == null && Attributes == null)
-        {
-            return true;
-        }
-        if (other.Attributes == null || Attributes == null)
-        {
-            return false;
-        }
-        if (other.Attributes.Count != Attributes.Count)
-        {
-            return false;
-        }
-        foreach (var attribute in Attributes)
-        {
-            if (!Attributes.Any(attr => attr.Equals(attribute, StringComparison.OrdinalIgnoreCase)))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public override string ToString()
-    {
-        string stringText = Name;
-        stringText += AttributesToString();
-        return stringText;
-    }
-
-    public string AttributesToString()
-    {
-        string stringText = "";
-        if (Attributes.Count > 0)
-        {
-            stringText += string.Join("", Attributes.ConvertAll(attr => $".{attr}"));
-        }
-        return stringText;
-    }
-
-    internal void SetAttributesFromString(string text)
-    { 
-        Attributes.Clear(); 
-        if (!string.IsNullOrEmpty(text))
-        { 
-            var attributes = text.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries); 
-            Attributes.AddRange(attributes);
-        }
-    }
-
-}
 
 [Serializable]
 public struct Element 
 {
-    public ElementSignature Signature;
+    public string Name;
     public string Value; // For elements like <v speaker>, 'speaker' would be the Value. 
-    public int GetInt()
-    {
-        if (int.TryParse(Value, out int result))
-        {
-            return result;
-        }
-        return 0;
-    } 
-    public float GetFloatValue()
-    {
-        if (float.TryParse(Value, out float result))
-        {
-            return result;
-        }
-        //check ElementManager for an value   then use 
-        //return ElementManager.GetValue(Signature,Value); //this looks up the string and finds the current element definiture for the signature.
-        return 0;
-    }     
-
+  
     public Element(string _name) 
     {
-        Signature = new ElementSignature(_name);
+        Name = _name;
         Value = ""; 
     }
     public Element(string _name, string _value)
     {
-        Signature = new ElementSignature(_name);
+        Name = _name;
         Value = _value; 
-    }
-    public Element(string _name, string _value, List<string> _attributes)
-    {
-        Signature = new ElementSignature(_name,_attributes);
-        Value = _value; 
-    }
+    } 
     public static Element NewElement()
     {
-        return new Element("", "", new List<string>());
+        return new Element("", "");
     }
     
     internal Element Copy()
@@ -151,17 +31,47 @@ public struct Element
         return new Element
         {
             Value = this.Value,
-            Signature = new ElementSignature(this.Signature.Name, new List<string>(this.Signature.Attributes))
+
+            Name = this.Name
         };
     }
+     
+    public int GetIntValue(ElementDefinition _definition)
+    {
+        
+        int intValue = 0;
+
+        if (_definition.ValueType == ElementValueTypes.Array)
+        {
+            int index = _definition.StringOptions.IndexOf(Value);
+            
+        }
+        if (_definition.ValueType == ElementValueTypes.Integer)
+        {
+            if (float.TryParse(Value, out float result))
+            {
+                intValue = (int)Math.Floor(result);
+            }
+        }
+        if (_definition.Min.HasValue)
+        { 
+            intValue = Mathf.Max(intValue, _definition.Min.Value); 
+        }
+        if (_definition.Max.HasValue)
+        {
+            intValue = Mathf.Min(intValue, _definition.Max.Value);
+        }
+        return intValue;
+    }
+
     public String StartTag()
     {
-        if (string.IsNullOrWhiteSpace(Signature.Name))
+        if (string.IsNullOrWhiteSpace(Name))
         {
             return "";
         }
         var tagBuilder = new StringBuilder("<");
-        if (Signature.Name == Common.ElementName_TimeStamp) 
+        if (Name == Common.ElementName_TimeStamp) 
         {
             if (float.TryParse(Value, out float timeStamp))
             {
@@ -174,13 +84,7 @@ public struct Element
         }
         else
         {
-            tagBuilder.Append(Signature.Name);
-            foreach (var attr in Signature.Attributes)
-            {
-               tagBuilder.Append(".");
-               tagBuilder.Append(attr);
-            }
-
+            tagBuilder.Append(Name);
             if (!string.IsNullOrEmpty(Value))
             { 
                 tagBuilder.Append($"=\"{Value}\"");
@@ -192,14 +96,12 @@ public struct Element
 
     internal bool IsEmpty()
     {
-        bool noAttributes = Signature.Attributes == null || Signature.Attributes.Count == 0;
-
-        return string.IsNullOrEmpty(Signature.Name) && string.IsNullOrEmpty(Value) && noAttributes;
+        return string.IsNullOrEmpty(Name) && string.IsNullOrEmpty(Value);
     }
 
     public String EndTag()
     {
-        return string.IsNullOrWhiteSpace(Signature.Name) || Signature.Name == Common.ElementName_TimeStamp || Signature.Name.ToLower() == "v" || Signature.Name.ToLower() == "voice" ? "" : $"</{Signature.Name}>";
+        return string.IsNullOrWhiteSpace(Name) || Name == Common.ElementName_TimeStamp || Name.ToLower() == "v" || Name.ToLower() == "voice" ? "" : $"</{Name}>";
     }
     
     //Used to combine cueChars to cueStrings where value matters
@@ -209,7 +111,7 @@ public struct Element
         {
             return false;
         }
-        return Signature.IsEqual(other.Signature);
+        return Name == other.Name;
     }
 
     public bool Match(List<Element> targets)
@@ -223,13 +125,25 @@ public struct Element
         }       
         return false;
     }
-    public bool Match(Element target)//target is a subset if value is blank or target value matches this value (and signature matches)
+
+    //target is a subset if value is blank or target value matches this value
+    public bool Match(Element target)
     {
         if (!string.IsNullOrEmpty(Value) && Value.ToLower() != target.Value.ToLower())
         {
             return false;
         }
-        return Signature.Match(target.Signature);
+        return  string.IsNullOrEmpty(Name) || Name == target.Name;
+    }
+
+    internal string ToButtonText()
+    {
+        string returnText = Name;
+        if (!string.IsNullOrEmpty(Value))
+        {
+            returnText += $" [{Value}]";
+        }
+        return returnText;
     }
 }
 

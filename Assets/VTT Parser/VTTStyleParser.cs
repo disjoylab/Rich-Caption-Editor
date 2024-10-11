@@ -5,7 +5,7 @@ using UnityEngine;
 
 internal class VTTStyleParser
 {
-    internal static Style ProcessStyleBlock(string line)
+        internal static Style ProcessStyleBlock(string line)
     {
         bool settingFound = false;
         Style style = new Style();
@@ -35,23 +35,23 @@ internal class VTTStyleParser
                     }
                     return match.Value;
                 });
-                style.element.Signature.Name = Identifier;
-            } 
-            foreach (Match attributeMatch in attributePattern.Matches(cueModifiers))
-            {
-                style.element.Signature.Attributes.Add(attributeMatch.Groups[1].Value);
-            }             
+                style.element.Name = Identifier;
+            }                   
             foreach (Match complexElementMatch in complexElementPattern.Matches(cueModifiers))
             {
                 string elementName = complexElementMatch.Groups[1].Value;
-                style.element.Signature.Name = elementName.ToLower() == "voice" ? "v" : elementName;                
+                style.element.Name = elementName.ToLower() == "voice" ? "v" : elementName;                
                 style.element.Value= complexElementMatch.Groups[2].Value; 
             }
             var simpleElementMatch = simpleElementPattern.Match(cueModifiers);
             if (simpleElementMatch.Success)
             {
-                style.element.Signature.Name = simpleElementMatch.Value;                 
-            }         
+                style.element.Name = simpleElementMatch.Value;                 
+            }
+            foreach (Match attributeMatch in attributePattern.Matches(cueModifiers))
+            {
+                style.element.Name += "." + attributeMatch.Groups[1].Value;
+            }
         }
         var settingsPattern = new Regex(@"\{([^}]*)\}");
         var settingsMatch = settingsPattern.Match(line);
@@ -59,8 +59,8 @@ internal class VTTStyleParser
         {
             string settingsText = settingsMatch.Groups[1].Value;
             var settingPairs = settingsText.Split(';');
-            FeatureGroup featureGroup = new FeatureGroup(FeatureManager.GetUniqueName("Style_Feature"));
-            Feature feature = new Feature("Imported_Style");
+            FeatureGroup featureGroup = new FeatureGroup(FeatureManager.GetUniqueName("Text Feature"));
+            Feature feature = new Feature("Imported Text Style");
             foreach (var pair in settingPairs)
             {
                 var setting = pair.Split(new[] { ':' }, 2);

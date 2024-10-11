@@ -55,11 +55,11 @@ using Newtonsoft.Json;
                 }
             }
         } 
-        AddDefaultSetting("Bold", new List<Setting> { new Setting("Style_FontWeight", "bold") });
-        AddDefaultSetting("Italic", new List<Setting> { new Setting("Style_FontStyle", "italic") });
-        AddDefaultSetting("Underline", new List<Setting> { new Setting("Style_TextDecoration", "underline") });
-        AddDefaultSetting("Strikethrough", new List<Setting> { new Setting("Style_TextDecoration", "line-through") });
-        AddDefaultSetting("Defaults", new List<Setting>
+        AddDefaultFeature("Bold", new List<Setting> { new Setting("Style_FontWeight", "bold") });
+        AddDefaultFeature("Italic", new List<Setting> { new Setting("Style_FontStyle", "italic") });
+        AddDefaultFeature("Underline", new List<Setting> { new Setting("Style_TextDecoration", "underline") });
+        AddDefaultFeature("Strikethrough", new List<Setting> { new Setting("Style_TextDecoration", "line-through") });
+        AddDefaultFeature("Default Feature", new List<Setting>
         {
             new Setting("Style_FontSize", "12px"),
             new Setting("Region_Width", "90%"),
@@ -72,7 +72,7 @@ using Newtonsoft.Json;
         FeaturesChanged?.Invoke();
     }
 
-    private void AddDefaultSetting(string name, List<Setting> settings)
+    private void AddDefaultFeature(string name, List<Setting> settings)
     {
         if (!FeatureGroups.Exists(f => f.Name == name))
         {
@@ -100,7 +100,7 @@ using Newtonsoft.Json;
         bool exists = true;
         while (exists)
         {
-            uniqueName = $"{_root}_{index++}";
+            uniqueName = $"{_root} {index++}";
             exists = FeatureGroups.Exists(f => f.Name == uniqueName);
         }
         return uniqueName;

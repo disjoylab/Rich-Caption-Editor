@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public enum SettingTypes
 {
@@ -49,8 +50,10 @@ public enum Style_TextDecorationTypes { None, Underline, Overline, LineThrough }
 [Serializable]
 public class Setting
 {
-    public SettingTypes SettingType;
-    public string Name;//redundant, setting type is the source of truth, this is just for importing and storing potential input errors
+
+    [JsonProperty]
+    SettingTypes SettingType;
+  //  public string Name;//redundant, setting type is the source of truth, this is just for importing and storing potential input errors
 
     public string StringValue;
     public bool BoolValue;
@@ -76,8 +79,7 @@ public class Setting
 
     public Setting()
     {
-        SettingType = SettingTypes.none;
-        Name = "";
+        SettingType = SettingTypes.none; 
         StringValue = "";
         IntValue_1 = 0;
         //FloatValue_1 = 0;
@@ -99,8 +101,7 @@ public class Setting
         ErrorParsing = false;
     }
     public Setting(string _name, string _value)
-    {
-        Name = _name; 
+    { 
         IntValue_1 = 0;
         //FloatValue_1 = 0;
         BoolValue = false;
@@ -206,8 +207,7 @@ public class Setting
     }
 
     public Setting(Setting otherSetting)
-    {
-        Name = otherSetting.Name;
+    { 
 
         SettingType = otherSetting.SettingType;
         StringValue = otherSetting.StringValue;
@@ -416,7 +416,7 @@ public class Setting
             _ => StringValue
         };
 
-        return $"{SettingType}: {valueString}";
+        return $"{GetSettingName()}: {valueString}";
     }
  
     public bool IsMatch(Setting otherSetting)
@@ -424,20 +424,53 @@ public class Setting
         if (otherSetting == null)
             return false;
 
-        return Name == otherSetting.Name &&
-               StringValue == otherSetting.StringValue &&
-               IntValue_1 == otherSetting.IntValue_1 &&
-              // FloatValue_1 == otherSetting.FloatValue_1 &&
-               BoolValue == otherSetting.BoolValue &&
-               Equals(PositionValue_1, otherSetting.PositionValue_1) &&
-               Equals(ColorValue_1, otherSetting.ColorValue_1) &&
-               Cue_AlignType == otherSetting.Cue_AlignType &&
-               Cue_LineAlignType == otherSetting.Cue_LineAlignType &&
-               Cue_VerticalType == otherSetting.Cue_VerticalType &&
+        return  
+                SettingType == otherSetting.SettingType &&
+                StringValue == otherSetting.StringValue &&
+                IntValue_1 == otherSetting.IntValue_1 && 
+                BoolValue == otherSetting.BoolValue &&
+                Equals(PositionValue_1, otherSetting.PositionValue_1) &&
+                Equals(ColorValue_1, otherSetting.ColorValue_1) &&
+                Cue_AlignType == otherSetting.Cue_AlignType &&
+                Cue_LineAlignType == otherSetting.Cue_LineAlignType &&
+                Cue_VerticalType == otherSetting.Cue_VerticalType &&
                 Region_ScrollType == otherSetting.Region_ScrollType &&
                 Style_FontWeightType == otherSetting.Style_FontWeightType &&
-               Style_FontStyleType == otherSetting.Style_FontStyleType &&
-               Style_TextDecorationType == otherSetting.Style_TextDecorationType;
+                Style_FontStyleType == otherSetting.Style_FontStyleType &&
+                Style_TextDecorationType == otherSetting.Style_TextDecorationType;
+    }
+
+    public string GetSettingName()
+    { 
+        return GetSettingName(SettingType);
+    }
+
+    public static string GetSettingName(SettingTypes _settingType)
+    {
+        string returnString = _settingType.ToString()
+                .Replace("Style_", "Text:")
+                .Replace("Region_", "Region:")
+                .Replace("Cue_", "CaptionBox:");
+
+        returnString = Regex.Replace(returnString, "(?<!^)([A-Z])", " $1");
+        return returnString;
+    }
+
+    public void SetSettingTypeFromString(string _settingType)
+    {
+        string formattedString = _settingType
+            .Replace("Caption Box:", "Cue_")
+            .Replace("Region:", "Region_")
+            .Replace("Text:", "Style_");
+         
+        formattedString = Regex.Replace(formattedString, @"\s+", "");
+         
+        SettingType = (SettingTypes)Enum.Parse(typeof(SettingTypes), formattedString);
+    }
+
+    internal SettingTypes GetSettingType()
+    {
+        return SettingType;
     }
 }
 

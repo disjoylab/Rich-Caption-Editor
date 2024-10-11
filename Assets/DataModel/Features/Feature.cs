@@ -49,15 +49,15 @@ public class Feature
          
             foreach (Setting setting in Settings)
             {
-                if (setting.SettingType.ToString().ToLower().StartsWith("region"))
+                if (setting.GetSettingType().ToString().ToLower().StartsWith("region"))
                 {
                     result |= FeatureFilter.Region;
                 }
-                if (setting.SettingType.ToString().ToLower().StartsWith("cue"))
+                if (setting.GetSettingType().ToString().ToLower().StartsWith("cue"))
                 {
                     result |= FeatureFilter.Cue;
                 }
-                if (setting.SettingType.ToString().ToLower().StartsWith("style"))
+                if (setting.GetSettingType().ToString().ToLower().StartsWith("style"))
                 {
                     result |= FeatureFilter.Text;
                 }

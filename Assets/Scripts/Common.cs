@@ -30,9 +30,9 @@ public class Common
         return -1;  
     }
      
-
     public static List<CueChar> DeepCopyCueCharList(List<CueChar> originalList)
     {
+        // Creates a new instance (a deep copy) of the original CueChar list
         List<CueChar> copy = new List<CueChar>();
         foreach (CueChar cc in originalList)
         {
@@ -40,14 +40,15 @@ public class Common
         }
         return copy;
     }
-        public static List<CueChar> FilteredCopyCueCharList(List<CueChar> originalList, List<string> list)
-        {
-            List<CueChar> copy = new List<CueChar>();
-            foreach (CueChar cc in originalList)
-            {
-                copy.Add(cc.FilteredCopy(list));
-            }
-            return copy;
-        }
 
-    }
+    public static List<CueChar> FilteredCopyCueCharList(List<CueChar> originalList, List<string> list)
+    {
+        List<CueChar> copy = new List<CueChar>();
+        foreach (CueChar cc in originalList)
+        {
+            copy.Add(cc.FilteredCopy(list));
+        }
+        return copy;
+    } 
+
+}

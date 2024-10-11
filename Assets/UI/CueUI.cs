@@ -9,9 +9,12 @@ public class CueUI : MonoBehaviour
     public TMP_InputField textInputField;
     public static Action CurrentCueChanged;
     public static bool CurrentCueHasChanges;
-   static bool ChangedCue;
-    public TMP_Dropdown Text_Element_Dropdown;//  TODO ************************** REPLACE WITH ELEMENT EDITING OBJECT  
-    public List<Element> TextElements;
+    static bool ChangedCue; 
+
+    public List<ElementTool> ElementTools;
+    public GameObject ElementToolPrefab;
+    public Transform ElementToolContainer;
+    
     public MouseClickHandler textBoxMouseClickHandler;
     private void Update()
     {
@@ -23,21 +26,34 @@ public class CueUI : MonoBehaviour
         }
         if (ChangedCue)
         {
-            ChangedCue = false;
-            SetTextDropdown();
+            ChangedCue = false;           
         }
     }
     private void Start()
     {
+        ElementTools = new List<ElementTool>();
         textInputField.onValueChanged.AddListener(OnTextChanged);
         textBoxMouseClickHandler.onMouseUp += OnEndEdit;
         VideoManager.CurrentTimeChanged += OnCurrentTimeChanged;
-
+        ElementTool.ElementToolsChanged += OnElementToolsChanged;
     }
     private void OnDestroy()
-    {
+    {         
+        textBoxMouseClickHandler.onMouseUp -= OnEndEdit;
         VideoManager.CurrentTimeChanged -= OnCurrentTimeChanged;
+        ElementTool.ElementToolsChanged -= OnElementToolsChanged;
     }
+
+    private void OnElementToolsChanged()
+    {
+        DisplayTextCue();
+    }
+
+    private void OnEnable()
+    {
+        SetElmentTools();
+    }
+    
 
     private void OnCurrentTimeChanged(double obj)
     {
@@ -140,14 +156,11 @@ public class CueUI : MonoBehaviour
 
     private Element GetSelectedElement()
     {
-        Element e = new Element("");
-        int index = Text_Element_Dropdown.value;
-        if (index < TextElements.Count)
+        if (ElementTool.SelectedElementTool != null)
         {
-            e = TextElements[index];
+            return ElementTool.SelectedElementTool.GetElement();
         }
-
-        return e;
+        return new Element("");
     }
 
     public static void SetCurrentCue(Cue _cue)
@@ -159,31 +172,31 @@ public class CueUI : MonoBehaviour
             ChangedCue = true;
         }
     }
-    private void SetTextDropdown()
-    {
-        List<Style> Styles = ProjectManager.Instance.CurrentRCEProject.GetCurrentStyleGroup().GetStylesByType(FeatureFilter.Text);
-        TextElements.Clear();
-        TextElements.Add(new Element(""));
-        foreach (var style in Styles)
+    private void SetElmentTools()
+    { 
+        foreach (var elementTool in ElementTools)
         {
-            TextElements.Add(style.element);
+            Destroy(elementTool.gameObject);
         }
-        List<string> options = new List<string>();
-        foreach (var element in TextElements)
+        //move tools to correct postions
+        //resize tool container to fit tools
+        List<string> textElementNames = new List<string>(); 
+        textElementNames.AddRange( ElementManager.GetTextLevelElementGroupNames());
+        float xPostion = 5;
+        foreach (string textElementName in textElementNames)
         {
-            options.Add(element.Signature.ToString());
+            GameObject go = Instantiate(ElementToolPrefab, ElementToolContainer);
+            ElementTool elementTool = go.GetComponent<ElementTool>();
+            elementTool.Configure(textElementName );
+            ElementTools.Add(elementTool);
+            RectTransform rt = elementTool.GetComponent<RectTransform>();
+            rt.anchoredPosition = new Vector2(xPostion, -5);
+            xPostion += rt.sizeDelta.x + 10;
         }
-        int index = Text_Element_Dropdown.value;
-        Text_Element_Dropdown.ClearOptions();
-        Text_Element_Dropdown.AddOptions(options);
-        if (index >= 0 && index < options.Count)
-        {
-            Text_Element_Dropdown.SetValueWithoutNotify(index);
-        }
-        else
-        { 
-            Text_Element_Dropdown.SetValueWithoutNotify(0);   
-        }
+        ElementToolContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(xPostion + 10, 100);
+
+          
+        
     }
     string RemoveMarkTagsFromString(string input)
     {

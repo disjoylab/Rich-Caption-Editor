@@ -60,6 +60,7 @@ public class FeatureGroup
             return false;
         }
         FeatureVersions.Add(_feature);
+        CurrentVersion = FeatureVersions.Count - 1;
         return true;
     }
      

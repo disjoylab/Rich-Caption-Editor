@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Linq;
+
 [Serializable]
 public class RCEProject // avioiding getter/setter pattern since the data model would explode in size and complexity (and not show in inspector)
 {
@@ -14,11 +16,19 @@ public class RCEProject // avioiding getter/setter pattern since the data model 
 
    [JsonProperty]
     private int currentCueGroupIndex;
+    [JsonProperty]
+    private int currentStyleGroupIndex;
     public int GetCurrentCueGroupIndex()
     {
         currentCueGroupIndex = Mathf.Clamp(currentCueGroupIndex, 0, CueGroups.Count-1);
         return currentCueGroupIndex;        
     }
+    public int GetCurrentStyleGroupIndex()
+    {
+        currentStyleGroupIndex = Mathf.Clamp(currentStyleGroupIndex, 0, StyleGroups.Count - 1);
+        return currentStyleGroupIndex;
+    }
+
     public void SetCurrentCueGroupIndex(int _index)
     {
         currentCueGroupIndex = Mathf.Clamp(_index, 0, CueGroups.Count-1); 
@@ -27,9 +37,10 @@ public class RCEProject // avioiding getter/setter pattern since the data model 
     {
         if (StyleGroups==null || StyleGroups.Count==0)
         {
-            SetDefaultStyles();
+            CreateNewStyleGroup();
         }
-        return StyleGroups[0];  //TODO **************************** implement int CurrentStyleGroup and add functionality to style UI tab
+        StyleGroups[GetCurrentStyleGroupIndex()].SetDefaultStyles(CueGroups);
+        return StyleGroups[GetCurrentStyleGroupIndex()];   
     }
     public CueGroup GetCurrentCueGroup()
     {
@@ -37,7 +48,8 @@ public class RCEProject // avioiding getter/setter pattern since the data model 
         {
             return null;
         } 
-        return CueGroups[currentCueGroupIndex];        
+
+        return CueGroups[GetCurrentCueGroupIndex()];        
     }
     public RCEProject()
     {
@@ -50,14 +62,15 @@ public class RCEProject // avioiding getter/setter pattern since the data model 
         CueGroups = new List<CueGroup>();
         CueGroup SPEECHGROUP = new CueGroup(_defaultCueGroup);
         CueGroups.Add(SPEECHGROUP);
-        SetDefaultStyles();
+        CreateNewStyleGroup();
     }
-    public void SetDefaultStyles()
+    public void CreateNewStyleGroup()
     {
         StyleGroups = new List<StyleGroup>();
-        StyleGroup styleGroup = new StyleGroup();
-        styleGroup.SetDefaultStyles();
-        StyleGroups.Add(styleGroup);        
+        StyleGroup styleGroup = new StyleGroup(); 
+        styleGroup.SetDefaultStyles(CueGroups);
+        StyleGroups.Add(styleGroup);
+        currentStyleGroupIndex = StyleGroups.Count - 1;
     }     
     public string GetFileName(string _ext)
     {

@@ -14,13 +14,13 @@ public class ElementGroup
     public bool Active;
     public int CurrentVersion;
 
-    public ElementGroup(string _name)
+    public ElementGroup(string _name,bool _cueLevel, bool _textLevel)
     {
         Name = _name;
         Description = "";
         Active = true;
         DefinitionVersions = new List<ElementDefinition>();
-        DefinitionVersions.Add(new ElementDefinition(ElementValueTypes.noValue));
+        DefinitionVersions.Add(new ElementDefinition("", _cueLevel, _textLevel));
     }
     public ElementDefinition CurrentDefinition()
     {
@@ -39,9 +39,9 @@ public class ElementGroup
     {
         return CurrentVersion + 1 >= DefinitionVersions.Count;
     }
-    internal void CreateNewVersion()
+    internal void CreateNewVersion( bool _cueLevel, bool _textLevel)
     {
-        ElementDefinition definition = new ElementDefinition(ElementValueTypes.intValue,"New Version " + (DefinitionVersions.Count + 1));
+        ElementDefinition definition = new ElementDefinition("New Version " + (DefinitionVersions.Count + 1),_cueLevel,_textLevel);
 
         DefinitionVersions.Add(definition);
     }
@@ -50,7 +50,7 @@ public class ElementGroup
         DefinitionVersions.Remove(CurrentDefinition());
         if (DefinitionVersions.Count == 0)
         {
-            CreateNewVersion();
+            CreateNewVersion(true,true);
         }
     }
     public string FeatureVersionString()

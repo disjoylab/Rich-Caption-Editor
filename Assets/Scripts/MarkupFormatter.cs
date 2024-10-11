@@ -1,10 +1,14 @@
 
 using System.Collections.Generic;
 
+// Provides methods to format and filter markup strings from a list of CueChar objects.
+
 public class MarkupFormatter
 {
     public static string GetFilteredTaggedString(List<CueChar> cueChars, List<string> list)
     {
+        //cueChars: The list of CueChar objects to be formatted.
+        //list: The list of tags to filter the CueChar objects.
         if (cueChars.Count == 0)
         {
             return "";
@@ -15,6 +19,8 @@ public class MarkupFormatter
     }
     public static string GetTaggedString(List<CueChar> cueChars)
     {
+        // Returns a tagged string from the list of CueChar objects.
+
         if (cueChars.Count == 0)
         {
             return "";
@@ -26,6 +32,7 @@ public class MarkupFormatter
 
      static string GetTaggedStringInternal(List<CueChar> cueChars)
     {
+        // Internal method to generate a tagged string from the list of CueChar objects.
         if (cueChars.Count == 0)
         {
             return "";

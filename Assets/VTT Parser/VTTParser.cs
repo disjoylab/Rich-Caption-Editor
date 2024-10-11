@@ -65,7 +65,7 @@ public class VTTParser
                     Style style = VTTStyleParser.ProcessStyleBlock("::cue" + rule);
                     if (style!=null && !style.IsEmpty())
                     {
-                        ElementManager.CreateElementGroup(style.element.Signature.Name);
+                        ElementManager.CreateElementGroup(style.element.Name, false, true);
                         rceProject.GetCurrentStyleGroup().Styles.Add(style);
                     }                    
                 }                
@@ -73,12 +73,7 @@ public class VTTParser
         }
         else if (Lines[0].StartsWith("REGION"))
         {
-            Style RegionStyle = VttRegionParser.ProcessRegionBlock(Lines);
-            if (RegionStyle.GetFeatureName()!= "Not Found" && !RegionStyle.IsEmpty()) ///****************************************************** todo
-            {
-                ElementManager.CreateElementGroup(RegionStyle.element.Signature.Name);
-                rceProject.GetCurrentStyleGroup().Styles.Add(RegionStyle);
-            }
+            Feature RegionFeature = VttRegionParser.ProcessRegionBlock(Lines);            
         }
         else
         {
@@ -86,7 +81,7 @@ public class VTTParser
             if (newCue != null)
             {
                 rceProject.CueGroups[0].Cues.Add(newCue);                 
-                ElementManager.CreateElementGroup(cueStyle.element.Signature.Name);        
+                ElementManager.CreateElementGroup(cueStyle.element.Name, true, false);        
                 if (cueStyle!=null&&cueStyle.GetFeatureName()!=null && !cueStyle.IsEmpty())
                 {
                     rceProject.GetCurrentStyleGroup().Styles.Add(cueStyle);//maybe check if it exists?

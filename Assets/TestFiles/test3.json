@@ -1,351 +1,189 @@
 {
-  "ProjectName": "test3",
+  "ProjectName": "test3x",
   "Details": " - This file includes a range of WebVTT features\n",
   "fileName": "test3",
   "StyleGroups": [
     {
       "Styles": [
         {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Bold",
+          "Name": "Default",
+          "Description": "",
+          "FeatureName": "Default Feature",
           "element": {
-            "Signature": {
-              "Name": "b",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 4
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Italic",
-          "element": {
-            "Signature": {
-              "Name": "i",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 4
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Underline",
-          "element": {
-            "Signature": {
-              "Name": "u",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 4
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Strikethrough",
-          "element": {
-            "Signature": {
-              "Name": "s",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 4
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Defaults",
-          "element": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "Default",
             "Value": ""
           },
           "featureFilter": 5
         },
         {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Style_Feature",
+          "Name": "Default Speech",
+          "Description": "",
+          "FeatureName": "",
           "element": {
-            "Signature": {
-              "Name": "",
-              "Attributes": [
-                "green"
-              ]
-            },
+            "Name": "Default",
+            "Value": "Speech"
+          },
+          "featureFilter": 7
+        },
+        {
+          "Name": "Bold",
+          "Description": "",
+          "FeatureName": "Bold",
+          "element": {
+            "Name": "b",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "Italic",
+          "Description": "",
+          "FeatureName": "Italic",
+          "element": {
+            "Name": "i",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "Underline",
+          "Description": "",
+          "FeatureName": "Underline",
+          "element": {
+            "Name": "u",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "Strikethrough",
+          "Description": "",
+          "FeatureName": "Strikethrough",
+          "element": {
+            "Name": "s",
             "Value": ""
           },
           "featureFilter": 4
         },
         {
           "Name": "",
-          "Description": null,
-          "FeatureName": "Style_Feature_8",
+          "Description": "",
+          "FeatureName": "Text Feature",
           "element": {
-            "Signature": {
-              "Name": "",
-              "Attributes": [
-                "highlight"
-              ]
-            },
+            "Name": ".green",
             "Value": ""
           },
           "featureFilter": 4
         },
         {
           "Name": "",
-          "Description": null,
-          "FeatureName": "Style_Feature_3",
+          "Description": "",
+          "FeatureName": "Text Feature 2",
           "element": {
-            "Signature": {
-              "Name": "FIVE ",
-              "Attributes": []
-            },
+            "Name": ".highlight",
             "Value": ""
           },
           "featureFilter": 4
         },
         {
           "Name": "",
-          "Description": null,
-          "FeatureName": "Style_Feature_4",
+          "Description": "",
+          "FeatureName": "Text Feature 3",
           "element": {
-            "Signature": {
-              "Name": "v",
-              "Attributes": []
-            },
+            "Name": "FIVE ",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": "",
+          "FeatureName": "Text Feature 4",
+          "element": {
+            "Name": "v",
             "Value": "John"
           },
           "featureFilter": 4
         },
         {
           "Name": "",
-          "Description": null,
-          "FeatureName": "Style_Feature_5",
+          "Description": "",
+          "FeatureName": "Text Feature 5",
           "element": {
-            "Signature": {
-              "Name": "v",
-              "Attributes": []
-            },
+            "Name": "v",
             "Value": "Jane"
           },
           "featureFilter": 4
         },
         {
           "Name": "",
-          "Description": null,
-          "FeatureName": "Style_Feature_6",
-          "element": {
-            "Signature": {
-              "Name": "ruby",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 4
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Style_Feature_7",
-          "element": {
-            "Signature": {
-              "Name": "rt",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 4
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Cue_Feature_2",
-          "element": {
-            "Signature": {
-              "Name": "2",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 2
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Cue_Feature_3_2",
-          "element": {
-            "Signature": {
-              "Name": "3",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 2
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Region_Feature_specialplace1",
-          "element": {
-            "Signature": {
-              "Name": "specialplace1",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 1
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Region_Feature_specialplace2",
-          "element": {
-            "Signature": {
-              "Name": "specialplace2",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 1
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Region_Feature_specialplace3",
-          "element": {
-            "Signature": {
-              "Name": "specialplace3",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 1
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Region_Feature_specialplace4",
-          "element": {
-            "Signature": {
-              "Name": "specialplace4",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 1
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Region_Feature_specialplace5",
-          "element": {
-            "Signature": {
-              "Name": "specialplace5",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 1
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Region_Feature_specialplace6",
-          "element": {
-            "Signature": {
-              "Name": "specialplace6",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 1
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Region_Feature_specialplace7",
-          "element": {
-            "Signature": {
-              "Name": "specialplace7",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 1
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Region_Feature_specialplace8",
-          "element": {
-            "Signature": {
-              "Name": "specialplace8",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 1
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Cue_Feature_PLACE6",
-          "element": {
-            "Signature": {
-              "Name": "PLACE6",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 2
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Cue_Feature_PLACE7",
-          "element": {
-            "Signature": {
-              "Name": "PLACE7",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 2
-        },
-        {
-          "Name": "",
-          "Description": null,
-          "FeatureName": "Cue_Feature_PLACE8",
-          "element": {
-            "Signature": {
-              "Name": "PLACE8",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "featureFilter": 2
-        },
-        {
-          "Name": "big style",
           "Description": "",
-          "FeatureName": "BIG",
+          "FeatureName": "Text Feature 6",
           "element": {
-            "Signature": {
-              "Name": "big",
-              "Attributes": []
-            },
+            "Name": "ruby",
             "Value": ""
           },
           "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": "",
+          "FeatureName": "Text Feature 7",
+          "element": {
+            "Name": "rt",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "",
+          "Description": "",
+          "FeatureName": "Caption Box _2",
+          "element": {
+            "Name": "2",
+            "Value": ""
+          },
+          "featureFilter": 2
+        },
+        {
+          "Name": "",
+          "Description": "",
+          "FeatureName": "Caption Box _3",
+          "element": {
+            "Name": "3",
+            "Value": ""
+          },
+          "featureFilter": 2
+        },
+        {
+          "Name": "",
+          "Description": "",
+          "FeatureName": "Caption Box _PLACE6",
+          "element": {
+            "Name": "PLACE6",
+            "Value": ""
+          },
+          "featureFilter": 2
+        },
+        {
+          "Name": "",
+          "Description": "",
+          "FeatureName": "Caption Box _PLACE7",
+          "element": {
+            "Name": "PLACE7",
+            "Value": ""
+          },
+          "featureFilter": 2
+        },
+        {
+          "Name": "",
+          "Description": "",
+          "FeatureName": "Caption Box _PLACE8",
+          "element": {
+            "Name": "PLACE8",
+            "Value": ""
+          },
+          "featureFilter": 2
         }
       ]
     }
@@ -358,25 +196,9 @@
           "Identifier": "1",
           "StartTime": 0.0,
           "EndTime": 10.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "",
           "CueElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "big",
-              "Attributes": []
-            },
+            "Name": "",
             "Value": ""
           },
           "TextSegments": [
@@ -386,10 +208,7 @@
                   "s": "This ",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     }
                   ]
@@ -398,17 +217,11 @@
                   "s": "is a ",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     },
                     {
-                      "Signature": {
-                        "Name": "i",
-                        "Attributes": []
-                      },
+                      "Name": "i",
                       "Value": ""
                     }
                   ]
@@ -417,24 +230,15 @@
                   "s": "complex",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     },
                     {
-                      "Signature": {
-                        "Name": "i",
-                        "Attributes": []
-                      },
+                      "Name": "i",
                       "Value": ""
                     },
                     {
-                      "Signature": {
-                        "Name": "b",
-                        "Attributes": []
-                      },
+                      "Name": "b",
                       "Value": ""
                     }
                   ]
@@ -443,10 +247,7 @@
                   "s": " ",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     }
                   ]
@@ -455,17 +256,11 @@
                   "s": "example",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     },
                     {
-                      "Signature": {
-                        "Name": "u",
-                        "Attributes": []
-                      },
+                      "Name": "u",
                       "Value": ""
                     }
                   ]
@@ -474,10 +269,7 @@
                   "s": " with ",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     }
                   ]
@@ -486,17 +278,11 @@
                   "s": "formatting",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     },
                     {
-                      "Signature": {
-                        "Name": "s",
-                        "Attributes": []
-                      },
+                      "Name": "s",
                       "Value": ""
                     }
                   ]
@@ -505,10 +291,7 @@
                   "s": ".",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     }
                   ]
@@ -526,25 +309,9 @@
           "Identifier": "2",
           "StartTime": 10.001,
           "EndTime": 20.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "",
           "CueElement": {
-            "Signature": {
-              "Name": "2",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "2",
             "Value": ""
           },
           "TextSegments": [
@@ -554,44 +321,21 @@
                   "s": "Here, we use ",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "Jane"
                     }
                   ]
                 },
                 {
-                  "s": "colors",
+                  "s": "colors, IDs, and classes.",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "Jane"
                     },
                     {
-                      "Signature": {
-                        "Name": "mood",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "mood.green",
                       "Value": "1"
-                    }
-                  ]
-                },
-                {
-                  "s": ", IDs, and classes.",
-                  "elements": [
-                    {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
-                      "Value": "Jane"
                     }
                   ]
                 },
@@ -603,17 +347,11 @@
                   "s": "Bonjour",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     },
                     {
-                      "Signature": {
-                        "Name": "span",
-                        "Attributes": []
-                      },
+                      "Name": "span",
                       "Value": "lang=\"fr\""
                     }
                   ]
@@ -622,10 +360,7 @@
                   "s": " we have 2 speakers and a language tag",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     }
                   ]
@@ -643,25 +378,9 @@
           "Identifier": "3",
           "StartTime": 20.001,
           "EndTime": 30.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "",
           "CueElement": {
-            "Signature": {
-              "Name": "3",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "3",
             "Value": ""
           },
           "TextSegments": [
@@ -671,10 +390,7 @@
                   "s": "There's also ",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     }
                   ]
@@ -683,17 +399,11 @@
                   "s": "positioning",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     },
                     {
-                      "Signature": {
-                        "Name": "ruby",
-                        "Attributes": []
-                      },
+                      "Name": "ruby",
                       "Value": ""
                     }
                   ]
@@ -702,24 +412,15 @@
                   "s": "top",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     },
                     {
-                      "Signature": {
-                        "Name": "ruby",
-                        "Attributes": []
-                      },
+                      "Name": "ruby",
                       "Value": ""
                     },
                     {
-                      "Signature": {
-                        "Name": "rt",
-                        "Attributes": []
-                      },
+                      "Name": "rt",
                       "Value": ""
                     }
                   ]
@@ -728,10 +429,7 @@
                   "s": " and line alignment.",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     }
                   ]
@@ -749,25 +447,9 @@
           "Identifier": "4",
           "StartTime": 30.001,
           "EndTime": 40.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "",
           "CueElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "",
             "Value": ""
           },
           "TextSegments": [
@@ -777,10 +459,7 @@
                   "s": "Multiple ",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     }
                   ]
@@ -789,19 +468,11 @@
                   "s": "nested ",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     },
                     {
-                      "Signature": {
-                        "Name": "c",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "c.green",
                       "Value": ""
                     }
                   ]
@@ -810,26 +481,15 @@
                   "s": "elements",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     },
                     {
-                      "Signature": {
-                        "Name": "c",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "c.green",
                       "Value": ""
                     },
                     {
-                      "Signature": {
-                        "Name": "b",
-                        "Attributes": []
-                      },
+                      "Name": "b",
                       "Value": ""
                     }
                   ]
@@ -838,11 +498,12 @@
                   "s": " are here too.",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
+                    },
+                    {
+                      "Name": "c.green",
+                      "Value": ""
                     }
                   ]
                 },
@@ -859,25 +520,9 @@
           "Identifier": "FIVE",
           "StartTime": 40.001,
           "EndTime": 50.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "",
           "CueElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "",
             "Value": ""
           },
           "TextSegments": [
@@ -887,12 +532,7 @@
                   "s": "Look, ",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "v.green",
                       "Value": "Jane"
                     }
                   ]
@@ -901,19 +541,11 @@
                   "s": "timestamps ",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "v.green",
                       "Value": "Jane"
                     },
                     {
-                      "Signature": {
-                        "Name": "TimeStamp",
-                        "Attributes": []
-                      },
+                      "Name": "TimeStamp",
                       "Value": "1"
                     }
                   ]
@@ -922,19 +554,11 @@
                   "s": " are",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "v.green",
                       "Value": "Jane"
                     },
                     {
-                      "Signature": {
-                        "Name": "TimeStamp",
-                        "Attributes": []
-                      },
+                      "Name": "TimeStamp",
                       "Value": "2"
                     }
                   ]
@@ -943,19 +567,11 @@
                   "s": " used",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "v.green",
                       "Value": "Jane"
                     },
                     {
-                      "Signature": {
-                        "Name": "TimeStamp",
-                        "Attributes": []
-                      },
+                      "Name": "TimeStamp",
                       "Value": "3"
                     }
                   ]
@@ -964,19 +580,11 @@
                   "s": ".",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "v.green",
                       "Value": "Jane"
                     },
                     {
-                      "Signature": {
-                        "Name": "TimeStamp",
-                        "Attributes": []
-                      },
+                      "Name": "TimeStamp",
                       "Value": "4"
                     }
                   ]
@@ -985,19 +593,11 @@
                   "s": ".",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "v.green",
                       "Value": "Jane"
                     },
                     {
-                      "Signature": {
-                        "Name": "TimeStamp",
-                        "Attributes": []
-                      },
+                      "Name": "TimeStamp",
                       "Value": "5"
                     }
                   ]
@@ -1006,19 +606,11 @@
                   "s": ".",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "v.green",
                       "Value": "Jane"
                     },
                     {
-                      "Signature": {
-                        "Name": "TimeStamp",
-                        "Attributes": []
-                      },
+                      "Name": "TimeStamp",
                       "Value": "6"
                     }
                   ]
@@ -1027,19 +619,11 @@
                   "s": ".",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "v.green",
                       "Value": "Jane"
                     },
                     {
-                      "Signature": {
-                        "Name": "TimeStamp",
-                        "Attributes": []
-                      },
+                      "Name": "TimeStamp",
                       "Value": "7"
                     }
                   ]
@@ -1048,19 +632,11 @@
                   "s": ".",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": [
-                          "green"
-                        ]
-                      },
+                      "Name": "v.green",
                       "Value": "Jane"
                     },
                     {
-                      "Signature": {
-                        "Name": "TimeStamp",
-                        "Attributes": []
-                      },
+                      "Name": "TimeStamp",
                       "Value": "8"
                     }
                   ]
@@ -1078,25 +654,9 @@
           "Identifier": "PLACE1",
           "StartTime": 50.001,
           "EndTime": 60.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "specialplace1",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "Region specialplace1",
           "CueElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "",
             "Value": ""
           },
           "TextSegments": [
@@ -1106,10 +666,7 @@
                   "s": "Viewport Anchor: 25%, 10% Region Anchor: 25%, 0%",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     }
                   ]
@@ -1127,25 +684,9 @@
           "Identifier": "PLACE2",
           "StartTime": 60.001,
           "EndTime": 70.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "specialplace2",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "Region specialplace2",
           "CueElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "",
             "Value": ""
           },
           "TextSegments": [
@@ -1155,10 +696,7 @@
                   "s": "Viewport Anchor: 75%, 90% Region Anchor: 75%, 100%",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "John"
                     }
                   ]
@@ -1176,25 +714,9 @@
           "Identifier": "PLACE3",
           "StartTime": 70.001,
           "EndTime": 80.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "specialplace3",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "Region specialplace3",
           "CueElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "",
             "Value": ""
           },
           "TextSegments": [
@@ -1204,10 +726,7 @@
                   "s": "Viewport Anchor: 20%, 50% Region Anchor: 0%, 50%",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "Anna"
                     }
                   ]
@@ -1225,25 +744,9 @@
           "Identifier": "PLACE4",
           "StartTime": 80.001,
           "EndTime": 90.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "specialplace4",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "Region specialplace4",
           "CueElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "",
             "Value": ""
           },
           "TextSegments": [
@@ -1253,10 +756,7 @@
                   "s": "Viewport Anchor: 80%, 50% Region Anchor: 100%, 50%",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "Bob"
                     }
                   ]
@@ -1274,25 +774,9 @@
           "Identifier": "PLACE5",
           "StartTime": 90.001,
           "EndTime": 100.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "specialplace5",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "Region specialplace5",
           "CueElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "",
             "Value": ""
           },
           "TextSegments": [
@@ -1302,10 +786,7 @@
                   "s": "Viewport Anchor: 40%, 25% Region Anchor: 40%, 25% - Lines: 2",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "Alice"
                     }
                   ]
@@ -1323,25 +804,9 @@
           "Identifier": "PLACE6",
           "StartTime": 100.001,
           "EndTime": 110.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "specialplace6",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "Region specialplace6",
           "CueElement": {
-            "Signature": {
-              "Name": "PLACE6",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "PLACE6",
             "Value": ""
           },
           "TextSegments": [
@@ -1351,10 +816,7 @@
                   "s": "Viewport Anchor: 50%, 75% Region Anchor: 50%, 75% - Lines: 1",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "Dave"
                     }
                   ]
@@ -1372,25 +834,9 @@
           "Identifier": "PLACE7",
           "StartTime": 110.001,
           "EndTime": 120.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "specialplace7",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "Region specialplace7",
           "CueElement": {
-            "Signature": {
-              "Name": "PLACE7",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "PLACE7",
             "Value": ""
           },
           "TextSegments": [
@@ -1400,10 +846,7 @@
                   "s": "Viewport Anchor: 50%, 50% Region Anchor: 50%, 50%",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "Eve"
                     }
                   ]
@@ -1421,25 +864,9 @@
           "Identifier": "PLACE8",
           "StartTime": 120.001,
           "EndTime": 130.0,
-          "RegionElement": {
-            "Signature": {
-              "Name": "specialplace8",
-              "Attributes": []
-            },
-            "Value": ""
-          },
+          "RegionFeature": "Region specialplace8",
           "CueElement": {
-            "Signature": {
-              "Name": "PLACE8",
-              "Attributes": []
-            },
-            "Value": ""
-          },
-          "TextElement": {
-            "Signature": {
-              "Name": "",
-              "Attributes": []
-            },
+            "Name": "PLACE8",
             "Value": ""
           },
           "TextSegments": [
@@ -1449,10 +876,7 @@
                   "s": "Viewport Anchor: 75%, 10% Region Anchor: 75%, 0%",
                   "elements": [
                     {
-                      "Signature": {
-                        "Name": "v",
-                        "Attributes": []
-                      },
+                      "Name": "v",
                       "Value": "Sam"
                     }
                   ]
@@ -1473,5 +897,6 @@
       "CurrentVariation": 0
     }
   ],
-  "currentCueGroupIndex": 0
+  "currentCueGroupIndex": 0,
+  "currentStyleGroupIndex": 0
 }

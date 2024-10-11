@@ -14,6 +14,8 @@ public class CueGroupsMenu : MonoBehaviour
     public static bool CueGroupsHaveChanges;
     public static Action CueGroupsChanged;
 
+    public Color[] TabColors;
+
 
     private void Awake()
     {
@@ -74,11 +76,11 @@ public class CueGroupsMenu : MonoBehaviour
         {
             if (i < count)
             {
-                CueGroupUIs[i].Configure(currentCueGroups[i], i,count + 1);
+                CueGroupUIs[i].Configure(currentCueGroups[i], i,count + 1,TabColors[i%TabColors.Length]);
             }
             else
             {
-                CueGroupUIs[i].Configure(null, i, count + 1);
+                CueGroupUIs[i].Configure(null, i, count + 1,Color.white);
             }
         }
 

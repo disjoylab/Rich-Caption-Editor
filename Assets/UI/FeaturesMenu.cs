@@ -81,7 +81,7 @@ public class FeaturesMenu : MonoBehaviour
         bool[] settingTypesUsed = new bool[(int)SettingTypes.COUNT];
         foreach (Setting setting in CurrentFeatureGroup.CurrentFeature().Settings)
         {
-            settingTypesUsed[(int)setting.SettingType] = true;
+            settingTypesUsed[(int)setting.GetSettingType()] = true;
         }
         return settingTypesUsed;
     }

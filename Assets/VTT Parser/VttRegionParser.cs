@@ -5,11 +5,10 @@ using UnityEngine;
 
 internal class VttRegionParser
 {
-    public static Style ProcessRegionBlock(List<string> lines)
+    public static Feature ProcessRegionBlock(List<string> lines)
     {
-        Style regionStyle = new Style();
-        FeatureGroup featureGroup = new FeatureGroup(FeatureManager.GetUniqueName("Region_Feature"));
-        Feature feature = new Feature("Imported_Region");
+        string featureGroupName = "";
+        Feature feature = new Feature("Imported Region");
         foreach (var line in lines)
         {
             var parts = line.Split(":");
@@ -19,32 +18,28 @@ internal class VttRegionParser
                 string settingValue = parts[1].Trim();
                 if (settingName == "id")
                 {
-                    featureGroup.Name = FeatureManager.GetUniqueName("Region_Feature_" + settingValue);
-                    regionStyle.element = new Element(settingValue); 
+                    featureGroupName = "Region " + settingValue; 
                 }
                 else
                 {
                     feature.Settings.Add(new Setting("Region_" + settingName, settingValue));
                 }
             }
-        }
-        regionStyle.SetFeature("Not Found");//hacky way to return this state, empty is a valid region while no settings is not valid
-        if (feature.Settings.Count > 0)
+        } 
+        if (feature.Settings.Count > 0 && !string.IsNullOrEmpty(featureGroupName))
         {
-            FeatureGroup ExistingFeatureGroup = FeatureManager.FindMatch(feature);
+            FeatureGroup ExistingFeatureGroup = FeatureManager.GetFeatureGroup(featureGroupName);
             if (ExistingFeatureGroup == null)
             {
-                featureGroup.AddFeature(feature,false);
+                FeatureGroup featureGroup = new FeatureGroup(featureGroupName);
+                featureGroup.AddFeature(feature, false);
                 FeatureManager.AddFeatureGroup(featureGroup);
             }
             else
             {
-                featureGroup = ExistingFeatureGroup;
+                ExistingFeatureGroup.AddFeature(feature, true);
             }
-            regionStyle.SetFeature(featureGroup.Name); 
-            
         }
-
-        return regionStyle;
+        return feature;
     }
 }
