@@ -1,6 +1,5 @@
- 
 using System.Collections.Generic;
-using UnityEngine; 
+using UnityEngine;
 
 public class ButtonContainer : MonoBehaviour
 {
@@ -8,32 +7,75 @@ public class ButtonContainer : MonoBehaviour
     public RectTransform contentView;
     public RectTransform RightSideScrollbar;
 
-    public void Configure(GameObject _buttonPrefab, int _count)
-    {        
-        float height = _buttonPrefab.GetComponent<RectTransform>().sizeDelta.y;
-        RectTransform rt = gameObject.GetComponent<RectTransform>();
-        bool HeightFits = rt.rect.height >= height * _count;
-        float width = rt.rect.width - (HeightFits ? 0 : RightSideScrollbar.rect.width); 
-        Vector2 contentSize = new Vector2(width, height * _count);
+    private void Awake()
+    {
+        MenuManager.MenuLayoutUpdated += OnMenuLayoutUpdated;
+    }
 
-        for (int i = 0; i < _count; i++)
+    private void OnDestroy()
+    {
+        MenuManager.MenuLayoutUpdated -= OnMenuLayoutUpdated;
+    }
+
+    private void OnMenuLayoutUpdated()
+    {
+        UpdateLayout();
+    }
+
+    public void Configure(GameObject buttonPrefab, int count)
+    {
+
+        // Create new buttons if needed
+        for (int i = buttons.Count; i < count; i++)
         {
-            if (buttons.Count <= i)
-            {
-                GameObject newButton = Instantiate(_buttonPrefab, contentView);
-                buttons.Add(newButton);
-            }
-            RectTransform buttonRt = buttons[i].GetComponent<RectTransform>();
-            buttonRt.sizeDelta = new Vector2(width, height);
-            buttonRt.anchoredPosition = new Vector2(0, i * -height);
+            GameObject newButton = Instantiate(buttonPrefab, contentView);
+            buttons.Add(newButton);
         }
 
-        for (int i = _count; i < buttons.Count; i++)
+        // Destroy extra buttons
+        for (int i = buttons.Count - 1; i >= count; i--)
         {
             Destroy(buttons[i]);
+            buttons.RemoveAt(i);
         }
-        buttons.RemoveRange(_count, buttons.Count - _count);
-        contentView.sizeDelta = contentSize;
+        UpdateLayout();
+    }
+
+    public void UpdateLayout()
+    {
+        //ADJUSTS TO DIFFERENT SIZED BUTTONS (currently no buttons are different sizes though)
+        //This would need to be called if the buttons change sizes like settings buttons that would resize based on the content.
+        if (buttons.Count == 0)
+        {
+            return;
+        }
+
+        RectTransform rt = GetComponent<RectTransform>();
+        float totalHeight = 0f;
+        List<float> buttonHeights = new List<float>();
+
+        foreach (var button in buttons)
+        {
+            float buttonHeight = button.GetComponent<RectTransform>().sizeDelta.y;
+            buttonHeights.Add(buttonHeight);
+            totalHeight += buttonHeight;
+        }
+
+        bool heightFits = rt.rect.height >= totalHeight;
+        float width = rt.rect.width - (heightFits ? 0 : RightSideScrollbar.rect.width);
+
+        contentView.sizeDelta = new Vector2(width, totalHeight);
+
+        float yOffset = 0f;
+
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            RectTransform buttonRt = buttons[i].GetComponent<RectTransform>();
+            float buttonHeight = buttonHeights[i];
+            buttonRt.sizeDelta = new Vector2(width, buttonHeight);
+            buttonRt.anchoredPosition = new Vector2(0, -yOffset);
+            yOffset += buttonHeight;
+        }
     }
 }
 

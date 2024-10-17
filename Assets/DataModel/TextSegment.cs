@@ -8,6 +8,7 @@ public class TextSegment
     [JsonIgnore]
     public List<CueChar> Content;     
     public List<CueString> StringContent;
+
     public TextSegment()
     {
         Content = new List<CueChar>();
@@ -72,14 +73,15 @@ public class TextSegment
 
         foreach (CueChar cueChar in Content)
         {
-            bool elementMatch = cueChar.elements.Exists(e => e.Match(_element));
-
-            if (elementMatch && !isHighlighted)
+            bool directMatch = cueChar.elements.Exists(e => e.Match(_element));
+            bool showAnyMatch =   _element.Name == CueUI.CLEAR_FORMATTING&& cueChar.elements.Count>0;
+            bool highlight = directMatch || showAnyMatch;
+            if (highlight && !isHighlighted)
             {
                 rawText += "<color=#FFFF00><u>";//can add colors 
                 isHighlighted = true;
             }
-            else if (!elementMatch && isHighlighted)
+            else if (!highlight && isHighlighted)
             {
                 rawText += "</u></color>";
                 isHighlighted = false;
@@ -93,7 +95,4 @@ public class TextSegment
 
         return rawText;
     }
-
-
-
 }

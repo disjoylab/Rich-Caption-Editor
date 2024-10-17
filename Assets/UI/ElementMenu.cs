@@ -6,9 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ElementMenu : MonoBehaviour
-{ 
+{
     public ButtonContainer elementsButtonContainer;
-    public GameObject ElementButtonPrefab; 
+    public GameObject ElementButtonPrefab;
     static ElementGroup CurrentElementGroup;
 
     public TMP_InputField ElementNameInput;
@@ -29,11 +29,12 @@ public class ElementMenu : MonoBehaviour
 
     private void Awake()
     {
-        CreateArrayObjects(); 
+        CreateArrayObjects();
     }
+
     void Start()
     {
-        ElementManager.ElementsChanged += OnElementsChanged;        
+        ElementManager.ElementsChanged += OnElementsChanged;
         DisplayElements();
     }
 
@@ -44,8 +45,8 @@ public class ElementMenu : MonoBehaviour
         for (int i = 0; i < ElementDefinition.MaxArrayCount; i++)
         {
             Version_ArrayInputs[i] = Version_ArrayContainer.buttons[i].GetComponentInChildren<TMP_InputField>();
-            Version_ArrayContainer.buttons[i].GetComponentInChildren<Text>().text = (i+1).ToString("00");
-            Version_ArrayInputs[i].onEndEdit.AddListener(delegate { GetCurrentElementInfo(); }); 
+            Version_ArrayContainer.buttons[i].GetComponentInChildren<Text>().text = (i + 1).ToString("00");
+            Version_ArrayInputs[i].onEndEdit.AddListener(delegate { GetCurrentElementInfo(); });
         }
     }
 
@@ -72,6 +73,8 @@ public class ElementMenu : MonoBehaviour
             elementsButtonContainer.buttons[i].GetComponent<ElementButton>().Configure(_elementNames[i]);
         }
         elementsButtonContainer.buttons[_elementNames.Count].GetComponent<ElementButton>().Configure("Add Element");
+        elementsButtonContainer.buttons[_elementNames.Count].GetComponent<ElementButton>().ElementToggle.isOn = false;
+        elementsButtonContainer.buttons[_elementNames.Count].GetComponent<ElementButton>().ElementToggle.enabled = false;
 
 
         //CURRENT ELEMENT
@@ -87,18 +90,18 @@ public class ElementMenu : MonoBehaviour
             var currentElementVersion = CurrentElementGroup.CurrentDefinition();
             if (currentElementVersion != null)
             {
-                Version_ElementDetailsInput.SetTextWithoutNotify( currentElementVersion.Description);
-                Version_CueLevelToggle.SetIsOnWithoutNotify( currentElementVersion.CueLevel);
+                Version_ElementDetailsInput.SetTextWithoutNotify(currentElementVersion.Description);
+                Version_CueLevelToggle.SetIsOnWithoutNotify(currentElementVersion.CueLevel);
                 Version_TextLevelToggle.SetIsOnWithoutNotify(currentElementVersion.TextLevel);
-                Version_ValueTypeDropDown.SetValueWithoutNotify((int)currentElementVersion.ValueType); 
+                Version_ValueTypeDropDown.SetValueWithoutNotify((int)currentElementVersion.ValueType);
                 Version_MaxInput.SetTextWithoutNotify(currentElementVersion.Max?.ToString() ?? "");
                 Version_MinInput.SetTextWithoutNotify(currentElementVersion.Min?.ToString() ?? "");
                 for (int i = 0; i < ElementDefinition.MaxArrayCount; i++)
-                {                    
+                {
                     Version_ArrayInputs[i].SetTextWithoutNotify(currentElementVersion.StringOptions[i]);
-                    Version_ArrayInputs[i].interactable = currentElementVersion.ValueType==ElementValueTypes.Array? i < currentElementVersion.Max.Value:i==0;
+                    Version_ArrayInputs[i].interactable = currentElementVersion.ValueType == ElementValueTypes.Array ? i < currentElementVersion.Max.Value : i == 0;
                 }
-                Version_MaxInput.gameObject.SetActive(currentElementVersion.ValueType == ElementValueTypes.Integer|| currentElementVersion.ValueType == ElementValueTypes.Array);
+                Version_MaxInput.gameObject.SetActive(currentElementVersion.ValueType == ElementValueTypes.Integer || currentElementVersion.ValueType == ElementValueTypes.Array);
                 Version_MinInput.gameObject.SetActive(currentElementVersion.ValueType == ElementValueTypes.Integer);
                 Version_ArrayContainer.gameObject.SetActive(currentElementVersion.ValueType == ElementValueTypes.Array);
 
@@ -108,7 +111,7 @@ public class ElementMenu : MonoBehaviour
             Version_NumberText.text = CurrentElementGroup.FeatureVersionString();
         }
     }
-     
+
     public void GetCurrentElementInfo()
     {
         if (CurrentElementGroup != null)
@@ -116,7 +119,7 @@ public class ElementMenu : MonoBehaviour
             string CurrentName = CurrentElementGroup.Name;
             string NewName = ElementNameInput.text;
             if (CurrentName != NewName)
-            { 
+            {
                 CurrentElementGroup.Name = NewName;
             }
             CurrentElementGroup.Description = ElementDetailsInput.text;
@@ -124,12 +127,12 @@ public class ElementMenu : MonoBehaviour
             CurrentElementGroup.CurrentDefinition().CueLevel = Version_CueLevelToggle.isOn;
             CurrentElementGroup.CurrentDefinition().TextLevel = Version_TextLevelToggle.isOn;
             CurrentElementGroup.CurrentDefinition().ValueType = (ElementValueTypes)Version_ValueTypeDropDown.value;
-            CurrentElementGroup.CurrentDefinition().Min = GetValueOrNull(Version_MinInput.text);           
-            CurrentElementGroup.CurrentDefinition().Max = GetValueOrNull(Version_MaxInput.text);            
+            CurrentElementGroup.CurrentDefinition().Min = GetValueOrNull(Version_MinInput.text);
+            CurrentElementGroup.CurrentDefinition().Max = GetValueOrNull(Version_MaxInput.text);
             CurrentElementGroup.CurrentDefinition().ClampMinMax();
             for (int i = 0; i < ElementDefinition.MaxArrayCount; i++)
             {
-                CurrentElementGroup.CurrentDefinition().StringOptions[i]= Version_ArrayInputs[i].text; 
+                CurrentElementGroup.CurrentDefinition().StringOptions[i] = Version_ArrayInputs[i].text;
             }
             ElementManager.ElementsHaveChanges = true;
             ElementManager.SaveElementGroupToJSON(CurrentElementGroup);
@@ -150,15 +153,17 @@ public class ElementMenu : MonoBehaviour
         return null; // In case input isn't a valid integer
     }
 
-    public static void SetCurrentElement(string _elementName)  
+    public static void SetCurrentElement(string _elementName)
     {
         CurrentElementGroup = ElementManager.GetElementGroup(_elementName);
         ElementManager.ElementsHaveChanges = true;
     }
+
     public static void SetElementActive(string _elementName, bool _active)
     {
         FeatureManager.FeaturesHaveChanges = true;
     }
+
     public void SetElementNextVersion(int _add)
     {
         if (CurrentElementGroup.IsLastVersion() && _add > 0)
@@ -169,6 +174,7 @@ public class ElementMenu : MonoBehaviour
         ElementManager.ElementsHaveChanges = true;
         ElementManager.SaveElementGroupToJSON(CurrentElementGroup);
     }
+
     public void DeleteCurrentVersion()
     {
         if (CurrentElementGroup != null)
@@ -178,7 +184,7 @@ public class ElementMenu : MonoBehaviour
             ElementManager.SaveElementGroupToJSON(CurrentElementGroup);
         }
     }
-    
+
     public void DeleteCurrentElement()
     {
         if (CurrentElementGroup != null)
@@ -187,7 +193,7 @@ public class ElementMenu : MonoBehaviour
             string currentName = CurrentElementGroup.Name;
             ElementManager.DeleteElementGroup(CurrentElementGroup);
 
-            int currentIndex = elementNames.FindIndex(e=>e==currentName);
+            int currentIndex = elementNames.FindIndex(e => e == currentName);
             int newIndex = (elementNames.Count > 1) ? Math.Max(0, currentIndex - 1) : -1;
             if (newIndex >= 0)
             {
@@ -201,5 +207,4 @@ public class ElementMenu : MonoBehaviour
             ElementManager.ElementsHaveChanges = true;
         }
     }
-
 }

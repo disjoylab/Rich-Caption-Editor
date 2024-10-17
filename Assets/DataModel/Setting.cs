@@ -42,7 +42,6 @@ public enum Cue_AlignTypes { none, start, center, end, left, right }
 public enum Cue_LineAlignTypes { start, center, end }
 public enum Cue_VerticalTypes { none, lr, rl }
 public enum Region_ScrollTypes { none, Up }
-
 public enum Style_FontWeightTypes { None, Normal, Bold, Bolder, Lighter, Numeric }
 public enum Style_FontStyleTypes { Normal, Italic, Oblique }
 public enum Style_TextDecorationTypes { None, Underline, Overline, LineThrough }
@@ -53,15 +52,14 @@ public class Setting
 
     [JsonProperty]
     SettingTypes SettingType;
-  //  public string Name;//redundant, setting type is the source of truth, this is just for importing and storing potential input errors
+    //  public string Name;//redundant, setting type is the source of truth, this is just for importing and storing potential input errors
 
     public string StringValue;
     public bool BoolValue;
     public int IntValue_1;
-   // public float FloatValue_1;
+
     public Position PositionValue_1;
     public ColorHolder ColorValue_1;
-
 
     public Cue_AlignTypes Cue_AlignType;
     public Cue_LineAlignTypes Cue_LineAlignType;
@@ -79,31 +77,23 @@ public class Setting
 
     public Setting()
     {
-        SettingType = SettingTypes.none; 
+        SettingType = SettingTypes.none;
         StringValue = "";
         IntValue_1 = 0;
-        //FloatValue_1 = 0;
         BoolValue = false;
         ColorValue_1 = (ColorHolder)Color.white;
         Cue_AlignType = Cue_AlignTypes.none;
         Cue_LineAlignType = Cue_LineAlignTypes.center;
         Cue_VerticalType = Cue_VerticalTypes.none;
-
         Region_ScrollType = Region_ScrollTypes.none;
-
         Style_FontWeightType = Style_FontWeightTypes.None;
         Style_FontStyleType = Style_FontStyleTypes.Normal;
         Style_TextDecorationType = Style_TextDecorationTypes.None;
-
-
-
-
         ErrorParsing = false;
     }
     public Setting(string _name, string _value)
-    { 
+    {
         IntValue_1 = 0;
-        //FloatValue_1 = 0;
         BoolValue = false;
         ColorValue_1 = (ColorHolder)Color.white;
         ErrorParsing = false;
@@ -140,7 +130,7 @@ public class Setting
                 SetPercent(StringValue);
                 break;
             case SettingTypes.Cue_SnapToLines:
-                BoolValue = StringValue.ToLower() == "true"|| StringValue.ToLower() == "t"|| StringValue.ToLower() == "y";
+                BoolValue = StringValue.ToLower() == "true" || StringValue.ToLower() == "t" || StringValue.ToLower() == "y";
                 break;
             case SettingTypes.Region_Width:
                 SetPercent(StringValue);
@@ -207,14 +197,11 @@ public class Setting
     }
 
     public Setting(Setting otherSetting)
-    { 
-
+    {
         SettingType = otherSetting.SettingType;
         StringValue = otherSetting.StringValue;
         IntValue_1 = otherSetting.IntValue_1;
-        //FloatValue_1 = otherSetting.FloatValue_1;
         BoolValue = otherSetting.BoolValue;
-         
         ColorValue_1 = otherSetting.ColorValue_1;
         PositionValue_1 = otherSetting.PositionValue_1;
         Equals(PositionValue_1, otherSetting.PositionValue_1);
@@ -226,7 +213,6 @@ public class Setting
         Style_FontWeightType = otherSetting.Style_FontWeightType;
         Style_FontStyleType = otherSetting.Style_FontStyleType;
         Style_TextDecorationType = otherSetting.Style_TextDecorationType;
-
     }
 
     public bool SetInt(string _stringValue)
@@ -238,9 +224,10 @@ public class Setting
         }
         return true;
     }
+
     public bool SetInt100(string _stringValue)
-    { 
-        float floatValue=0;
+    {
+        float floatValue = 0;
         if (!float.TryParse(_stringValue, out floatValue))
         {
             ErrorParsing = true;
@@ -249,6 +236,7 @@ public class Setting
         IntValue_1 = (int)(floatValue * 100);
         return true;
     }
+
     public void SetPercent(string _stringValue)
     {
         string value = _stringValue.Replace("%", "");
@@ -258,6 +246,7 @@ public class Setting
             ErrorParsing = true;
         }
     }
+
     public void SetPercentVector(string _stringValue)
     {
         string[] values = _stringValue.Replace("%", "").Split(',');
@@ -278,15 +267,12 @@ public class Setting
             ErrorParsing = true;
         }
     }
-
-
     public void SetPxOrPercent(string _stringValue)
     {
         BoolValue = true;
         float floatValue = 0;
         if (_stringValue.EndsWith("px"))
         {
-            
             if (float.TryParse(_stringValue.Replace("px", ""), out floatValue))
             {
                 IntValue_1 = (int)floatValue;
@@ -324,6 +310,7 @@ public class Setting
             ErrorParsing = true;
         }
     }
+
     public T GetEnum<T>(string _value) where T : struct, Enum
     {
         string adjValue = _value.Replace("-", "");
@@ -385,6 +372,7 @@ public class Setting
                 break;
         }
     }
+
     public override string ToString()
     {
         string valueString = SettingType switch
@@ -418,16 +406,16 @@ public class Setting
 
         return $"{GetSettingName()}: {valueString}";
     }
- 
+
     public bool IsMatch(Setting otherSetting)
     {
         if (otherSetting == null)
             return false;
 
-        return  
+        return
                 SettingType == otherSetting.SettingType &&
                 StringValue == otherSetting.StringValue &&
-                IntValue_1 == otherSetting.IntValue_1 && 
+                IntValue_1 == otherSetting.IntValue_1 &&
                 BoolValue == otherSetting.BoolValue &&
                 Equals(PositionValue_1, otherSetting.PositionValue_1) &&
                 Equals(ColorValue_1, otherSetting.ColorValue_1) &&
@@ -441,7 +429,7 @@ public class Setting
     }
 
     public string GetSettingName()
-    { 
+    {
         return GetSettingName(SettingType);
     }
 
@@ -462,9 +450,9 @@ public class Setting
             .Replace("Caption Box:", "Cue_")
             .Replace("Region:", "Region_")
             .Replace("Text:", "Style_");
-         
+
         formattedString = Regex.Replace(formattedString, @"\s+", "");
-         
+
         SettingType = (SettingTypes)Enum.Parse(typeof(SettingTypes), formattedString);
     }
 

@@ -1,0 +1,872 @@
+{
+  "ProjectName": "Double.Indemnity.CLIP.1944",
+  "Details": "\n",
+  "fileName": "Lloyd_Test.json",
+  "fileFolder": "C:\\Users\\lloyd\\Downloads\\Unity Projects\\Rich Caption Editor\\RichCaptionEditor\\RCE\\Assets\\TestFiles",
+  "videoFile": "Double.mp4",
+  "videoFolder": "C:\\Users\\lloyd\\Downloads\\Unity Projects\\Rich Caption Editor\\RichCaptionEditor\\RCE\\Assets\\Video",
+  "StyleGroups": [
+    {
+      "Styles": [
+        {
+          "Name": "Default",
+          "Description": "",
+          "FeatureName": "Default Feature",
+          "element": {
+            "Name": "Default",
+            "Value": ""
+          },
+          "featureFilter": 5
+        },
+        {
+          "Name": "Default Speech",
+          "Description": "",
+          "FeatureName": "",
+          "element": {
+            "Name": "Default",
+            "Value": "Speech"
+          },
+          "featureFilter": 7
+        },
+        {
+          "Name": "Bold",
+          "Description": "",
+          "FeatureName": "Bold",
+          "element": {
+            "Name": "b",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "Italic",
+          "Description": "",
+          "FeatureName": "Italic",
+          "element": {
+            "Name": "i",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "Underline",
+          "Description": "",
+          "FeatureName": "Underline",
+          "element": {
+            "Name": "u",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "Strikethrough",
+          "Description": "",
+          "FeatureName": "Strikethrough",
+          "element": {
+            "Name": "s",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "New Style",
+          "Description": "",
+          "FeatureName": "Katherine's Feature",
+          "element": {
+            "Name": "Hello",
+            "Value": ""
+          },
+          "featureFilter": 4
+        }
+      ]
+    }
+  ],
+  "CueGroups": [
+    {
+      "Name": "Speech",
+      "Cues": [
+        {
+          "Identifier": "1",
+          "StartTime": 46.941,
+          "EndTime": 49.402,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "You're a smart insurance man,\naren't you, Mr. Neff?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "2",
+          "StartTime": 49.443,
+          "EndTime": 52.029,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Well, ",
+                  "elements": []
+                },
+                {
+                  "s": "I've been",
+                  "elements": [
+                    {
+                      "Name": "i",
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": " at it 11 years",
+                  "elements": [
+                    {
+                      "Name": "b",
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": "\nDoing pretty well?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "3",
+          "StartTime": 52.071,
+          "EndTime": 53.448,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "It's a living.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "4",
+          "StartTime": 54.198,
+          "EndTime": 57.744,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "You handle just automobile\ninsurance, or all kinds?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "5",
+          "StartTime": 57.827,
+          "EndTime": 59.489,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "All kinds. Fire,\nearthquake, theft,\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "6",
+          "StartTime": 59.514,
+          "EndTime": 61.247,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "public liability,\ngroup insurance...\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "7",
+          "StartTime": 61.331,
+          "EndTime": 63.75,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "industrial stuff and so on,\nright down the line.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "8",
+          "StartTime": 63.917,
+          "EndTime": 65.168,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Accident insurance?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "9",
+          "StartTime": 65.251,
+          "EndTime": 67.462,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Accident insurance?\nSure, Mrs. Dietrichson.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "10",
+          "StartTime": 69.422,
+          "EndTime": 72.592,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Wish you'd tell me what's\nengraved on that anklet.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "11",
+          "StartTime": 73.051,
+          "EndTime": 75.554,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Just my name. As, for instance?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "12",
+          "StartTime": 77.139,
+          "EndTime": 78.89,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Phyllis. Phyllis?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "13",
+          "StartTime": 79.558,
+          "EndTime": 82.352,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "I think I like that.\nBut you're not sure?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "14",
+          "StartTime": 82.436,
+          "EndTime": 85.564,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "I'd have to drive it around\nthe block a couple of times.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "15",
+          "StartTime": 85.647,
+          "EndTime": 88.4,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Mr. Neff, why don't you drop\nby tomorrow evening around 8:30?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "16",
+          "StartTime": 88.442,
+          "EndTime": 90.319,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "He'll be in then. Who?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "17",
+          "StartTime": 90.402,
+          "EndTime": 93.614,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "My husband. You were anxious\nto talk to him, weren't you?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "18",
+          "StartTime": 93.697,
+          "EndTime": 96.617,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Yeah, I was, but I'm sort of\ngetting over the idea...\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "19",
+          "StartTime": 96.659,
+          "EndTime": 98.035,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "if you know what I mean.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "20",
+          "StartTime": 98.119,
+          "EndTime": 101.539,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "There's a speed limit in this\nstate, Mr. Neff. 45 miles an hour.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "21",
+          "StartTime": 101.622,
+          "EndTime": 104.875,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "How fast was I going, officer?\nI'd say around 90.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "22",
+          "StartTime": 105.167,
+          "EndTime": 107.607,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Suppose you get down off your\nmotorcycle and give me a ticket.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "23",
+          "StartTime": 107.628,
+          "EndTime": 109.881,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Suppose I let you off\nwith a warning this time.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "24",
+          "StartTime": 109.964,
+          "EndTime": 111.674,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Suppose it doesn't take.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "25",
+          "StartTime": 111.758,
+          "EndTime": 114.135,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Suppose I have to whack you\nover the knuckles.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "26",
+          "StartTime": 114.177,
+          "EndTime": 117.096,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Suppose I bust out crying and\nput my head on your shoulder.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "27",
+          "StartTime": 117.138,
+          "EndTime": 120.266,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Suppose you try putting it\non my husband's shoulder.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "28",
+          "StartTime": 120.35,
+          "EndTime": 121.851,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "That tears it.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "29",
+          "StartTime": 126.147,
+          "EndTime": 129.526,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "8:30 tomorrow evening then.\nThat's what I suggested.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "30",
+          "StartTime": 129.609,
+          "EndTime": 132.279,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Will you be here, too?\nI guess so, I usually am.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "31",
+          "StartTime": 132.362,
+          "EndTime": 134.656,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "Same chair, same perfume,\nsame anklet?\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "32",
+          "StartTime": 134.74,
+          "EndTime": 136.783,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "I wonder if I know\nwhat you mean.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "33",
+          "StartTime": 137.784,
+          "EndTime": 139.661,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "I wonder if you wonder.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "34",
+          "StartTime": 143.332,
+          "EndTime": 145.751,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "It was a hot afternoon",
+                  "elements": [
+                    {
+                      "Name": "i",
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": "\nand I can still remember...\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        },
+        {
+          "Identifier": "35",
+          "StartTime": 145.834,
+          "EndTime": 148.754,
+          "RegionFeature": "",
+          "CueElement": {
+            "Name": "",
+            "Value": ""
+          },
+          "TextSegments": [
+            {
+              "StringContent": [
+                {
+                  "s": "the smell of honeysuckle",
+                  "elements": [
+                    {
+                      "Name": "i",
+                      "Value": ""
+                    }
+                  ]
+                },
+                {
+                  "s": "\nall along that street.\n",
+                  "elements": []
+                }
+              ]
+            }
+          ],
+          "CurrentTextSegment": 0
+        }
+      ],
+      "TextVariations": [
+        "Standard English"
+      ],
+      "CurrentVariation": 0
+    }
+  ],
+  "currentCueGroupIndex": 0,
+  "currentStyleGroupIndex": 0
+}

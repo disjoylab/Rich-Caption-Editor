@@ -73,4 +73,9 @@ public class Style
         return element.Name.ToLower() == "default" &&
          (string.IsNullOrEmpty(element.Value) || element.Value == name);
     }
+    internal bool IsMatch(Style _other)
+    {
+        return _other.element.IsEqual(element) && _other.FeatureName == FeatureName;
+    
+    }
 }

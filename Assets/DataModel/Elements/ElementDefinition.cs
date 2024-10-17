@@ -8,7 +8,6 @@ public enum ElementValueTypes {None=0,Integer=1, Text=2, Array=3 }
 public class ElementDefinition
 {
     public string Description;
-    //public ElementValueTypes ElementType; 
     public int? Min;
     public int? Max;
     public ElementValueTypes ValueType;
@@ -25,8 +24,7 @@ public class ElementDefinition
         ValueType = ElementValueTypes.None;
         StringOptions = new List<string>(MaxArrayCount);
         StringOptions.AddRange(Enumerable.Repeat("", MaxArrayCount)); 
-    }
-   
+    }   
 
     internal void ClampMinMax()
     {
@@ -44,10 +42,10 @@ public class ElementDefinition
             Max = Mathf.Clamp(max, 1, MaxArrayCount);
         }
     }
+
     public List<string> GetStringOptions()
     {
         int count = Max.HasValue && Max.Value > 0 ? Max.Value : 1;
         return StringOptions.Take(count).ToList();
     }
-
 }

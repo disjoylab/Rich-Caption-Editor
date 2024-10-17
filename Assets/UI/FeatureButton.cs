@@ -31,8 +31,7 @@ public class FeatureButton : MonoBehaviour
             featureToggle.isOn = featureGroup.Active;
         }
        
-        buttonImage.color = featureToggle.isOn ? Color.white : new Color(.8f, .8f, .8f);
-        
+        buttonImage.color = featureToggle.isOn ? Color.white : new Color(.8f, .8f, .8f);        
     }
 
     public void SetCurrentFeature()
@@ -46,6 +45,7 @@ public class FeatureButton : MonoBehaviour
         }
         FeaturesMenu.SetCurrentFeature(myFeature);
     }
+
     public void SetFeatureGroupActive()
     {
         FeatureGroup featureGroup = FeatureManager.GetFeatureGroup(myFeature); 

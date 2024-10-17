@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 [Flags]
 public enum FeatureFilter { None = 0, Region = 1, Cue = 2, Text = 4, ALL = Region | Cue | Text }
 
-
 [Serializable]
 public class FeatureGroup
 {
@@ -45,9 +44,7 @@ public class FeatureGroup
     public string[] GetFeatureVersionNames()
     {         
         return FeatureVersions.Select(f => f.Description).ToArray();
-    }
-
-  
+    }  
 
     public bool AddFeature(Feature _feature,bool _checkExists)
     {
@@ -73,10 +70,12 @@ public class FeatureGroup
         CurrentVersion = UnityEngine.Mathf.Clamp(CurrentVersion , 0, FeatureVersions.Count - 1);
         return FeatureVersions[CurrentVersion];
     }
+
     public void AddCurrentVersion(int _add)
     {
         CurrentVersion = UnityEngine.Mathf.Clamp(CurrentVersion+ _add,0, FeatureVersions.Count-1);
     }
+
     public bool IsMatch(Feature _feature)
     {
         foreach (Feature feature in FeatureVersions)
@@ -88,6 +87,7 @@ public class FeatureGroup
         }
         return false;
     }
+
     internal bool IsFeatureType(FeatureFilter _featureFilter)
     {
         foreach (Feature feature in FeatureVersions)
@@ -99,6 +99,7 @@ public class FeatureGroup
         }
         return false;
     }
+
     internal bool IsLastVersion()
     {
        return CurrentVersion + 1 >= FeatureVersions.Count;
@@ -120,7 +121,6 @@ public class FeatureGroup
         return result;
     }
 
-
     internal void CreateNewVersion()
     {
         Feature feature = new Feature("New Version " + (FeatureVersions.Count + 1));
@@ -130,6 +130,7 @@ public class FeatureGroup
         }
         FeatureVersions.Add(feature);
     }
+
     public string FeatureVersionString()
     { 
         return $"V: {(CurrentVersion + 1)} / {FeatureVersions.Count}";

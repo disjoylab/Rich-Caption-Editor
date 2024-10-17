@@ -3,30 +3,28 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
+using UnityEngine.Networking;
 
 // Manages the project loading, saving, and importing VTTs or SRTs  
 
 public class ProjectManager : MonoBehaviour
 {
     public static ProjectManager Instance;
-    public RCEProject CurrentRCEProject; 
-    public bool Quick_Fix;
-    public  string FileFolder; 
+    public RCEProject CurrentRCEProject;  
+    public string FileFolder; 
     public FileInfo fileInfo;
 
     public static bool ProjectHasChanges;
-    public static Action ProjectChanged; //simple way to update UI elements once after any change
+    public static Action ProjectChanged; //simple way to update UI elements once after any change, may wantto make this more granular
+    public Color[] CueGroupColors;
+        
     private void Awake()
     {
         Instance = this;
     }
     void Update()
-    {        
-        if (Quick_Fix)
-        {
-            Quick_Fix = false;
-            QuickFix();
-        }
+    {                
         if (ProjectHasChanges)
         {
             ProjectHasChanges = false;
@@ -34,7 +32,7 @@ public class ProjectManager : MonoBehaviour
         }
     }
 
-   public void LoadProjectFromJSON(string _fileFolder, string _fileName)
+   public void LoadProjectFromLocalFile(string _fileFolder, string _fileName)
     {
         if (!_fileName.EndsWith(".json"))
         {
@@ -46,27 +44,7 @@ public class ProjectManager : MonoBehaviour
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);
-            CurrentRCEProject = JsonConvert.DeserializeObject<RCEProject>(json);
-            CurrentRCEProject.fileName = _fileName.Replace(".json", "");
-            if (string.IsNullOrWhiteSpace(CurrentRCEProject.ProjectName))
-            {
-                CurrentRCEProject.ProjectName = CurrentRCEProject.fileName.Replace(".json", "");
-                if (string.IsNullOrWhiteSpace(CurrentRCEProject.ProjectName))
-                {
-                    CurrentRCEProject.ProjectName = CurrentRCEProject.fileName;
-                }
-            }
-            foreach (var cueGroup in CurrentRCEProject.CueGroups)
-            {
-                foreach (var cue in cueGroup.Cues)
-                {
-                    foreach (var textSegment in cue.TextSegments)
-                    {
-                        textSegment.CueStringToCueChar(); 
-                    }
-                }
-            }
-            ProjectHasChanges = true;
+            ParseJson(_fileName, json);
         }
         else
         {
@@ -74,50 +52,87 @@ public class ProjectManager : MonoBehaviour
         }
     }
 
-    public void SaveProject()
+    internal void LoadProjectFromURL(string jsonFileUrl)
     {
-        SaveProjectAsJSON(FileFolder);
+        StartCoroutine(LoadJsonFromServer(jsonFileUrl)); 
     }
-
-    void SaveProjectAsJSON(string _fileFolder)
+    public IEnumerator LoadJsonFromServer(string jsonFileUrl)
     {
-        foreach (var cueGroup in CurrentRCEProject.CueGroups)
+        // Use UnityWebRequest to fetch the JSON file from the server
+        UnityWebRequest jsonRequest = UnityWebRequest.Get(jsonFileUrl);
+        yield return jsonRequest.SendWebRequest();
+
+        if (jsonRequest.result == UnityWebRequest.Result.Success)
         {
-            foreach (var cue in cueGroup.Cues)
-            {
-                foreach (var textSegment in cue.TextSegments)
-                {
-                    textSegment.CueCharToCueString();
-                }
-            }
+            string json = jsonRequest.downloadHandler.text;
+            ParseJson(Path.GetFileName( jsonFileUrl), json); 
         }
-
-        string filePath = Path.Combine(_fileFolder, CurrentRCEProject.GetFileName(".json"));
-         
-            string json = JsonConvert.SerializeObject(CurrentRCEProject, Formatting.Indented);
-            File.WriteAllText(filePath, json);
-         
+        else
+        {
+            Debug.LogError($"Failed to load JSON from server: {jsonRequest.error}");
+        }
     }
-     
-    public void LoadFileFromVTTorSRT(string _fileFolder, string _fileName)
+
+    private void ParseJson(string _fileName, string json)
+    {
+        CurrentRCEProject = JsonConvert.DeserializeObject<RCEProject>(json);
+        CurrentRCEProject.FileName = _fileName;
+        if (string.IsNullOrWhiteSpace(CurrentRCEProject.ProjectName))
+        {
+            CurrentRCEProject.ProjectName = CurrentRCEProject.FileName.Replace(".json", "");
+        }
+        CurrentRCEProject.ConvertCueStringsToCueChars();
+        LoadVideoFile(CurrentRCEProject.VideoFile);
+        ProjectHasChanges = true;
+    }
+
+    public void SaveProject (string _fileFolder, string _fileName)
+    {
+        CurrentRCEProject.ConvertCueCharsToCueStrings();
+        CurrentRCEProject.FileName = _fileName;
+        string filePath = Path.Combine(_fileFolder, _fileName);         
+        string json = JsonConvert.SerializeObject(CurrentRCEProject, Formatting.Indented);
+        File.WriteAllText(filePath, json);
+        if (string.IsNullOrEmpty(CurrentRCEProject.ProjectName))
+        {
+            CurrentRCEProject.ProjectName = _fileName.Replace(".json", "");
+            ProjectHasChanges = true;
+        } 
+    }
+
+    //Modified to import Current CueGroup Can be changed back to import entire project or add toggle to do either
+    public void ImportFileFromVTTorSRT(string _fileFolder, string _fileName) 
     {
         if (!(_fileName.EndsWith(".vtt") || _fileName.EndsWith(".srt")))
         {
             Debug.LogError($"{_fileName} requires .vtt or .srt extension");
         }
         string filePath = Path.Combine(_fileFolder, _fileName);
-        CurrentRCEProject = VTTParser.LoadVTT(filePath);
-        CurrentRCEProject.fileName = _fileName.Replace(".vtt", "");
-        CurrentRCEProject.fileName = CurrentRCEProject.fileName.Replace(".srt", "");
-        if (string.IsNullOrWhiteSpace(CurrentRCEProject.ProjectName))
-        {
-            CurrentRCEProject.ProjectName = CurrentRCEProject.fileName;
-        }
+        var ImportRCEProject = VTTParser.LoadVTT(filePath);
+        CueGroup importedCueGroup = ImportRCEProject.GetCurrentCueGroup();
+        importedCueGroup.Name = CurrentRCEProject.GetCurrentCueGroup().Name;
+        CurrentRCEProject.SetCurrentCueGroup(importedCueGroup);
+        CurrentRCEProject.AddMapping(ImportRCEProject.GetCurrentStyleGroup()); 
         ProjectHasChanges = true;
     }
-    public void QuickFix()
+
+    internal void LoadVideoFile(string _fileName)
     {
-        //TODO Could this be deleted?
+        if (CurrentRCEProject!=null)
+        {
+            CurrentRCEProject.VideoFile = _fileName; 
+        }
+        VideoManager.LoadVideo(_fileName);
+    }
+    public void NewProject()
+    {
+        CurrentRCEProject = new RCEProject("Speech"); 
+        CurrentRCEProject.FileName = "New Project";        
+    }
+    public static Color GetCueGroupColor(int index)
+    {
+        return Instance.CueGroupColors[index % Instance.CueGroupColors.Length];
 
     }
+
 }

@@ -42,6 +42,12 @@ public class ElementTool : MonoBehaviour
         Element_Value_DropDown.ClearOptions();
         Element_Value_Input.SetTextWithoutNotify("");
         ElementGroup group = ElementManager.GetElementGroup(_elementName);
+        if (group==null)
+        {
+            Element_Value_DropDown.gameObject.SetActive(false);
+            Element_Value_Input.gameObject.SetActive(false);
+            return;
+        }
         ElementDefinition elementDefinition = group.CurrentDefinition();
         Element_Value_DropDown.gameObject.SetActive(elementDefinition.ValueType == ElementValueTypes.Array);
         Element_Value_Input.gameObject.SetActive(elementDefinition.ValueType == ElementValueTypes.Integer || elementDefinition.ValueType == ElementValueTypes.Text);
@@ -69,14 +75,21 @@ public class ElementTool : MonoBehaviour
     internal Element GetElement()
     {
         Element e = new Element(Element_Name_Text.text);
-        ElementDefinition elementDefinition = ElementManager.GetElementGroup(e.Name).CurrentDefinition();
-        if (elementDefinition.ValueType == ElementValueTypes.Array)
+        ElementGroup eg = ElementManager.GetElementGroup(e.Name);
+        if (eg != null)
         {
-            e.Value = Element_Value_DropDown.options[Element_Value_DropDown.value].text;
-        }
-        if (elementDefinition.ValueType == ElementValueTypes.Integer || elementDefinition.ValueType == ElementValueTypes.Text)
-        {
-            e.Value = Element_Value_Input.text;
+            ElementDefinition elementDefinition = eg.CurrentDefinition();
+            if (elementDefinition != null)
+            {
+                if (elementDefinition.ValueType == ElementValueTypes.Array)
+                {
+                    e.Value = Element_Value_DropDown.options[Element_Value_DropDown.value].text;
+                }
+                if (elementDefinition.ValueType == ElementValueTypes.Integer || elementDefinition.ValueType == ElementValueTypes.Text)
+                {
+                    e.Value = Element_Value_Input.text;
+                }
+            } 
         }
         return e;
     }

@@ -24,7 +24,7 @@ public class SettingPanel : MonoBehaviour
 
     public GameObject DropdownObject_1;
     public TMP_Dropdown dropdown_1;
-
+   
     public void Configure(Setting _setting)
     {
         // Configures the panel with the given setting.
@@ -188,11 +188,13 @@ public class SettingPanel : MonoBehaviour
         _dropdown.AddOptions(new List<string>(enumNames));
         _dropdown.SetValueWithoutNotify(_selected);
     }
+
     public void DeleteMySetting()
     {
         // Deletes the current setting.
         FeaturesMenu.DeleteSetting(mySetting);
     }
+
     public void GetValues()
     {
         // Retrieves the values from the input fields and updates the setting.

@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 
 // This changes the color and size of each character in a TextMeshProUGUI component.
-
 public class TextColorAndSizeChanger : MonoBehaviour
 {
     public TextMeshProUGUI textMeshPro;

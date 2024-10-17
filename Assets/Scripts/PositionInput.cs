@@ -11,7 +11,6 @@ public class PositionInput : MonoBehaviour
     { 
         inputField_X.SetTextWithoutNotify(((int)(P.X)).ToString());
         inputField_Y.SetTextWithoutNotify(((int)(P.Y)).ToString()); 
-
     }
 
     public string GetPositionString()

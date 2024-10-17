@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 [Serializable]
 public class Cue
-{    
+{
     public string Identifier;
     public float StartTime;
     public float EndTime;
@@ -12,6 +13,21 @@ public class Cue
     public Element CueElement; 
     public List<TextSegment> TextSegments;//TEXT VARIATIONS
     public int CurrentTextSegment = 0;
+
+    public static Action<Cue> CueChanged;
+    [JsonIgnore]
+    public bool Deleted { get; private set; } = false;
+
+    public void MarkAsDeleted()
+    {
+        Deleted = true;
+        TriggerChanged();
+    }
+
+    public void TriggerChanged()
+    {
+        CueChanged?.Invoke(this);
+    }
 
     internal TextSegment GetCurrentTextSegment()
     { 
@@ -24,8 +40,8 @@ public class Cue
             TextSegments.Add(new TextSegment());
         }
         return TextSegments[CurrentTextSegment];
-    }
-    
+    }    
+
     public Cue(string _identifier)
     { 
         Identifier = _identifier;
@@ -40,8 +56,7 @@ public class Cue
 
     internal Cue Copy()
     {
-        var copy = new Cue(Identifier);
-
+        Cue copy = new Cue(Identifier);
         copy.StartTime = StartTime;
         copy.EndTime = EndTime;
         copy.RegionFeature = RegionFeature;
@@ -52,7 +67,7 @@ public class Cue
         }).ToList();
         copy.CurrentTextSegment = CurrentTextSegment;
         return copy;
-    }
+    }    
 }
 
 

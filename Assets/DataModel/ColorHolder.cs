@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public struct ColorHolder
+public struct ColorHolder //json does not work nice with unity Color object
 {
     public float R;
     public float G;
@@ -31,5 +31,4 @@ public struct ColorHolder
     {
         return $"RGBA({R:F2}, {G:F2}, {B:F2}, {A:F2})";
     }
-
 }

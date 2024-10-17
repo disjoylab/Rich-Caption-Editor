@@ -84,4 +84,8 @@ public struct CueChar
         }
     }
 
+    internal void ClearElements()
+    {
+        elements.Clear();
+    }
 }

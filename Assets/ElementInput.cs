@@ -23,14 +23,17 @@ public class ElementInput : MonoBehaviour
         ConfigureValueOptions(Element_Name_Dropdown.options[Element_Name_Dropdown.value].text, "");
         ElementInputChanged?.Invoke();
     }
+
     private void ValueInputChanged(int _value)
     {
         ElementInputChanged?.Invoke();
     }
+
     private void ValueDropDownChanged(string _text)
     {
         ElementInputChanged?.Invoke();
     }
+
     internal Element GetElement()
     {
         Element e = new Element(Element_Name_Dropdown.options[Element_Name_Dropdown.value].text);
@@ -39,7 +42,7 @@ public class ElementInput : MonoBehaviour
         {
             e.Value = Element_Value_DropDown.options[Element_Value_DropDown.value].text;
         }
-        if (elementDefinition.ValueType == ElementValueTypes.Integer || elementDefinition.ValueType == ElementValueTypes.Text)
+        if (elementDefinition.ValueType == ElementValueTypes.Integer || elementDefinition.ValueType == ElementValueTypes.Text|| e.Name.ToLower()=="default")
         { 
             e.Value = Element_Value_Input.text;
         }
@@ -52,19 +55,31 @@ public class ElementInput : MonoBehaviour
         Element_Name_Dropdown.ClearOptions();
         Element_Value_DropDown.ClearOptions();
     }
-
-    //THIS IS CONFIGURED TO FILTER ONLY CUE LEVEL ELEMENTS 
-    public void DisplayElementDetails(Element _element)
+     
+    public void DisplayElementDetails(Element _element, bool cue, bool text)
     {
         string elementName = _element.Name;
         string elementValue = _element.Value;
 
-
         List<string> CueElementNames = new List<string>();
         CueElementNames.Add("");
         List<string> elements = new List<string>();
-         
-        elements.AddRange(ElementManager.GetCueLevelElementGroupNames());
+        if (cue && !text)
+        {
+            elements.AddRange(ElementManager.GetCueLevelElementGroupNames());
+        }
+        if (!cue && text)
+        {
+            elements.AddRange(ElementManager.GetTextLevelElementGroupNames());
+        }
+        if (cue && text)
+        {
+            elements.AddRange(ElementManager.GetAllElementGroupNames(true));
+        }
+        if (!elements.Contains(elementName))
+        {
+            elements.Add(elementName);
+        }
          
         foreach (var e in elements)
         {
@@ -86,10 +101,16 @@ public class ElementInput : MonoBehaviour
     {
         Element_Value_DropDown.ClearOptions();
         Element_Value_Input.text = "";
-        ElementGroup group = ElementManager.GetElementGroup(elementName); 
+        
+        ElementGroup group = ElementManager.GetElementGroup(elementName);
+        if (group==null)
+        {
+            return;
+        }
+
         ElementDefinition elementDefinition = group.CurrentDefinition();
         Element_Value_DropDown.gameObject.SetActive(elementDefinition.ValueType == ElementValueTypes.Array);
-        Element_Value_Input.gameObject.SetActive(elementDefinition.ValueType == ElementValueTypes.Integer || elementDefinition.ValueType == ElementValueTypes.Text);
+        Element_Value_Input.gameObject.SetActive(elementDefinition.ValueType == ElementValueTypes.Integer || elementDefinition.ValueType == ElementValueTypes.Text|| elementName.ToLower() == "default");
         if (elementDefinition.ValueType == ElementValueTypes.Array)
         {
             List<string> valueOptions = new List<string>();
@@ -108,7 +129,7 @@ public class ElementInput : MonoBehaviour
             Element_Value_Input.text = elementValue;
             Element_Value_Input.contentType = TMP_InputField.ContentType.IntegerNumber;
         }
-        if (elementDefinition.ValueType == ElementValueTypes.Text)
+        if (elementDefinition.ValueType == ElementValueTypes.Text||elementName.ToLower()=="default")
         {
             Element_Value_Input.text = elementValue;
             Element_Value_Input.contentType = TMP_InputField.ContentType.Standard;

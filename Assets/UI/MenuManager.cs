@@ -5,28 +5,47 @@ using UnityEngine;
 
 [Serializable]
     public enum MenuStates { File, CueGroup, Elements, Features, Styles, COUNT }
-[ExecuteInEditMode]
+
 public class MenuManager : MonoBehaviour
 {
     public static MenuStates CurrentMenuState;
     public static Action<MenuStates> CurrentMenuStateChanged;
-    public float CurrentVideoScale;
-    public static float TargetVideoScale = 1; 
+    public static Action MenuLayoutUpdated;
+    public static float TargetVideoScale; 
     public RectTransform VideoPanel; //
     public RectTransform TopBar;
     public RectTransform MainWindow;
     public RectTransform CueWindow;
+    public RectTransform BottomBar;//currently no responsive behavior
     Vector2 ScreenSize = Vector2.zero;
     public bool MainMenuFullscreen;
+     
+    const float TOP_BAR_HEIGHT = 60;
+    const float BOTTOM_BAR_HEIGHT = 85;
+    const float VIDEO_WIDTH = 660;
+    const float VIDEO_HEIGHT = 500;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
-        TargetVideoScale = 1;
-        CurrentMenuStateChanged?.Invoke(CurrentMenuState);
+        TargetVideoScale = 1.15f; 
+        CurrentMenuStateChanged += OnCurrentMenuStateChanged;
+    }
+    private void OnDestroy()
+    {
+        CurrentMenuStateChanged -= OnCurrentMenuStateChanged;
     }
 
-    // Update is called once per frame
+    private void OnCurrentMenuStateChanged(MenuStates _menuState)
+    {
+        SetPanelPositions();
+    }
+
+    void Start()
+    {
+        CurrentMenuStateChanged?.Invoke(CurrentMenuState); 
+    }
+
     void Update()
     {
         Vector2 currentScreenSize = new Vector2(Screen.width, Screen.height);
@@ -35,41 +54,80 @@ public class MenuManager : MonoBehaviour
             ScreenSize = currentScreenSize;
             SetPanelPositions();
         }
-        if (CurrentVideoScale!= TargetVideoScale)
+        if (VideoPanel.localScale.x != TargetVideoScale)
         {
-            CurrentVideoScale = Mathf.Lerp(CurrentVideoScale, TargetVideoScale, Time.unscaledDeltaTime * 5);
             SetPanelPositions();
         } 
     } 
-
     public static void SetCurrentMenuState(MenuStates _menuState)
     {
         if (CurrentMenuState != _menuState)
         {
             CurrentMenuState = _menuState;
-            CurrentMenuStateChanged?.Invoke(CurrentMenuState);
+            CurrentMenuStateChanged?.Invoke(CurrentMenuState);            
         }
     }
-    public void ToggleFullscreen() //****************** TODO SAVE PLAY/PAUSE STATE > PAUSE ON MAX, RESTORE STATE ON MIN
-    {
-        MainMenuFullscreen = !MainMenuFullscreen;
-        SetPanelPositions();
-    }
-    private void SetPanelPositions()
-    {
-        ClampVideoScale();
-        VideoPanel.localScale = MainMenuFullscreen ? Vector2.zero: new Vector2(CurrentVideoScale, CurrentVideoScale);
-        Vector2 VideoPanelSize = new Vector2(660, 560) * CurrentVideoScale;
 
-        TopBar.sizeDelta = MainMenuFullscreen ? new Vector2(ScreenSize.x-5, 55) : new Vector2(ScreenSize.x- (VideoPanelSize.x+15), 55);
-        MainWindow.sizeDelta = MainMenuFullscreen?new Vector2(ScreenSize.x-5,ScreenSize.y-65): new Vector2(ScreenSize.x - (VideoPanelSize.x + 15), VideoPanelSize.y - 60);
-        CueWindow.sizeDelta = MainMenuFullscreen ? Vector2.zero:new Vector2(ScreenSize.x - 10, ScreenSize.y - (VideoPanelSize.y +15));
+    public void ToggleFullscreen()  
+    {
+        if (CurrentMenuState != MenuStates.File)
+        {
+            MainMenuFullscreen = !MainMenuFullscreen;
+            SetPanelPositions();
+        }
+    }
+
+    private void SetPanelPositions()   
+    {
+        MenuLayoutUpdated?.Invoke();
+        if (MainMenuFullscreen||CurrentMenuState==MenuStates.File)
+        {
+            SetFullScreen();
+        }
+        else
+        {
+            SetStandardSize();
+        }
+    }
+
+    private void SetFullScreen()
+    {    
+
+        TopBar.sizeDelta = new Vector2(ScreenSize.x , TOP_BAR_HEIGHT);
+        TopBar.anchoredPosition = Vector2.zero;
+
+        MainWindow.sizeDelta = new Vector2(ScreenSize.x, ScreenSize.y - (TOP_BAR_HEIGHT + BOTTOM_BAR_HEIGHT));
+        MainWindow.anchoredPosition = new Vector2(0, -TOP_BAR_HEIGHT);        
+
+        BottomBar.sizeDelta = new Vector2(ScreenSize.x, BOTTOM_BAR_HEIGHT);
+        BottomBar.anchoredPosition = Vector2.zero;
+    }
+
+    private void SetStandardSize()
+    {
+        //set video scale and get video size
+        ClampVideoScale();
+        float CurrentVideoScale = Mathf.Lerp(VideoPanel.localScale.x, TargetVideoScale, Time.unscaledDeltaTime * 5); 
+        VideoPanel.localScale =   new Vector2(CurrentVideoScale, CurrentVideoScale);
+        VideoPanel.anchoredPosition = Vector2.zero;
+        Vector2 VideoPanelSize = new Vector2(VIDEO_WIDTH, VIDEO_HEIGHT) * CurrentVideoScale;
+
+        TopBar.sizeDelta =  new Vector2(ScreenSize.x - VideoPanelSize.x , TOP_BAR_HEIGHT);
+        TopBar.anchoredPosition = Vector2.zero;
+
+        MainWindow.sizeDelta =  new Vector2(ScreenSize.x - VideoPanelSize.x , VideoPanelSize.y - TOP_BAR_HEIGHT);
+        MainWindow.anchoredPosition = new Vector2(0, -TOP_BAR_HEIGHT);
+
+        CueWindow.sizeDelta =  new Vector2(ScreenSize.x, ScreenSize.y - (VideoPanelSize.y + BOTTOM_BAR_HEIGHT));
+        CueWindow.anchoredPosition = new Vector2( 0, BOTTOM_BAR_HEIGHT);
+
+        BottomBar.sizeDelta = new Vector2(ScreenSize.x, BOTTOM_BAR_HEIGHT);
+        BottomBar.anchoredPosition = Vector2.zero;
     }
 
     private void ClampVideoScale()
     {
-        float maxScale = ScreenSize.y / 560;
-        CurrentVideoScale = Mathf.Clamp(CurrentVideoScale, .5f, maxScale);
+        float maxScale = (ScreenSize.y-BOTTOM_BAR_HEIGHT) / VIDEO_HEIGHT; 
         TargetVideoScale = Mathf.Clamp(TargetVideoScale, .5f, maxScale);
     }
 

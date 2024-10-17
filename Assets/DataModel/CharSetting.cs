@@ -12,7 +12,7 @@ public class CharSetting
     public bool Underline = false;
     public bool Strikethrough = false;
 
-    //SHOULD THIS OBJECT ENCAPSULATE THE CONCEPT OF ANIMATION FRO SIZE COLOR AND POSITION?
+    //SHOULD THIS OBJECT ENCAPSULATE THE CONCEPT OF ANIMATION FOR SIZE COLOR AND POSITION?
     public float FontSize = 12;//default
     public Color TextColor = new Color(1,1,1,1);
     public Vector2 Position; 

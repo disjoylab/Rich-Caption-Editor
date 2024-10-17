@@ -5,7 +5,7 @@ using System.Linq;
 [Serializable]
 public class StyleGroup
 {
-    //add name
+    public string Name;
     public List<Style> Styles;
 
     public StyleGroup()
@@ -75,7 +75,6 @@ public class StyleGroup
     }
 
     public List<Style> GetStylesByType(FeatureFilter _filter, bool _includeInactive = false)// use GetStylesByType(StyleFilter.Cue | StyleFilter.Text); for multiple style filters
-
     {
         List<Style> returnStyles = new List<Style>();
 

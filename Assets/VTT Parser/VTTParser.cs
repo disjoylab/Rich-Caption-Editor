@@ -51,7 +51,7 @@ public class VTTParser
         {
             foreach (var line in Lines)
             {
-                //Debug.Log("Process NOTE: " + line);
+                //no functionality to capture notes in files
             }
         }
         else if (Lines[0].StartsWith("STYLE"))

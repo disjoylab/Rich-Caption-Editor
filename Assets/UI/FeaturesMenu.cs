@@ -25,14 +25,17 @@ public class FeaturesMenu : MonoBehaviour
         FeatureManager.FeaturesChanged += OnFeaturesChanged; 
         DisplayFeatures();
     }
+
     private void OnDestroy()
     {
         FeatureManager.FeaturesChanged -= OnFeaturesChanged;
     }
+
     private void OnEnable()
     {
         DisplayFeatures();
     }
+
     private void OnFeaturesChanged()
     { 
         DisplayFeatures();
@@ -47,7 +50,6 @@ public class FeaturesMenu : MonoBehaviour
             featuresButtonContainer.buttons[i].GetComponent<FeatureButton>().Configure(_featureNames[i]); 
         }
         featuresButtonContainer.buttons[_featureNames.Length].GetComponent<FeatureButton>().Configure("");//this is the add feature button
-
 
         //CURRENT FEATURE
         if (CurrentFeatureGroup == null && _featureNames.Length > 0)
@@ -85,6 +87,7 @@ public class FeaturesMenu : MonoBehaviour
         }
         return settingTypesUsed;
     }
+
    public void GetCurrentFeatureInfo()
     {
         if (CurrentFeatureGroup != null)
@@ -107,10 +110,12 @@ public class FeaturesMenu : MonoBehaviour
         CurrentFeatureGroup = FeatureManager.GetFeatureGroup(_featureName); 
         FeatureManager.FeaturesHaveChanges = true;
     }
+
     public static void SetFeatureActive(string _featureName, bool _active)
     { 
         FeatureManager.FeaturesHaveChanges = true;
     }
+
     public  void SetNextFeatureVersion(int _add)
     {
         if (CurrentFeatureGroup.IsLastVersion()&&_add>0)
@@ -121,6 +126,7 @@ public class FeaturesMenu : MonoBehaviour
         FeatureManager.FeaturesHaveChanges = true;
         FeatureManager.SaveFeatureGroupToJSON(CurrentFeatureGroup);
     }
+
     public void DeleteCurrentVersion()
     {
         if (CurrentFeatureGroup != null)
@@ -130,6 +136,7 @@ public class FeaturesMenu : MonoBehaviour
             FeatureManager.SaveFeatureGroupToJSON(CurrentFeatureGroup);
         }
     }
+
     public static void AddSetting(Setting _setting) 
     {
         CurrentFeatureGroup.CurrentFeature().Settings.Add(_setting);
@@ -143,6 +150,7 @@ public class FeaturesMenu : MonoBehaviour
         FeatureManager.FeaturesHaveChanges = true;
         FeatureManager.SaveFeatureGroupToJSON(CurrentFeatureGroup);
     }
+
     public void DeleteCurrentFeature()
     {
         if (CurrentFeatureGroup != null)

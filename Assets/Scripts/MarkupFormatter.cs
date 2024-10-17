@@ -20,7 +20,6 @@ public class MarkupFormatter
     public static string GetTaggedString(List<CueChar> cueChars)
     {
         // Returns a tagged string from the list of CueChar objects.
-
         if (cueChars.Count == 0)
         {
             return "";
@@ -105,6 +104,4 @@ public class MarkupFormatter
         }
         return result;
     }
-   
-
 }

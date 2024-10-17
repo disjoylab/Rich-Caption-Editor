@@ -11,27 +11,28 @@ public class ElementManager : MonoBehaviour
     static List<ElementGroup> ElementGroups = new List<ElementGroup>();
 
     public static Action ElementsChanged;
-
     public static bool ElementsHaveChanges;
+
     static string FilePath
     {
         get => PlayerPrefs.GetString("FeatureFilePath", Application.persistentDataPath);
         set => PlayerPrefs.SetString("FeatureFilePath", value);
     }
+
     private void Awake()
     {
         LoadAllElementGroups();
     }
+
     private void Update()
     {
         if (ElementsHaveChanges)
-        {
-            //Debug.Log("elements have changes");
+        { 
             ElementsHaveChanges = false;
             ElementsChanged?.Invoke();
-
         }
     }
+
     public static List<string> GetAllElementGroupNames(bool _onlyActive)
     {
         List<string> elements = new List<string>();
@@ -45,6 +46,7 @@ public class ElementManager : MonoBehaviour
         }
         return elements;
     }
+
     internal static List<string> GetCueLevelElementGroupNames()
     {
         List<string> elements = new List<string>();
@@ -57,6 +59,7 @@ public class ElementManager : MonoBehaviour
         }
         return elements;
     }
+
     internal static List<string> GetTextLevelElementGroupNames()
     {
         List<string> elements = new List<string>();
@@ -160,6 +163,7 @@ public class ElementManager : MonoBehaviour
         string fullPath = Path.Combine(FilePath, _elementGroup.ToFileName());
         File.WriteAllText(fullPath, json);
     }
+
     public static void DeleteFeatureGroupJsonFile(FeatureGroup _featureGroup)
     {
         string fullPath = Path.Combine(FilePath, _featureGroup.ToFileName());

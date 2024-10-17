@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
     public static Action FeaturesChanged; 
     public static bool FeaturesHaveChanges; 
+
     static string FilePath
     {
         get => PlayerPrefs.GetString("FeatureFilePath", Application.persistentDataPath);
@@ -21,11 +22,11 @@ using Newtonsoft.Json;
     {          
         LoadAllFeatureGroups();
     }
+
     private void Update()
     {
         if (FeaturesHaveChanges)
-        {
-           // Debug.Log("features have changes");
+        { 
             FeaturesHaveChanges = false;
             FeaturesChanged?.Invoke(); 
             
@@ -39,7 +40,6 @@ using Newtonsoft.Json;
             .Select(f => f.Name)
             .ToArray();
     }
-
 
     public void LoadAllFeatureGroups()
     {
@@ -106,7 +106,6 @@ using Newtonsoft.Json;
         return uniqueName;
     }
 
-
     public static FeatureGroup LoadFeatureGroupFromJSON(string fileName)
     {
         string fullPath = Path.Combine(FilePath, fileName);
@@ -118,6 +117,7 @@ using Newtonsoft.Json;
         }
         return null; 
     }
+
     //**************************** TODO ****************** check if the newnmae exists first, return the value so the calling funciton knows it did not work
     internal static void RenameFeatureGroup(FeatureGroup _featureGroup, string _newName)
     {
@@ -130,13 +130,13 @@ using Newtonsoft.Json;
         _featureGroup.Name = _newName;
         SaveFeatureGroupToJSON(_featureGroup);
     }
+
     internal static void DeleteFeatureGroup(FeatureGroup _featureGroup)
     {
         if (_featureGroup == null)
         {
             return;
         }
-
         string currentFileName = _featureGroup.ToFileName();
         string newFileName = currentFileName + ".delete";
         string currentFullPath = Path.Combine(FilePath, currentFileName);
@@ -170,6 +170,7 @@ using Newtonsoft.Json;
         string fullPath = Path.Combine(FilePath, _featureGroup.ToFileName());
         File.WriteAllText(fullPath, json);
     }
+
     public static void DeleteFeatureGroupJsonFile(FeatureGroup _featureGroup)
     { 
         string fullPath = Path.Combine(FilePath, _featureGroup.ToFileName());
@@ -188,6 +189,7 @@ using Newtonsoft.Json;
         }
         return null;
     }
+
     internal static FeatureGroup GetFeatureGroup(string _name)
     {
         if (FeatureGroups == null || _name == null) return null;        

@@ -8,27 +8,21 @@ using System.Linq;
 
 public class CueGroupUI : MonoBehaviour
 {
-    //TODO *************************************************************** THIS SHOULD TAKE OWNERSHIP OF THE CUE UI AND TELL IT WHAT TO DISPLAY
-    //TODO *************************************************************** THIS SHOULD ALSO TAKE OWNERSHIP OF (OR CREATE) A CAPTION RENDERER 
     public Image TabImage;
     public Image BackgroundImage;
     Color SelectedColor;
     Color UnselectedColor;
 
     public CueGroup myCueGroup;
-    public Cue PrevCue;
     public Cue CurrentCue;
-    public Cue NextCue;
 
     public int Index;
     public int TotalIndex;
 
-
-
     //TAB
     public RectTransform TabRt;
     public TextMeshProUGUI CueGroupName;
-    
+
     //CUE GROUP
     public TMP_InputField CueGroupNameInput;
     public TMP_Dropdown TextVariationDropdown;
@@ -38,9 +32,6 @@ public class CueGroupUI : MonoBehaviour
     public TMP_InputField Cue_IdInput;
     public TMP_InputField Cue_StartTimeInput;
     public TMP_InputField Cue_EndTimeInput;
-    public TextMeshProUGUI CurrenTime;
-    public TextMeshProUGUI PrevEndTime;
-    public TextMeshProUGUI NextStartTime;
     public ElementInput CueElementInput;
 
     CaptionRenderer myCaptionRenderer;
@@ -50,6 +41,9 @@ public class CueGroupUI : MonoBehaviour
         VideoManager.CurrentTimeChanged += OnCurrentTimeChanged;
         CueGroupsMenu.CueGroupsChanged += OnCueGroupChanged;
         CueElementInput.ElementInputChanged += OnElementInputChanged;
+        Cue.CueChanged += OnCueChanged;
+        MenuManager.MenuLayoutUpdated += OnMenuLayoutUpdated;
+        MenuManager.CurrentMenuStateChanged += OnCurrentMenuStateChanged;
     }
 
     private void OnDestroy()
@@ -58,7 +52,22 @@ public class CueGroupUI : MonoBehaviour
         CueGroupsMenu.CueGroupsChanged -= OnCueGroupChanged;
         CueElementInput.ElementInputChanged -= OnElementInputChanged;
         DestroyImmediate(myCaptionRenderer.gameObject);
+        Cue.CueChanged -= OnCueChanged;
+        MenuManager.MenuLayoutUpdated -= OnMenuLayoutUpdated;
+        MenuManager.CurrentMenuStateChanged -= OnCurrentMenuStateChanged;
     }
+
+    private void OnMenuLayoutUpdated()
+    {
+        SetTab();
+    }
+
+    private void OnCurrentMenuStateChanged(MenuStates _menuStates)
+    {
+        SetTab();
+    }
+
+
     private void OnElementInputChanged()
     {
         GetCueGroupInfo();
@@ -69,7 +78,10 @@ public class CueGroupUI : MonoBehaviour
         DisplayCueGroup();
         DisplayCue();
     }
-
+    private void OnCueChanged(Cue _cue)
+    {
+        SetCurrentCue(VideoManager.currentTime);
+    }
 
     public void DeleteGroup()
     {
@@ -78,48 +90,35 @@ public class CueGroupUI : MonoBehaviour
             CueGroupsMenu.Instance.DeleteCueGroup(myCueGroup);
         }
     }
+
     private void OnCurrentTimeChanged(double _currentTime)
     {
-        CurrenTime.text = Common.FloatToTimeString((float)_currentTime);
+        SetCurrentCue(_currentTime);
+    }
+
+    private void SetCurrentCue(double _currentTime)
+    {
         if (myCueGroup == null || myCueGroup.Cues == null)
         {
             return;
         }
+        CurrentCue = myCueGroup.GetCueByTime(_currentTime);
 
-        CurrentCue = null;
-        PrevCue = null;
-        NextCue = null;
-
-        foreach (Cue cue in myCueGroup.Cues)
-        {
-            if (cue.StartTime <= _currentTime && cue.EndTime > _currentTime)
-            {
-                CurrentCue = cue;
-            }
-            else if (cue.EndTime <= _currentTime)
-            {
-                if (PrevCue == null || cue.EndTime > PrevCue.EndTime)
-                {
-                    PrevCue = cue;
-                }
-            }
-            else if (cue.StartTime > _currentTime)
-            {
-                if (NextCue == null || cue.StartTime < NextCue.StartTime)
-                {
-                    NextCue = cue;
-                }
-            }
-        }
         DisplayCue();
-
     }
 
+    public void ImportCueGroup()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            FileMenu.ImportFilePicker();
+        }
+    }
 
     internal void Configure(CueGroup _cueGroup, int _index, int _total, Color _color)
     {
         SelectedColor = _color;
-        UnselectedColor = new Color(_color.r * .8f, _color.b * .8f, _color.g * .8f, 1);
+        UnselectedColor = new Color(_color.r, _color.g, _color.b, .65f);
         myCueGroup = _cueGroup;
         Index = _index;
         TotalIndex = _total;
@@ -128,65 +127,53 @@ public class CueGroupUI : MonoBehaviour
             myCaptionRenderer = CaptionManager.Instance.CreateCaptionRenderer();
         }
         myCaptionRenderer.Configure(myCueGroup);
-        SetTab();
+       
         DisplayCueGroup();
     }
 
-
-
-    private void SetTab()
-    {
-        RectTransform rt = GetComponent<RectTransform>();
-        float newWidth = rt.rect.width / Mathf.Max(TotalIndex, 3);
-        TabRt.sizeDelta = new Vector2(newWidth * .95f, 35);
-        TabRt.anchoredPosition = new Vector2(Index * newWidth, 0);
-    }
-
+  
     public void GetCueGroupInfo()
     {
-        myCueGroup.CurrentVariation = TextVariationDropdown.value;
-        if ( myCueGroup.Name != CueGroupNameInput.text)
+        if (myCueGroup.CurrentVariation != TextVariationDropdown.value)
         {
-            ProjectManager.Instance.CurrentRCEProject.GetCurrentStyleGroup().ChangeCueGroupDefaultName(myCueGroup.Name, CueGroupNameInput.text); 
+            myCueGroup.CurrentVariation = TextVariationDropdown.value;
+            CueGroupsMenu.CueGroupsHaveChanges = true;
+        }
+        if (myCueGroup.Name != CueGroupNameInput.text)
+        {
+            ProjectManager.Instance.CurrentRCEProject.GetCurrentStyleGroup().ChangeCueGroupDefaultName(myCueGroup.Name, CueGroupNameInput.text);
             myCueGroup.Name = CueGroupNameInput.text;
-
+            CueGroupsMenu.CueGroupsHaveChanges = true;
         }
         if (CurrentCue != null)
         {
-            CurrentCue.RegionFeature = Region_Element_Dropdown.options[Region_Element_Dropdown.value].text;
-        }
-        //CUE ELEMENT 
-
-        CurrentCue.CueElement = CueElementInput.GetElement();
-        CurrentCue.Identifier = Cue_IdInput.text;
-        float StartTime = Common.TimeStringToFloat(Cue_StartTimeInput.text);
-        float EndTime = Common.TimeStringToFloat(Cue_EndTimeInput.text);
-        if (StartTime != CurrentCue.StartTime)
-        {
-            CurrentCue.StartTime = Mathf.Min(StartTime, EndTime - 1);
-            if (PrevCue != null)
+            bool currentCueHasChanges = false;
+            if (CurrentCue.RegionFeature != Region_Element_Dropdown.options[Region_Element_Dropdown.value].text)
             {
-                CurrentCue.StartTime = MathF.Max(CurrentCue.StartTime, PrevCue.StartTime + 1);
-                if (PrevCue.EndTime > CurrentCue.StartTime)
-                {
-                    PrevCue.EndTime = CurrentCue.StartTime - .01f;
-                }
+                CurrentCue.RegionFeature = Region_Element_Dropdown.options[Region_Element_Dropdown.value].text;
+                currentCueHasChanges = true;
             }
-        }
-        if (EndTime != CurrentCue.EndTime)
-        {
-            CurrentCue.EndTime = Mathf.Max(StartTime + 1, EndTime);
-            if (NextCue != null)
+            if (!CurrentCue.CueElement.IsEqual(CueElementInput.GetElement()))
             {
-                CurrentCue.EndTime = MathF.Min(CurrentCue.EndTime, NextCue.EndTime - 1);
-                if (NextCue.StartTime < CurrentCue.EndTime)
-                {
-                    NextCue.StartTime = CurrentCue.EndTime + .01f;
-                }
+                CurrentCue.CueElement = CueElementInput.GetElement();
+                currentCueHasChanges = true;
             }
+            if (CurrentCue.Identifier != Cue_IdInput.text)
+            {
+                CurrentCue.Identifier = Cue_IdInput.text;
+                currentCueHasChanges = true;
+            }
+            float StartTime = Common.TimeStringToFloat(Cue_StartTimeInput.text);
+            float EndTime = Common.TimeStringToFloat(Cue_EndTimeInput.text);
+            if (StartTime != CurrentCue.StartTime || EndTime != CurrentCue.EndTime)
+            {
+                myCueGroup.SetCueStartTime(CurrentCue, StartTime);//automatically triggers changed event
+                myCueGroup.SetCueEndTime(CurrentCue, EndTime);//automatically triggers changed event
+            }
+            if (currentCueHasChanges) CurrentCue.TriggerChanged();
         }
-        CueGroupsMenu.CueGroupsHaveChanges = true;
     }
+
     private void DisplayCueGroup()
     {
         int CurrentIndex = ProjectManager.Instance.CurrentRCEProject.GetCurrentCueGroupIndex();
@@ -207,7 +194,14 @@ public class CueGroupUI : MonoBehaviour
                 TextVariationDropdown.SetValueWithoutNotify(myCueGroup.CurrentVariation);
             }
         }
-
+        SetTab();
+    }
+    private void SetTab()
+    { 
+        RectTransform rt = GetComponent<RectTransform>();
+        float newWidth = rt.rect.width / Mathf.Max(TotalIndex, 3);
+        TabRt.sizeDelta = new Vector2(newWidth * .95f, 35);
+        TabRt.anchoredPosition = new Vector2(Index * newWidth, 0);
     }
     private void SetColor(bool selected)
     {
@@ -225,19 +219,7 @@ public class CueGroupUI : MonoBehaviour
         }
         ClearCue();
         CueUI.SetCurrentCue(CurrentCue);//done here so CueUI gets null cues rather than just holding the last non-null cue
-        if (myCueGroup == null)
-        {
-            return;
-        }
-        if (PrevCue != null)
-        {
-            PrevEndTime.text = Common.FloatToTimeString(PrevCue.EndTime);
-        }
-        if (NextCue != null)
-        {
-            NextStartTime.text = Common.FloatToTimeString(NextCue.StartTime);
-        }
-        if (CurrentCue == null)
+        if (myCueGroup == null || CurrentCue == null)
         {
             return;
         }
@@ -246,7 +228,7 @@ public class CueGroupUI : MonoBehaviour
         Cue_EndTimeInput.SetTextWithoutNotify(Common.FloatToTimeString(CurrentCue.EndTime));
 
         SetRegionDropdown();
-        CueElementInput.DisplayElementDetails(CurrentCue.CueElement);
+        CueElementInput.DisplayElementDetails(CurrentCue.CueElement, true, false);
     }
 
     private void ClearCue()
@@ -254,126 +236,25 @@ public class CueGroupUI : MonoBehaviour
         Cue_IdInput.SetTextWithoutNotify("");
         Cue_StartTimeInput.SetTextWithoutNotify("");
         Cue_EndTimeInput.SetTextWithoutNotify("");
-        PrevEndTime.text = "";
-        NextStartTime.text = "";
         Region_Element_Dropdown.ClearOptions();
         CueElementInput.ClearOptions();
-    }
-
-    public void SetNextCue(int _add)
-    {
-        if (_add < 0) // Moving backwards
-        {
-            if (VideoManager.Instance.videoPlayer.isPaused && CurrentCue != null && VideoManager.currentTime > CurrentCue.StartTime + 1)
-            {
-                VideoManager.Instance.SetTime(CurrentCue.StartTime + .05f);
-            }
-            else if (PrevCue != null)
-            {
-                if (CurrentCue != null && CurrentCue.StartTime - PrevCue.EndTime > 1)
-                {
-                    VideoManager.Instance.SetTime(PrevCue.EndTime + .05f);
-                }
-                else
-                {
-                    VideoManager.Instance.SetTime(PrevCue.StartTime + .05f);
-                }
-            }
-        }
-        else if (_add > 0) // Moving forwards
-        {
-            if (VideoManager.Instance.videoPlayer.isPaused && CurrentCue != null)
-            {
-                VideoManager.Instance.SetTime(CurrentCue.EndTime + .05f);
-            }
-            else if (NextCue != null)
-            {
-                if (CurrentCue != null && CurrentCue.EndTime < NextCue.StartTime)
-                {
-                    VideoManager.Instance.SetTime(CurrentCue.EndTime + .05f);
-                }
-                else
-                {
-                    VideoManager.Instance.SetTime(NextCue.StartTime + .05f);
-                }
-            }
-        }
-        else
-        {
-            VideoManager.Instance.SetTime(VideoManager.currentTime + _add);
-        }
-    }
-
-    public void DeleteCurrentCue()
-    {
-        if (CurrentCue != null)
-        {
-            myCueGroup.Cues.Remove(CurrentCue);
-            CueGroupsMenu.CueGroupsHaveChanges = true;
-        }
-    }
-
-    public void NewCue()
-    {
-        Cue newCue = new Cue("New Cue");
-        if (CurrentCue != null)
-        {
-            return;
-        }
-        float starttime = (float)VideoManager.currentTime - .05f;
-        float endtime = starttime + 2;
-        if (PrevCue != null)
-        {
-            starttime = PrevCue.EndTime + .01f;
-        }
-        if (NextCue != null)
-        {
-            endtime = NextCue.StartTime - .01f;
-        }
-        if (endtime - starttime < .5f)
-        {
-            return;
-        }
-
-        if (PrevCue != null)
-        {
-            int index = myCueGroup.Cues.IndexOf(PrevCue);
-            myCueGroup.Cues.Insert(index + 1, newCue);
-        }
-        else if (NextCue != null)
-        {
-            int index = myCueGroup.Cues.IndexOf(NextCue);
-            myCueGroup.Cues.Insert(index, newCue);
-        }
-        else
-        {
-            myCueGroup.Cues.Add(newCue);
-        }
-
-        newCue.StartTime = starttime;
-        newCue.EndTime = endtime;
-        CurrentCue = newCue;
-        CueGroupsMenu.CueGroupsHaveChanges = true;
-        VideoManager.InvokeTimeChangedEvent();//there is probably a better way to handle this, minimally the caption renderer needs to pick up on the new cue which is currently based on a time change.
     }
 
     private void SetRegionDropdown()
     {
         string[] FeatureNames = FeatureManager.GetFeatureGroupNames(FeatureFilter.Region, true);
-         
+
         List<string> options = new List<string>();
         options.Add("");
         foreach (var featurenName in FeatureNames)
-        { 
+        {
             options.Add(featurenName);
         }
         options.Add(CurrentCue.RegionFeature);
-        Region_Element_Dropdown.AddOptions(options.Distinct().ToList()); 
-        int currentIndex = options.IndexOf(CurrentCue.RegionFeature);          
-        Region_Element_Dropdown.SetValueWithoutNotify(currentIndex); 
+        Region_Element_Dropdown.AddOptions(options.Distinct().ToList());
+        int currentIndex = options.IndexOf(CurrentCue.RegionFeature);
+        Region_Element_Dropdown.SetValueWithoutNotify(currentIndex);
     }
-   
-
 
     public void SetMe()
     {

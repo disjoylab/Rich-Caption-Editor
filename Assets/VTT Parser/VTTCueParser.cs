@@ -38,6 +38,7 @@ internal class VTTCueParser
         }
         return (cue, style);
     }
+
     static List<CueChar> GetCueCharList(string textElementString)
     {
         List<CueChar> cueChars = new List<CueChar>();
@@ -64,7 +65,6 @@ internal class VTTCueParser
                 }
                 else
                 {
-                    // Start tag
                     Element element = GetElement(tag);
                     if (element.Name.ToLower() == "v" || element.Name.ToLower() == "voice" || element.Name == Common.ElementName_TimeStamp)//THINGS THERE CAN BE ONLY ONE OF (AND DOES NOT OFTEN HAVE AN END TAG </v>
                     {
@@ -73,11 +73,10 @@ internal class VTTCueParser
                     activeElements.Add(element);
                 }
 
-                i = tagEnd; // Move index to the end of the tag
+                i = tagEnd; 
             }
             else
             {
-                // Text character
                 cueChars.Add(new CueChar(textElementString[i], activeElements.Select(e => e.Copy()).ToList()));
             }
         }
@@ -90,7 +89,6 @@ internal class VTTCueParser
         Element element = Element.NewElement();
         string trimmed = webVTTString.Trim('<', '>').Trim();
         string[] parts = trimmed.Split(new char[] { ' ' }, 2);
-
 
         if (parts.Length > 0)
         {

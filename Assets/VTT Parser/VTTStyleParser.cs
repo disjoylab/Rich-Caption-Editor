@@ -5,48 +5,48 @@ using UnityEngine;
 
 internal class VTTStyleParser
 {
-        internal static Style ProcessStyleBlock(string line)
+    internal static Style ProcessStyleBlock(string line)
     {
         bool settingFound = false;
         Style style = new Style();
-        style.element = new Element(""); 
+        style.element = new Element("");
         var cueModifierMatch = Regex.Match(line, @"::cue\(([^)]+)\)");
         if (cueModifierMatch.Success)
         {
-            string cueModifiers = cueModifierMatch.Groups[1].Value; 
+            string cueModifiers = cueModifierMatch.Groups[1].Value;
             var idPattern = new Regex(@"#([^\s.]+)");
             var attributePattern = new Regex(@"\.([a-zA-Z0-9\\]+)");
             var simpleElementPattern = new Regex(@"^[a-zA-Z0-9]+");
-            var complexElementPattern = new Regex(@"\[([a-zA-Z0-9]+)=""([^""]+)""\]"); 
+            var complexElementPattern = new Regex(@"\[([a-zA-Z0-9]+)=""([^""]+)""\]");
 
             if (cueModifiers.StartsWith("#"))
             {
-               string Identifier = Regex.Replace(cueModifiers.Substring(1), @"\\([0-9a-fA-F]{2} )|\\( )", match =>
-                {
-                    if (match.Groups[1].Success)
-                    {
-                        string hex = match.Groups[1].Value.Trim();
-                        int value = Convert.ToInt32(hex, 16);
-                        return ((char)value).ToString();
-                    }
-                    else if (match.Groups[2].Success)
-                    {
-                        return match.Groups[2].Value;
-                    }
-                    return match.Value;
-                });
+                string Identifier = Regex.Replace(cueModifiers.Substring(1), @"\\([0-9a-fA-F]{2} )|\\( )", match =>
+                 {
+                     if (match.Groups[1].Success)
+                     {
+                         string hex = match.Groups[1].Value.Trim();
+                         int value = Convert.ToInt32(hex, 16);
+                         return ((char)value).ToString();
+                     }
+                     else if (match.Groups[2].Success)
+                     {
+                         return match.Groups[2].Value;
+                     }
+                     return match.Value;
+                 });
                 style.element.Name = Identifier;
-            }                   
+            }
             foreach (Match complexElementMatch in complexElementPattern.Matches(cueModifiers))
             {
                 string elementName = complexElementMatch.Groups[1].Value;
-                style.element.Name = elementName.ToLower() == "voice" ? "v" : elementName;                
-                style.element.Value= complexElementMatch.Groups[2].Value; 
+                style.element.Name = elementName.ToLower() == "voice" ? "v" : elementName;
+                style.element.Value = complexElementMatch.Groups[2].Value;
             }
             var simpleElementMatch = simpleElementPattern.Match(cueModifiers);
             if (simpleElementMatch.Success)
             {
-                style.element.Name = simpleElementMatch.Value;                 
+                style.element.Name = simpleElementMatch.Value;
             }
             foreach (Match attributeMatch in attributePattern.Matches(cueModifiers))
             {
@@ -68,23 +68,23 @@ internal class VTTStyleParser
                 {
                     string settingName = setting[0].Trim();
                     string settingValue = setting[1].Trim();
-                    feature.Settings.Add(new Setting("Style_"+settingName, settingValue));
+                    feature.Settings.Add(new Setting("Style_" + settingName, settingValue));
                     settingFound = true;
                 }
             }
-            if (feature.Settings.Count>0)
+            if (feature.Settings.Count > 0)
             {
                 FeatureGroup ExistinFeatureGroup = FeatureManager.FindMatch(feature);
                 if (ExistinFeatureGroup == null)
                 {
-                    featureGroup.AddFeature(feature,false);
+                    featureGroup.AddFeature(feature, false);
                     FeatureManager.AddFeatureGroup(featureGroup);
                 }
                 else
                 {
-                    featureGroup = ExistinFeatureGroup; 
+                    featureGroup = ExistinFeatureGroup;
                 }
-                style.SetFeature(featureGroup.Name); 
+                style.SetFeature(featureGroup.Name);
             }
         }
         return settingFound ? style : null;

@@ -5,17 +5,13 @@ using UnityEngine;
 
 public class CueGroupsMenu : MonoBehaviour
 {
-    public static CueGroupsMenu Instance;
-    //set current cue group, display cuegroup order, tell current cuegroup to update display
+    public static CueGroupsMenu Instance; 
 
     public List<CueGroupUI> CueGroupUIs;
     public GameObject CueGroupUIPrefab;
 
     public static bool CueGroupsHaveChanges;
     public static Action CueGroupsChanged;
-
-    public Color[] TabColors;
-
 
     private void Awake()
     {
@@ -25,14 +21,13 @@ public class CueGroupsMenu : MonoBehaviour
     private void Start()
     {
         ProjectManager.ProjectChanged += OnProjectChanged;
-        MenuManager.CurrentMenuStateChanged += OnCurrentMenuStateChanged;
     }
 
     private void OnDestroy()
     {
         ProjectManager.ProjectChanged -= OnProjectChanged;
-        MenuManager.CurrentMenuStateChanged -= OnCurrentMenuStateChanged;
     }
+
     private void Update()
     {
         if (CueGroupsHaveChanges)
@@ -41,18 +36,11 @@ public class CueGroupsMenu : MonoBehaviour
             CueGroupsChanged?.Invoke();
         }
     }
+
     private void OnProjectChanged()
     {
         CreateCueGroups();
-    }
-
-    private void OnCurrentMenuStateChanged(MenuStates _menuState)
-    {
-        if (_menuState == MenuStates.CueGroup)
-        {
-           //
-        }
-    }
+    }    
 
     private void CreateCueGroups()
     {
@@ -76,7 +64,7 @@ public class CueGroupsMenu : MonoBehaviour
         {
             if (i < count)
             {
-                CueGroupUIs[i].Configure(currentCueGroups[i], i,count + 1,TabColors[i%TabColors.Length]);
+                CueGroupUIs[i].Configure(currentCueGroups[i], i,count + 1,ProjectManager.GetCueGroupColor(i));
             }
             else
             {
@@ -89,8 +77,7 @@ public class CueGroupsMenu : MonoBehaviour
         {
             Destroy(CueGroupUIs[i].gameObject);
             CueGroupUIs.RemoveAt(i);
-        }
-         
+        }         
 
         int currentIndex = ProjectManager.Instance.CurrentRCEProject.GetCurrentCueGroupIndex();
         CueGroupUIs[currentIndex].transform.SetAsLastSibling();
@@ -122,8 +109,9 @@ public class CueGroupsMenu : MonoBehaviour
         }
         ProjectManager.Instance.CurrentRCEProject.SetCurrentCueGroupIndex( _index);
         CueGroupUIs[ProjectManager.Instance.CurrentRCEProject.GetCurrentCueGroupIndex()].transform.SetAsLastSibling();
-        CueGroupsChanged?.Invoke();
+        CueGroupsHaveChanges = true;
     }
+
     public CueGroupUI GetCurrentCueGroupUI()
     {
         if (CueGroupUIs == null || ProjectManager.Instance.CurrentRCEProject.CueGroups.Count==0)

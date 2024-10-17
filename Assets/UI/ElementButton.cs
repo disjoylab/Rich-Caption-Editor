@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class ElementButton : MonoBehaviour
 {
-    public string myElement;
+    string myElement;
     public Image buttonImage;
     public TextMeshProUGUI buttonText;
     public Toggle ElementToggle;
-
+    
     internal void Configure(string _name)
     {
         myElement = _name;
@@ -29,9 +29,7 @@ public class ElementButton : MonoBehaviour
         {
             ElementToggle.isOn = elementGroup.Active;
         }
-
         buttonImage.color = ElementToggle.isOn ? Color.white : new Color(.8f, .8f, .8f);
-
     }
 
     public void SetCurrentElement()
@@ -44,6 +42,7 @@ public class ElementButton : MonoBehaviour
         }
         ElementMenu.SetCurrentElement(myElement);
     }
+
     public void SetFeatureGroupActive()
     {
         ElementGroup elementGroup = ElementManager.GetElementGroup(myElement);

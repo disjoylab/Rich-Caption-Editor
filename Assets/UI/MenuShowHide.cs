@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class MenuShowHide : MonoBehaviour
 {
-    public MenuStates myMenuState;
-    // Start is called before the first frame update
+    public MenuStates myMenuState; 
     void Awake()
     {
         MenuManager.CurrentMenuStateChanged += OnMenuStateChanged;
@@ -19,11 +18,5 @@ public class MenuShowHide : MonoBehaviour
     private void OnMenuStateChanged(MenuStates _currentMenuState)
     {
         gameObject.SetActive(myMenuState == _currentMenuState);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    }     
 }

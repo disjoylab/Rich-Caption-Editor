@@ -9,18 +9,20 @@ using UnityEngine;
 public struct Element 
 {
     public string Name;
-    public string Value; // For elements like <v speaker>, 'speaker' would be the Value. 
+    public string Value; 
   
     public Element(string _name) 
     {
         Name = _name;
         Value = ""; 
     }
+
     public Element(string _name, string _value)
     {
         Name = _name;
         Value = _value; 
     } 
+
     public static Element NewElement()
     {
         return new Element("", "");
@@ -37,8 +39,7 @@ public struct Element
     }
      
     public int GetIntValue(ElementDefinition _definition)
-    {
-        
+    {        
         int intValue = 0;
 
         if (_definition.ValueType == ElementValueTypes.Array)
@@ -133,7 +134,7 @@ public struct Element
         {
             return false;
         }
-        return  string.IsNullOrEmpty(Name) || Name == target.Name;
+        return  string.IsNullOrEmpty(Name) || Name.ToLower() == target.Name.ToLower();
     }
 
     internal string ToButtonText()

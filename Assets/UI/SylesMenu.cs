@@ -8,8 +8,7 @@ using UnityEngine.UI;
 
 public class StylesMenu : MonoBehaviour
 {
-    public ButtonContainer myButtonContainer;
-    public List<Style> myStyles;
+    public ButtonContainer myButtonContainer; 
     public GameObject StyleButtonPrefab;
 
     public TMP_InputField StyleNameInput;
@@ -21,15 +20,21 @@ public class StylesMenu : MonoBehaviour
     public TextMeshProUGUI FeaturesDetails;
 
     public static Style CurrentStyle;
-    public static bool StylesHaveChanges; //safe pattern to not wind up in an endless loop in a single update if you forget to use SetValueWithoutNotify
-    public static Action StyleChanged; //overkill, created to allow for future subscriptions to style changes.
+    public static bool StylesHaveChanges; //could replace with event on each style
+    public static Action StyleChanged; 
 
     public Toggle RegionToggle;
     public Toggle CueToggle;
     public Toggle TextToggle;
 
+    //STYLE GROUP
+    public Button PrevStyleGroupButton;
+    public Button NextStyleGroupButton;
+    public TMP_Text NextStyleGroupButtonText;
+    public Button DeleleStyleGroupButton;
+    public Text StyleGroupVersionNumberText;
+    public TMP_InputField StyleGroupNameInput;
 
-    // Start is called before the first frame update
     void Start()
     {
         ProjectManager.ProjectChanged += OnProjectChanged;
@@ -40,22 +45,21 @@ public class StylesMenu : MonoBehaviour
         DisplayStyles();
     }
 
-
-
     private void OnDestroy()
     {
         ProjectManager.ProjectChanged -= OnProjectChanged;
         StyleChanged -= OnStyleChanged;
     }
+
     private void Update()
     {
         if (StylesHaveChanges)
         {
-            Debug.Log("styles have changes");
             StylesHaveChanges = false;
             StyleChanged?.Invoke();
         }
     }
+
     private void OnStyleChanged()
     {
         DisplayStyles();
@@ -65,48 +69,63 @@ public class StylesMenu : MonoBehaviour
     {
         DisplayStyles();
     }
+
     void DisplayStyles()
     {
-        myStyles = ProjectManager.Instance.CurrentRCEProject.GetCurrentStyleGroup().Styles;
+        StyleGroup CurrentStyleGroup = ProjectManager.Instance.CurrentRCEProject.GetCurrentStyleGroup();
+        if (CurrentStyleGroup != null)
+        {
+            int CurrentIndex = ProjectManager.Instance.CurrentRCEProject.GetCurrentStyleGroupIndex();
+            int TotalGroups = ProjectManager.Instance.CurrentRCEProject.StyleGroups.Count;
+
+            PrevStyleGroupButton.gameObject.SetActive(CurrentIndex > 0);
+            NextStyleGroupButtonText.text = (CurrentIndex == TotalGroups - 1) ? "+" : ">";
+            DeleleStyleGroupButton.gameObject.SetActive(TotalGroups > 1);
+            StyleGroupVersionNumberText.text = $"{CurrentIndex+1}/{TotalGroups}";
+            StyleGroupNameInput.SetTextWithoutNotify(CurrentStyleGroup.Name);
+        }
+        else
+        { return; }
         CreateStyleButtons();
         myElementInput.ClearOptions();
-        if (CurrentStyle == null && myStyles.Count > 0)
+        if (CurrentStyle == null && CurrentStyleGroup.Styles.Count > 0)
         {
-            CurrentStyle = myStyles[0];
+            CurrentStyle = CurrentStyleGroup.Styles[0];
         }
         if (CurrentStyle != null)
         {
             StyleNameInput.SetTextWithoutNotify(CurrentStyle.Name);
-            StyleDetailsInput.SetTextWithoutNotify(CurrentStyle.Description); 
-            myElementInput.DisplayElementDetails(CurrentStyle.element); 
-            List<string> features = FeatureManager.GetFeatureGroupNames(CurrentStyle.featureFilter, true).ToList();
+            StyleDetailsInput.SetTextWithoutNotify(CurrentStyle.Description);
 
+            //element...
             string currentElementName = CurrentStyle.element.Name;
-            string currentFeatureName = CurrentStyle.GetFeatureName();
-
-            if (ElementManager.ElementGroupExists(currentElementName) && !string.IsNullOrWhiteSpace(currentElementName))
+            myElementInput.DisplayElementDetails(CurrentStyle.element,true,true); if (ElementManager.ElementGroupExists(currentElementName) && !string.IsNullOrWhiteSpace(currentElementName))
             {
                 ElementManager.CreateElementGroup(currentElementName, true, true);
             }
+
+            //feature...
+            List<string> features = FeatureManager.GetFeatureGroupNames(CurrentStyle.featureFilter, true).ToList();           
+            string currentFeatureName = CurrentStyle.GetFeatureName();           
             if (FeatureManager.GetFeatureGroup(currentFeatureName) == null && !string.IsNullOrWhiteSpace(currentFeatureName))
             {
                 FeatureManager.AddFeatureGroup(new FeatureGroup(currentFeatureName));
-            } 
+            }
             FeatureDropDown.ClearOptions();
-             
+
             features.Insert(0, "");
             if (!features.Contains(currentFeatureName))
             {
                 features.Add(currentFeatureName); //Add it to the list in case it was filtered out (we know it exists and the UI should show it)
-            } 
+            }
             FeatureDropDown.AddOptions(features.ToList());
-             
+
             int featureIndex = features.FindIndex(f => f.ToLower() == currentFeatureName.ToLower());
-             
+
             if (featureIndex >= 0)
             {
                 FeatureDropDown.SetValueWithoutNotify(featureIndex);
-            } 
+            }
             FeatureDropDown.RefreshShownValue();
 
             Feature feature = CurrentStyle.GetFeature();
@@ -119,12 +138,18 @@ public class StylesMenu : MonoBehaviour
 
     public void GetCurrentStyleInfo()
     {
+        StyleGroup CurrentStyleGroup = ProjectManager.Instance.CurrentRCEProject.GetCurrentStyleGroup();
+        
+        if (StyleGroupNameInput.text != CurrentStyleGroup.Name )
+        {
+            CurrentStyleGroup.Name = StyleGroupNameInput.text;
+        }
         if (CurrentStyle == null)
             return;
 
         CurrentStyle.Name = StyleNameInput.text;
         CurrentStyle.Description = StyleDetailsInput.text;
-        CurrentStyle.element = myElementInput.GetElement(); 
+        CurrentStyle.element = myElementInput.GetElement();
 
         CurrentStyle.featureFilter = FeatureFilter.None;
         if (RegionToggle.isOn)
@@ -140,7 +165,6 @@ public class StylesMenu : MonoBehaviour
             CurrentStyle.featureFilter |= FeatureFilter.Text;
         }
 
-
         string selectedFeatureName = FeatureDropDown.options[FeatureDropDown.value].text;
         if (selectedFeatureName != CurrentStyle.GetFeatureName())
         {
@@ -149,11 +173,13 @@ public class StylesMenu : MonoBehaviour
 
         StylesHaveChanges = true;
     }
+
     public void DeleteCurrentStyle()
     {
         ProjectManager.Instance.CurrentRCEProject.GetCurrentStyleGroup().Styles.Remove(CurrentStyle);
         StylesHaveChanges = true;
     }
+
     public static void AddStyle()
     {
         Style style = new Style("New Style");
@@ -165,18 +191,29 @@ public class StylesMenu : MonoBehaviour
 
     void CreateStyleButtons()
     {
-        myButtonContainer.Configure(StyleButtonPrefab, myStyles.Count + 1);
-        for (int i = 0; i < myStyles.Count; i++)
+        StyleGroup CurrentStyleGroup = ProjectManager.Instance.CurrentRCEProject.GetCurrentStyleGroup();
+        myButtonContainer.Configure(StyleButtonPrefab, CurrentStyleGroup.Styles.Count + 1);
+        for (int i = 0; i < CurrentStyleGroup.Styles.Count; i++)
         {
             StyleButton sb = myButtonContainer.buttons[i].GetComponent<StyleButton>();
-            sb.Configure(myStyles[i]);
+            sb.Configure(CurrentStyleGroup.Styles[i]);
         }
-        StyleButton sbAdd = myButtonContainer.buttons[myStyles.Count].GetComponent<StyleButton>();
+        StyleButton sbAdd = myButtonContainer.buttons[CurrentStyleGroup.Styles.Count].GetComponent<StyleButton>();
         sbAdd.Configure(null);
     }
     public static void SetCurrentStyle(Style _style)
     {
         CurrentStyle = _style;
         StylesHaveChanges = true;
+    }
+    public void SetNextStyleGroup(int _add)
+    {
+        ProjectManager.Instance.CurrentRCEProject.SetNextStyleGroup(_add);
+        DisplayStyles();
+    }
+    public void DeleteCurrentStyleGroup()
+    {
+        ProjectManager.Instance.CurrentRCEProject.DeleteCurrentStyleGroup();
+        DisplayStyles();
     }
 }

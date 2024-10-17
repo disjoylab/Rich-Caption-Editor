@@ -8,7 +8,6 @@ public class CaptionRenderer : MonoBehaviour
 {
     public TextMeshProUGUI TMP_GUI;
 
-
     CueGroup myCueGroup;
 
     Cue CurrentCue;
@@ -44,8 +43,9 @@ public class CaptionRenderer : MonoBehaviour
         StylesMenu.StyleChanged += OnStyleChanged;
         ElementManager.ElementsChanged += OnElementsChanged;
         FeatureManager.FeaturesChanged += OnFeaturesChanged;
-        CueGroupsMenu.CueGroupsChanged += OnCueGroupsChanged;
-        CueUI.CurrentCueChanged += OnCurrentCueChanged;
+        //CueGroupsMenu.CueGroupsChanged += OnCueGroupsChanged;
+        //  CueUI.CurrentCueChanged += OnCurrentCueChanged;
+        Cue.CueChanged += OnCueChanged;
     }
 
     private void OnDestroy()
@@ -55,8 +55,16 @@ public class CaptionRenderer : MonoBehaviour
         StylesMenu.StyleChanged -= OnStyleChanged;
         ElementManager.ElementsChanged -= OnElementsChanged;
         FeatureManager.FeaturesChanged -= OnFeaturesChanged;
-        CueGroupsMenu.CueGroupsChanged -= OnCueGroupsChanged;
-        CueUI.CurrentCueChanged += OnCurrentCueChanged;
+        // CueGroupsMenu.CueGroupsChanged -= OnCueGroupsChanged;
+        // CueUI.CurrentCueChanged += OnCurrentCueChanged;
+        Cue.CueChanged -= OnCueChanged;
+    }
+
+    private void OnCueChanged(Cue cue)
+    {
+        GetCurrentCue();//in case cue times change its 'current' status
+        ResolveCue(); 
+        DisplayAll(); 
     }
 
     private void OnCurrentCueChanged()
@@ -85,14 +93,12 @@ public class CaptionRenderer : MonoBehaviour
 
     private void OnProjectChanged()
     {
-        ResolveCue();
-        DisplayAll();
+        GetCurrentCue(); 
     }
 
     private void OnCueGroupsChanged()
     {
-        ResolveCue();
-        DisplayAll();
+        GetCurrentCue(); 
     }
     public void Configure(CueGroup _cueGroup)
     {
@@ -100,27 +106,18 @@ public class CaptionRenderer : MonoBehaviour
     }
     private void OnCurrentTimeChanged(double _currentTime)
     {
+        GetCurrentCue();
+    }
 
-        if (myCueGroup == null)
+    private void GetCurrentCue()
+    { 
+        Cue cue = (myCueGroup == null)? null: myCueGroup.GetCueByTime(VideoManager.currentTime);        
+        if (cue != CurrentCue)
         {
-            TMP_GUI.rectTransform.sizeDelta = Vector2.zero;
-            return;
+            CurrentCue = cue;
+            ResolveCue();            
         }
-        foreach (Cue cue in myCueGroup.Cues)
-        {
-            if (cue.StartTime <= _currentTime && cue.EndTime > _currentTime)
-            {
-                if (cue != CurrentCue)
-                {
-                    CurrentCue = cue;
-                    ResolveCue();
-                }
-                DisplayAll();
-                return;
-            }
-        }
-        CurrentCue = null;
-        TMP_GUI.rectTransform.sizeDelta = Vector2.zero;
+        DisplayAll();
     }
 
     private void ResolveCue()
@@ -144,6 +141,7 @@ public class CaptionRenderer : MonoBehaviour
         TMP_GUI.text = "";
         if (CurrentCue == null || CharSettings == null || CharSettings.Count == 0)
         {
+            TMP_GUI.rectTransform.sizeDelta = Vector2.zero;
             return;
         }
         textInfo = TMP_GUI.textInfo;
@@ -336,7 +334,6 @@ public class CaptionRenderer : MonoBehaviour
         TMP_GUI.text = MarkupFormatter.GetTaggedString(BIUS_CueChars);//set the text markup        
     }
 
-
     private void DisplayTextMesh()
     {
         TMP_GUI.ForceMeshUpdate();
@@ -347,9 +344,7 @@ public class CaptionRenderer : MonoBehaviour
         // TMP_GUI.canvasRenderer.SetMesh(TMP_GUI.mesh);
         //TMP_GUI.UpdateVertexData(TMP_VertexDataUpdateFlags.All);          
         TMP_GUI.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32 | TMP_VertexDataUpdateFlags.Vertices);
-
     }
-
 
     public void SetChar(int index, float size, Color32 color)
     {

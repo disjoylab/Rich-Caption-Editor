@@ -17,7 +17,6 @@ public class ColorInput : MonoBehaviour
         inputField_R.SetTextWithoutNotify( ((int)(C.r * 255)).ToString());
         inputField_G.SetTextWithoutNotify(((int)(C.g * 255)).ToString());
         inputField_B.SetTextWithoutNotify( ((int)(C.b * 255)).ToString());
-
     }
 
     public string GetColorHex()
@@ -32,7 +31,6 @@ public class ColorInput : MonoBehaviour
 
             return $"#{r:X2}{g:X2}{b:X2}";             
         }
-
         return "000000";
     }
 }
