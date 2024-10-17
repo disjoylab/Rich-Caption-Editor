@@ -21,7 +21,7 @@ public class CommitToServer : MonoBehaviour
         string repo = "disjoylab/RCE-User-Projects";  // Replace with your GitHub repo
         string path = "RCE-User-Projects/User_Projects.json";  // Make sure to include the .json extension for your file
         string branch = "main";                       // Branch where you want to commit
-        string token = "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";  // Replace with your GitHub token
+        string token = "INSERT_TOKEN_HERE";  // Replace with your GitHub token
 
         // URL to check if the file exists
         string url = $"https://api.github.com/repos/disjoylab/RCE-User-Projects/contents/User_Projects/{fileName}";
