@@ -131,7 +131,7 @@ public class FileMenu : MonoBehaviour
         SaveFile();
     }
 
-    private static void ProcessFile(string _filePath)
+    public static void ProcessFile(string _filePath)
     {
         string fileFolder = Path.GetDirectoryName(_filePath);
         string fileName = Path.GetFileName(_filePath);
