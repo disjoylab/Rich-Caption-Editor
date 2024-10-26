@@ -1,5 +1,5 @@
 # Quickstart
-Check out the online demo: https://redarmy34.github.io/RCE-WebGL-Page/
+Check out the online demo: https://redarmy34.github.io/RCE-WebGL-Page/ \
 Watch this video for a walkthrough of the demo: https://youtu.be/-E6I5rKPpOI
 
 # Project Overview
