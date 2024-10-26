@@ -1,3 +1,7 @@
+# Quickstart
+Check out the online demo: https://redarmy34.github.io/RCE-WebGL-Page/
+Watch this video for a walkthrough of the demo: https://youtu.be/-E6I5rKPpOI
+
 # Project Overview
 This project consists of several scripts that work together to manage and render captions with customizable text properties in Unity. Below is a summary of each script and its functionality.\
 For a full project overview and tutorial, please see:
