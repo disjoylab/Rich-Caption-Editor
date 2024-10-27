@@ -73,7 +73,7 @@ public class TextSegment
 
         foreach (CueChar cueChar in Content)
         {
-            bool directMatch = cueChar.elements.Exists(e => e.Match(_element));
+            bool directMatch = cueChar.elements.Exists(e => e.Name ==_element.Name);
             bool showAnyMatch =   _element.Name == CueUI.CLEAR_FORMATTING&& cueChar.elements.Count>0;
             bool highlight = directMatch || showAnyMatch;
             if (highlight && !isHighlighted)

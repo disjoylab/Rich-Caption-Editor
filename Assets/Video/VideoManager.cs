@@ -74,11 +74,13 @@ public class VideoManager : MonoBehaviour
     public void PlayVideo()
     {
         videoPlayer.Play();
+        videoPlayer.SetDirectAudioVolume(0, 0.98f); //Prevent audio glitches
     }
 
     public void PauseVideo()
     {
         videoPlayer.Pause();
+        videoPlayer.SetDirectAudioVolume(0, 0f); //Prevent audio glitches
     }
 
     public void ChangeSpeed(float _speed)
@@ -117,10 +119,12 @@ public class VideoManager : MonoBehaviour
     private static void OnVideoPrepared(VideoPlayer source)
     {
         VideoLoaded?.Invoke();
+        Instance.PauseVideo();
+        TimelineManager.Instance.SetButtonToPlay();
         VideoIsLoaded = true; //currently once a video is loaded the only way to unload it is to load another video so this is on after the first load
     }
 
-    public  bool IsPaused()
+    public  bool IsPaused()//***************************** TODO REPLACE PAUSE LOGIC WITH videoPlayer.playbackSpeed = 0;
     {
         if (videoPlayer!=null)
         {

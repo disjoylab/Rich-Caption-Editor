@@ -1,0 +1,38 @@
+{
+  "Name": "Speaker",
+  "Description": "",
+  "DefinitionVersions": [
+    {
+      "Description": "",
+      "Min": 1,
+      "Max": 5,
+      "ValueType": 3,
+      "StringOptions": [
+        "Solaris",
+        "Captain",
+        "Soldier",
+        "Officer",
+        "Major",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "CueLevel": false,
+      "TextLevel": true
+    }
+  ],
+  "Active": true,
+  "CurrentVersion": 0
+}

@@ -1,0 +1,85 @@
+{
+  "ProjectName": "",
+  "Details": "",
+  "FileName": "New Project.json",
+  "VideoFile": "",
+  "StyleGroups": [
+    {
+      "Name": "Mapping Group 1",
+      "Styles": [
+        {
+          "Name": "Default",
+          "Description": "",
+          "FeatureName": "Default Feature",
+          "element": {
+            "Name": "Default",
+            "Value": ""
+          },
+          "featureFilter": 5
+        },
+        {
+          "Name": "Default Speech",
+          "Description": "",
+          "FeatureName": "",
+          "element": {
+            "Name": "Default",
+            "Value": "Speech"
+          },
+          "featureFilter": 7
+        },
+        {
+          "Name": "Bold",
+          "Description": "",
+          "FeatureName": "Bold",
+          "element": {
+            "Name": "b",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "Italic",
+          "Description": "",
+          "FeatureName": "Italic",
+          "element": {
+            "Name": "i",
+            "Value": ""
+          },
+          "featureFilter": 4
+        },
+        {
+          "Name": "Underline",
+          "Description": "",
+          "FeatureName": "Underline",
+          "element": {
+            "Name": "u",
+            "Value": ""
+          },
+          "featureFilter": 6
+        },
+        {
+          "Name": "Strikethrough",
+          "Description": "",
+          "FeatureName": "Strikethrough",
+          "element": {
+            "Name": "s",
+            "Value": ""
+          },
+          "featureFilter": 4
+        }
+      ]
+    }
+  ],
+  "CueGroups": [
+    {
+      "Name": "Speech",
+      "Cues": [],
+      "TextVariations": [
+        "Standard English"
+      ],
+      "CurrentVariation": 0
+    }
+  ],
+  "currentCueGroupIndex": 0,
+  "currentStyleGroupIndex": 0
+}

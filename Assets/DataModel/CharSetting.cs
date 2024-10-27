@@ -50,11 +50,11 @@ public class CharSetting
                     Strikethrough = _setting.Style_TextDecorationType == Style_TextDecorationTypes.LineThrough;
                     Underline = _setting.Style_TextDecorationType == Style_TextDecorationTypes.Underline;
                     break;
-                case SettingTypes.Style_TextShadow:
+                 case SettingTypes.Style_TextShadow:
                     break;
-                case SettingTypes.Style_Opacity:
-                    TextColor.a = ((float)_setting.IntValue_1) / 100; ;
-                    break;
+                 case SettingTypes.Style_Opacity:
+                   TextColor.a = ((float)_setting.IntValue_1) / 100; ;
+                     break;
                 default:
                     break;
             }

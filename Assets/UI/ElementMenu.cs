@@ -71,6 +71,7 @@ public class ElementMenu : MonoBehaviour
         for (int i = 0; i < _elementNames.Count; i++)
         {
             elementsButtonContainer.buttons[i].GetComponent<ElementButton>().Configure(_elementNames[i]);
+            elementsButtonContainer.buttons[i].GetComponent<ElementButton>().ElementToggle.enabled = true;
         }
         elementsButtonContainer.buttons[_elementNames.Count].GetComponent<ElementButton>().Configure("Add Element");
         elementsButtonContainer.buttons[_elementNames.Count].GetComponent<ElementButton>().ElementToggle.isOn = false;

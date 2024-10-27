@@ -4,23 +4,106 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
+using static System.Net.WebRequestMethods;
+using System.Collections;
+using UnityEngine.Networking;
 
- public class FeatureManager : MonoBehaviour
+public class FeatureManager : MonoBehaviour
 {
     static List<FeatureGroup> FeatureGroups = new List<FeatureGroup>(); 
 
     public static Action FeaturesChanged; 
-    public static bool FeaturesHaveChanges; 
+    public static bool FeaturesHaveChanges;
+    private readonly string baseURL = "https://redarmy34.github.io/RCE-WebGL-Page/StreamingAssets/";
 
-    static string FilePath
+
+
+    private void Start()
     {
-        get => PlayerPrefs.GetString("FeatureFilePath", Application.persistentDataPath);
-        set => PlayerPrefs.SetString("FeatureFilePath", value);
+        FeatureGroups = new List<FeatureGroup>();
+
+        if (WebGLManager.WebGL_Build)
+        {
+            StartCoroutine(LoadDefaultFeaturesFromServer());
+        }
+        else
+        {
+            LoadAllFeatureGroups(Common.FeatureFilePath);
+            LoadAllFeatureGroups(Common.FeatureFilePath_DEFAULT);//only load defaults if saved versions do not exist
+        }
+        
     }
 
-    private void Awake()
-    {          
-        LoadAllFeatureGroups();
+    private FeatureGroup LoadFeatureGroupFromJSON_WebGL(string jsonContent)
+    {
+        // Deserialize JSON string to FeatureGroup object
+        // Implement this method based on your JSON structure
+        return JsonUtility.FromJson<FeatureGroup>(jsonContent);
+    }
+    public IEnumerator LoadDefaultFeaturesFromServer()
+    {
+        // List of feature files to load (add all the .feature files you need to load here)
+        List<string> featureFiles = new List<string> 
+            {
+                "Blue Text.feature",
+                "Bold.feature",
+                "Default Feature.feature",
+                "Defaults.feature",
+                "Green Text.feature",
+                "Grey Text.feature",
+                "Italic.feature",
+                "Long background box.feature",
+                "New Feature.feature",
+                "Red Text.feature",
+                "Red, Bold, Underlined, Text.feature",
+                "Region Top.feature",
+                "Strikethrough.feature",
+                "Underline.feature"
+            };
+
+
+        foreach (var fileName in featureFiles)
+        {
+            string fileURL = baseURL + fileName;
+
+            using (UnityWebRequest request = UnityWebRequest.Get(fileURL))
+            {
+                yield return request.SendWebRequest();
+
+                if (request.result == UnityWebRequest.Result.Success)
+                {
+                    string jsonContent = request.downloadHandler.text;
+                    FeatureGroup featureGroup = LoadFeatureGroupFromJSON_WebGL(jsonContent);
+
+                    if (featureGroup != null && !FeatureGroups.Exists(f => f.Name == featureGroup.Name))
+                    {
+                        FeatureGroups.Add(featureGroup);
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"Failed to load {fileName}: {request.error}");
+                }
+            }
+        }
+
+        // Add default features manually as before
+        AddDefaultFeature("Bold", new List<Setting> { new Setting("Style_FontWeight", "bold") });
+        AddDefaultFeature("Italic", new List<Setting> { new Setting("Style_FontStyle", "italic") });
+        AddDefaultFeature("Underline", new List<Setting> { new Setting("Style_TextDecoration", "underline") });
+        AddDefaultFeature("Strikethrough", new List<Setting> { new Setting("Style_TextDecoration", "line-through") });
+        AddDefaultFeature("Default Feature", new List<Setting>
+        {
+            new Setting("Style_FontSize", "12px"),
+            new Setting("Region_Width", "90%"),
+            new Setting("Region_Lines", "3"),
+            new Setting("Region_RegionAnchor", "50%,100%"),
+            new Setting("Region_viewportAnchor", "50%,90%"),
+            new Setting("Region_scroll", "up")
+        });
+
+        FeaturesChanged?.Invoke();
     }
 
     private void Update()
@@ -41,14 +124,13 @@ using Newtonsoft.Json;
             .ToArray();
     }
 
-    public void LoadAllFeatureGroups()
+    public void LoadAllFeatureGroups(string _filepath)
     {
-        FeatureGroups = new List<FeatureGroup>();
-        if (Directory.Exists(FilePath))
+        if (Directory.Exists(_filepath))
         {
-            foreach (var file in Directory.GetFiles(FilePath, "*.feature"))
+            foreach (var file in Directory.GetFiles(_filepath, "*.feature"))
             {
-                FeatureGroup featureGroup = LoadFeatureGroupFromJSON(Path.GetFileName(file));
+                FeatureGroup featureGroup = LoadFeatureGroupFromJSON(_filepath, Path.GetFileName(file));
                 if (featureGroup != null && !FeatureGroups.Exists(f => f.Name == featureGroup.Name))
                 {
                     FeatureGroups.Add(featureGroup);
@@ -106,12 +188,12 @@ using Newtonsoft.Json;
         return uniqueName;
     }
 
-    public static FeatureGroup LoadFeatureGroupFromJSON(string fileName)
+    public static FeatureGroup LoadFeatureGroupFromJSON(string _filepath, string _fileName)
     {
-        string fullPath = Path.Combine(FilePath, fileName);
-        if (File.Exists(fullPath))
+        string fullPath = Path.Combine(_filepath, _fileName);
+        if (System.IO.File.Exists(fullPath))
         {
-            string json = File.ReadAllText(fullPath);
+            string json = System.IO.File.ReadAllText(fullPath);
             FeatureGroup featureGroup = JsonConvert.DeserializeObject<FeatureGroup>(json);
             return featureGroup;
         }
@@ -122,10 +204,10 @@ using Newtonsoft.Json;
     internal static void RenameFeatureGroup(FeatureGroup _featureGroup, string _newName)
     {
         string OldFileName = _featureGroup.ToFileName();
-        string oldFilePath = Path.Combine(FilePath, OldFileName);
-        if(File.Exists(oldFilePath))
+        string oldFilePath = Path.Combine(Common.FeatureFilePath, OldFileName);
+        if(System.IO.File.Exists(oldFilePath))
         {
-            File.Delete(oldFilePath);
+            System.IO.File.Delete(oldFilePath);
         }
         _featureGroup.Name = _newName;
         SaveFeatureGroupToJSON(_featureGroup);
@@ -139,15 +221,15 @@ using Newtonsoft.Json;
         }
         string currentFileName = _featureGroup.ToFileName();
         string newFileName = currentFileName + ".delete";
-        string currentFullPath = Path.Combine(FilePath, currentFileName);
-        string newFullPath = Path.Combine(FilePath, newFileName); 
-        if (File.Exists(currentFullPath))
+        string currentFullPath = Path.Combine(Common.FeatureFilePath, currentFileName);
+        string newFullPath = Path.Combine(Common.FeatureFilePath, newFileName); 
+        if (System.IO.File.Exists(currentFullPath))
         {
-            if(File.Exists(newFullPath))
+            if(System.IO.File.Exists(newFullPath))
             { 
-                File.Delete(newFullPath);
+                System.IO.File.Delete(newFullPath);
             }
-            File.Move(currentFullPath, newFullPath);
+            System.IO.File.Move(currentFullPath, newFullPath);
         }
         FeatureGroups.Remove(_featureGroup);
     }
@@ -167,16 +249,16 @@ using Newtonsoft.Json;
     public static void SaveFeatureGroupToJSON(FeatureGroup _featureGroup)
     {
         string json = JsonConvert.SerializeObject(_featureGroup, Formatting.Indented);  
-        string fullPath = Path.Combine(FilePath, _featureGroup.ToFileName());
-        File.WriteAllText(fullPath, json);
+        string fullPath = Path.Combine(Common.FeatureFilePath, _featureGroup.ToFileName());
+        System.IO.File.WriteAllText(fullPath, json);
     }
 
     public static void DeleteFeatureGroupJsonFile(FeatureGroup _featureGroup)
     { 
-        string fullPath = Path.Combine(FilePath, _featureGroup.ToFileName());
-        if (File.Exists(fullPath))
+        string fullPath = Path.Combine(Common.FeatureFilePath, _featureGroup.ToFileName());
+        if (System.IO.File.Exists(fullPath))
         {
-            File.Delete(fullPath);
+            System.IO.File.Delete(fullPath);
         }
     }
 

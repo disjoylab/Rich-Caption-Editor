@@ -11,7 +11,7 @@ public class CueUI : MonoBehaviour
     public TMP_InputField textInputField; 
     static bool CurrentCueHasChanges;     
 
-    public List<ElementTool> ElementTools;
+    public List<GameObject> ElementToolGameObjects;
     public GameObject ElementToolPrefab;
     public Transform ElementToolContainer;
 
@@ -31,18 +31,21 @@ public class CueUI : MonoBehaviour
 
     private void Start()
     {
-        ElementTools = new List<ElementTool>();
+        ElementToolGameObjects = new List<GameObject>();
         textInputField.onValueChanged.AddListener(OnTextChanged);
         textBoxMouseClickHandler.onMouseUp += OnEndEdit;
         VideoManager.CurrentTimeChanged += OnCurrentTimeChanged;
         ElementTool.ElementToolsChanged += OnElementToolsChanged;
+        ElementManager.ElementsChanged += OnElementsChanged;
     }
+
 
     private void OnDestroy()
     {
         textBoxMouseClickHandler.onMouseUp -= OnEndEdit;
         VideoManager.CurrentTimeChanged -= OnCurrentTimeChanged;
         ElementTool.ElementToolsChanged -= OnElementToolsChanged;
+        ElementManager.ElementsChanged -= OnElementsChanged;
     }
 
     private void OnElementToolsChanged()
@@ -51,6 +54,10 @@ public class CueUI : MonoBehaviour
     }
 
     private void OnEnable()
+    {
+        SetElmentTools();
+    }
+    private void OnElementsChanged()
     {
         SetElmentTools();
     }
@@ -136,7 +143,7 @@ public class CueUI : MonoBehaviour
             {
                 Element element = GetSelectedElement();
                 var currentTextSegement = CurrentCue.GetCurrentTextSegment();
-                bool remove = currentTextSegement.Content[firstClickIndex].elements.Exists(e => e.IsEqual(element)) || element.Name == CLEAR_FORMATTING;
+                bool remove = currentTextSegement.Content[firstClickIndex].elements.Exists(e => e.Name == element.Name) || element.Name == CLEAR_FORMATTING;
                 for (int i = selectionStart; i < selectionEnd; i++)
                 {
                     if (remove)
@@ -193,10 +200,12 @@ public class CueUI : MonoBehaviour
     }
     private void SetElmentTools()
     {
-        foreach (var elementTool in ElementTools)
+        foreach (Transform child in ElementToolContainer)
         {
-            Destroy(elementTool.gameObject);
+            Destroy(child.gameObject);  
         }
+        ElementToolGameObjects.Clear();
+
         //move tools to correct postions
         //resize tool container to fit tools
         List<string> textElementNames = new List<string>();
@@ -206,9 +215,10 @@ public class CueUI : MonoBehaviour
         foreach (string textElementName in textElementNames)
         {
             GameObject go = Instantiate(ElementToolPrefab, ElementToolContainer);
+            ElementToolGameObjects.Add(go);
             ElementTool elementTool = go.GetComponent<ElementTool>();
             elementTool.Configure(textElementName);
-            ElementTools.Add(elementTool);
+            ElementToolGameObjects.Add(go);
             RectTransform rt = elementTool.GetComponent<RectTransform>();
             rt.anchoredPosition = new Vector2(xPostion, -5);
             xPostion += rt.sizeDelta.x + 10;

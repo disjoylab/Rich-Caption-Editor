@@ -1,0 +1,38 @@
+{
+  "Name": "Emphasis",
+  "Description": "",
+  "DefinitionVersions": [
+    {
+      "Description": "",
+      "Min": 1,
+      "Max": 3,
+      "ValueType": 3,
+      "StringOptions": [
+        "Low",
+        "Medium",
+        "High",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "CueLevel": false,
+      "TextLevel": true
+    }
+  ],
+  "Active": true,
+  "CurrentVersion": 0
+}

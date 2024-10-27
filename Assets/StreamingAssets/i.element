@@ -1,0 +1,38 @@
+{
+  "Name": "i",
+  "Description": "",
+  "DefinitionVersions": [
+    {
+      "Description": "",
+      "Min": null,
+      "Max": null,
+      "ValueType": 0,
+      "StringOptions": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "CueLevel": false,
+      "TextLevel": true
+    }
+  ],
+  "Active": true,
+  "CurrentVersion": 0
+}

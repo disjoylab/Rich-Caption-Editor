@@ -55,7 +55,7 @@ public struct CueChar
         elements = new List<Element>() ;
     }
 
-    internal void AddElement(Element e)
+    internal void AddElement(Element e)//this is used only in cue UI and adds elements base on name only
     {
         if (e.IsEmpty())
         {
@@ -63,13 +63,22 @@ public struct CueChar
         }
 
         // Check if the element already exists
-        if (!elements.Exists(existingElement => existingElement.IsEqual(e)))
+        if (!elements.Exists(existingElement => e.Name == existingElement.Name))
         {
             elements.Add(e.Copy());
         }
+        else
+        {
+            int index = elements.FindIndex(existingElement => e.Name == existingElement.Name);
+            if (index != -1)
+            {
+                elements[index] = e.Copy();
+            }
+        }
+
     }
 
-    internal void RemoveElement(Element e)
+    internal void RemoveElement(Element e)//this is used only in cue UI and removes elements base on name only
     {
         if (e.IsEmpty())
         {
@@ -77,7 +86,7 @@ public struct CueChar
         }
 
         // Find and remove the element if it exists
-        int index = elements.FindIndex(existingElement => existingElement.IsEqual(e));
+        int index = elements.FindIndex(existingElement => existingElement.Name==e.Name);
         if (index >= 0)
         {
             elements.RemoveAt(index);

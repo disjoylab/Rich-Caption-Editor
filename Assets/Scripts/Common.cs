@@ -7,6 +7,15 @@ public class Common
 {
     public static string ElementName_TimeStamp = "TimeStamp"; //to maintain consistant naming convention for storing in-line timestamps
 
+   public static string FeatureFilePath_DEFAULT
+    {
+        get => Application.streamingAssetsPath;        
+    }
+    public static string FeatureFilePath
+    {
+        get =>   Application.persistentDataPath;
+    }
+
     public static string FloatToTimeString(float startTime)
     {
         TimeSpan timeSpan = TimeSpan.FromSeconds(startTime);

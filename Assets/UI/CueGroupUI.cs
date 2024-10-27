@@ -44,17 +44,24 @@ public class CueGroupUI : MonoBehaviour
         Cue.CueChanged += OnCueChanged;
         MenuManager.MenuLayoutUpdated += OnMenuLayoutUpdated;
         MenuManager.CurrentMenuStateChanged += OnCurrentMenuStateChanged;
+        ElementManager.ElementsChanged += OnElementsChanged;
+
     }
+
 
     private void OnDestroy()
     {
         VideoManager.CurrentTimeChanged -= OnCurrentTimeChanged;
         CueGroupsMenu.CueGroupsChanged -= OnCueGroupChanged;
         CueElementInput.ElementInputChanged -= OnElementInputChanged;
-        DestroyImmediate(myCaptionRenderer.gameObject);
+        if (myCaptionRenderer.gameObject!=null)
+        {
+            Destroy(myCaptionRenderer.gameObject);
+        }
         Cue.CueChanged -= OnCueChanged;
         MenuManager.MenuLayoutUpdated -= OnMenuLayoutUpdated;
         MenuManager.CurrentMenuStateChanged -= OnCurrentMenuStateChanged;
+        ElementManager.ElementsChanged -= OnElementsChanged;
     }
 
     private void OnMenuLayoutUpdated()
@@ -78,6 +85,12 @@ public class CueGroupUI : MonoBehaviour
         DisplayCueGroup();
         DisplayCue();
     }
+    private void OnElementsChanged()
+    {
+        DisplayCueGroup();
+        DisplayCue();
+    }
+
     private void OnCueChanged(Cue _cue)
     {
         SetCurrentCue(VideoManager.currentTime);
@@ -127,11 +140,11 @@ public class CueGroupUI : MonoBehaviour
             myCaptionRenderer = CaptionManager.Instance.CreateCaptionRenderer();
         }
         myCaptionRenderer.Configure(myCueGroup);
-       
+
         DisplayCueGroup();
     }
 
-  
+
     public void GetCueGroupInfo()
     {
         if (myCueGroup.CurrentVariation != TextVariationDropdown.value)
@@ -197,7 +210,7 @@ public class CueGroupUI : MonoBehaviour
         SetTab();
     }
     private void SetTab()
-    { 
+    {
         RectTransform rt = GetComponent<RectTransform>();
         float newWidth = rt.rect.width / Mathf.Max(TotalIndex, 3);
         TabRt.sizeDelta = new Vector2(newWidth * .95f, 35);

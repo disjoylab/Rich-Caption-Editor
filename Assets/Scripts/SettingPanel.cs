@@ -21,6 +21,7 @@ public class SettingPanel : MonoBehaviour
 
     public GameObject ColorObject_1;
          public ColorInput colorInput_1;
+     
 
     public GameObject DropdownObject_1;
     public TMP_Dropdown dropdown_1;
@@ -50,20 +51,26 @@ public class SettingPanel : MonoBehaviour
         {
             case SettingTypes.none:
                  
-                    DropdownObject_1.SetActive(true );
-                    NameLabel.text = "Add Setting";
+                DropdownObject_1.SetActive(true );
+                NameLabel.text = "Add Setting";
 
-                    dropdown_1.ClearOptions();
-                    bool[] setttingTypesUsed = FeaturesMenu.GetSettingTypesUsed();
+                dropdown_1.ClearOptions();
+                bool[] setttingTypesUsed = FeaturesMenu.GetSettingTypesUsed();
                 List<string> options = new List<string>();
+
+                //HACKY WAY TO DISABLE ITEMS FROM SHOWING UP IN THE DROP DOWN **********************************************************
+                int dontUse_1 = (int)SettingTypes.Style_TextShadow;
+                int dontUse_2 = (int)SettingTypes.Style_Opacity;
+                int dontUse_3 = (int)SettingTypes.Style_BackgroundColor;
+
                 for (int i = 0; i < (int)SettingTypes.COUNT; i++)
+                {  
+                    if (!setttingTypesUsed[i] && i != dontUse_1 && i != dontUse_2 && i != dontUse_3)
                     {
-                        if (!setttingTypesUsed[i])
-                        {
-                        string optionName = Setting.GetSettingName((SettingTypes)i);
-                        options.Add( optionName);
-                        }                        
-                    }
+                              string optionName = Setting.GetSettingName((SettingTypes)i);
+                               options.Add( optionName);
+                    }                        
+                }
                 dropdown_1.AddOptions(options);
                 break;
             case SettingTypes.Cue_Align:
@@ -135,11 +142,11 @@ public class SettingPanel : MonoBehaviour
                 ColorObject_1.SetActive(true);
                 colorInput_1.SetColor(C1);
                 break;
-            case SettingTypes.Style_BackgroundColor:
-                Color C2 = (Color)mySetting.ColorValue_1;
-                ColorObject_1.SetActive(true);
-                colorInput_1.SetColor(C2);
-                break;
+          case SettingTypes.Style_BackgroundColor:
+               Color C2 = (Color)mySetting.ColorValue_1;
+              ColorObject_1.SetActive(true);
+              colorInput_1.SetColor(C2);
+              break;
             case SettingTypes.Style_FontFamily:
                 InputObject_1.SetActive(true);
                 inputField_1.SetTextWithoutNotify (mySetting.StringValue);
@@ -165,11 +172,11 @@ public class SettingPanel : MonoBehaviour
                 DropdownObject_1.SetActive(true);
                 PopulateDropdownWithEnum<Style_TextDecorationTypes>(dropdown_1, (int)mySetting.Style_TextDecorationType);
                 break;
-            case SettingTypes.Style_TextShadow:
-                break;
-            case SettingTypes.Style_Opacity:
-                InputObject_1.SetActive(true);
-                inputField_1.SetTextWithoutNotify(mySetting.IntValue_1.ToString());
+        case SettingTypes.Style_TextShadow:
+               break;
+           case SettingTypes.Style_Opacity:
+               InputObject_1.SetActive(true);
+               inputField_1.SetTextWithoutNotify(mySetting.IntValue_1.ToString());
                 break;
             default:
                 break;
@@ -183,9 +190,9 @@ public class SettingPanel : MonoBehaviour
 
         // Get the names of the enum values
         string[] enumNames = System.Enum.GetNames(typeof(T));
-
-        // Add options to the dropdown
-        _dropdown.AddOptions(new List<string>(enumNames));
+        List<string> NamesToUse = new List<string>(enumNames);
+         
+        _dropdown.AddOptions(NamesToUse);
         _dropdown.SetValueWithoutNotify(_selected);
     }
 
@@ -256,8 +263,8 @@ public class SettingPanel : MonoBehaviour
             case SettingTypes.Style_Color:
                 StringValue = colorInput_1.GetColorHex();
                 break;
-            case SettingTypes.Style_BackgroundColor:
-                StringValue = colorInput_1.GetColorHex();
+           case SettingTypes.Style_BackgroundColor:
+              StringValue = colorInput_1.GetColorHex(); 
                 break;
             case SettingTypes.Style_FontFamily:
                 break;
@@ -272,10 +279,10 @@ public class SettingPanel : MonoBehaviour
             case SettingTypes.Style_TextDecoration:
                 StringValue = dropdown_1.options[dropdown_1.value].text;
                 break;
-            case SettingTypes.Style_TextShadow:
+          case SettingTypes.Style_TextShadow:
                 break;
             case SettingTypes.Style_Opacity:
-                break;
+             break;
             default:
                 break;
         }

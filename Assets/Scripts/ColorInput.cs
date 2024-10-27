@@ -10,7 +10,7 @@ public class ColorInput : MonoBehaviour
     public TMP_InputField inputField_G;
     public TMP_InputField inputField_B;
     public Image colorImage;
-
+    
     public void SetColor(Color C)
     {  
         colorImage.color = C;
@@ -28,9 +28,10 @@ public class ColorInput : MonoBehaviour
             r = Mathf.Clamp(r, 0, 255);
             g = Mathf.Clamp(g, 0, 255);
             b = Mathf.Clamp(b, 0, 255);
-
+            colorImage.color = new Color((float)r/255,(float) g/255,(float) b/255);
             return $"#{r:X2}{g:X2}{b:X2}";             
         }
+        
         return "000000";
-    }
+    } 
 }

@@ -138,7 +138,7 @@ public class RCEProject // avioiding getter/setter pattern since the data model 
             {
                 GetCurrentStyleGroup().AddStyle(style);
             }
-        }
+        } 
     }
 
     internal void SetNextStyleGroup(int add)

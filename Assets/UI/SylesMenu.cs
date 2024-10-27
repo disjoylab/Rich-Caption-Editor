@@ -38,7 +38,7 @@ public class StylesMenu : MonoBehaviour
     void Start()
     {
         ProjectManager.ProjectChanged += OnProjectChanged;
-        StyleChanged += OnStyleChanged;
+        StyleChanged += OnStyleChanged; 
     }
     private void OnEnable()
     {
@@ -209,11 +209,13 @@ public class StylesMenu : MonoBehaviour
     public void SetNextStyleGroup(int _add)
     {
         ProjectManager.Instance.CurrentRCEProject.SetNextStyleGroup(_add);
+        StylesHaveChanges = true;
         DisplayStyles();
     }
     public void DeleteCurrentStyleGroup()
     {
         ProjectManager.Instance.CurrentRCEProject.DeleteCurrentStyleGroup();
+        StylesHaveChanges = true;
         DisplayStyles();
     }
 }

@@ -9,15 +9,11 @@ public class ElementButton : MonoBehaviour
     public Image buttonImage;
     public TextMeshProUGUI buttonText;
     public Toggle ElementToggle;
+
     
     internal void Configure(string _name)
     {
-        myElement = _name;
-        Button button = GetComponent<Button>();
-        if (button != null)
-        {
-            button.onClick.AddListener(SetCurrentElement);
-        }
+        myElement = _name;        
         buttonText.text = myElement;
 
         ElementGroup elementGroup = ElementManager.GetElementGroup(myElement);

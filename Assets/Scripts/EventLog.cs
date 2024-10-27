@@ -56,8 +56,7 @@ public class EventLog : MonoBehaviour
 
         FeatureManager.FeaturesChanged -= OnFeaturesChanged;
 
-        CueGroupsMenu.CueGroupsChanged -= OnCueGroupsChanged;
-      //  CueUI.CurrentCueChanged -= OnCurrentCueChanged;
+        CueGroupsMenu.CueGroupsChanged -= OnCueGroupsChanged; 
         Cue.CueChanged -= OnCueChanged;
         
         TimelineManager.TimeScaleChanged -= OnTimeScaleChanged;
